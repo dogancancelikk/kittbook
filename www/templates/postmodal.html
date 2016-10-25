@@ -1,0 +1,18 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-positive">
+        <button class="button button-clear button-icon icon ion-share" ng-click="post(data)"></button>
+        <div class="h1 title">Paylaş</div>
+        <button class="button button-clear button-icon icon icon-small ion-close" ng-click="modal.hide()"></button>
+    </ion-header-bar>
+    <ion-content>
+      <div class="list">
+           <label class="item item-input item-floating-label padding-top large">
+                <span class="input-label">İleti Yazınız</span>
+                <input ng-model="data.message" type="text" placeholder="Message">
+            </label>
+<!--             <button class="button button-block button-positive" ng-click="post()" >
+                Post
+            </button> -->
+        </div>
+    </ion-content>
+  </ion-modal-view>

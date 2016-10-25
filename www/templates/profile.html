@@ -1,0 +1,65 @@
+<ion-view view-title="Profile" ng-cloak>
+  <ion-content ng-class="{expanded:$scope.isExpanded}" ng-cloak>
+    <div class="hero slide-up static" style="background-image: url('img/profile-bg.jpg');">
+      <div class="content">
+        <div class="avatar" style="background-image: url('{{user.image}}');"></div>
+        <h3><a class="light"> {{user.name}} {{user.surname}} </a></h3>
+        <a ng-if="!isOwnProfile && !isFollowed" ng-click="follow()" class="button button-outline icon-left ion-person-add button-balanced">Takip Et</a>
+        <a ng-if="!isOwnProfile && isFollowed" ng-click="unfollow()" class="button button-outline icon-left ion-person-add button-balanced">Takibi Bırak</a>
+        <a href="#" ng-if="isOwnProfile" class="button button-outline icon-left ion-person-add button-balanced">Profili Düzenle</a>
+      </div>
+    </div>
+    <div class="tabs tabs-dark tabs-icon-top static">
+      <a ui-sref=app.followers({userid:lastUserID}) class="tab-item active">
+        <i class="icon ion-arrow-graph-up-right"></i> Takip edenler {{followers.length}}
+      </a>
+      <a ui-sref="app.followedusers({userid:lastUserID})" class="tab-item">
+        <i class="icon ion-android-people"></i> Takip edilenler {{followedUsers.length}}
+      </a>
+      <a ui-sref="app.about({userid:lastUserID})" class="tab-item">
+        <i class="icon ion-images"></i> Hakkında
+      </a>
+    </div>
+       
+    
+      <div class="item card-item" collection-repeat="post in posts">
+            <div ui-sref="app.gallery" class="card stable-bg ink ink-dark">
+                <div class="item item-avatar item-text-wrap">
+                    <span class="avatar" style="background-image: url('{{user.image}}');"></span>
+<!--                     <strong>{{post.text}}</strong> <strong>"dene</strong> -->
+                        {{post.text}}
+                    <div class="card-footer text-right">
+                        <i class="icon ion-chatbubbles positive"></i> 6
+                        <i class="icon ion-heart assertive"></i> 23
+                        <div class="pull-left">
+                            <i class="icon ion-clock"></i> {{ post.postDate | date }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </ion-content>
+  <ion-tabs class="tabs-striped tabs-outline tabs-icon-top">
+  <ion-tab ng-if="isOwnProfile" title="Profil" icon-on="ion-ios-clock" ui-sref="app.profile" icon-off="ion-ios-clock-outline">
+      <!-- Tab 2 content -->
+    </ion-tab>
+    <ion-tab title="Ana Sayfa" icon-on="ion-ios-home" href="#/app/home" icon-off="ion-ios-home-outline">
+      <!-- Tab 1 content -->
+    </ion-tab>
+    <ion-tab ng-if="isOwnProfile" title="Hikayelerim" icon-on="ion-edit" icon-off="ion-edit" ui-sref="app.usersstories({userid:lastUserID})">
+      <!-- Tab 1 content -->
+    </ion-tab>
+
+    <ion-tab ng-if="isOwnProfile" title="İleti Yaz" icon-on="ion-ios-clock" ng-click="modal.show()" icon-off="ion-ios-clock-outline">
+      <!-- Tab 2 content -->
+    </ion-tab>
+
+    <ion-tab ng-if="!isOwnProfile" title="Kitaplık" icon-on="ion-ios-gear" href="#/app/profile/" icon-off="ion-ios-gear-outline">
+      <!-- Tab 3 content -->
+    </ion-tab>
+    <ion-tab ng-if="!isOwnProfile" title="Hikayeler" icon-on="ion-edit" href="#/app/usersstories/{{lastUserID}}" icon-off="ion-edit">
+      <!-- Tab 3 content -->
+    </ion-tab>
+
+  </ion-tabs>
+</ion-view>

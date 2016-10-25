@@ -1,0 +1,12 @@
+
+<ion-view title="Mesajlar">
+  <ion-content ng-class="{expanded:isExpanded}">
+    <div class="list" class="animate-blinds">
+      <a class="item item-avatar" ui-sref="app.chat({chatid:message.id})" ng-repeat="message in messages ">
+        <img src="{{message.image}}">
+        <h2>{{message.name}} {{message.surname}}</h2>
+        <p>{{message.text}}</p>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,19 @@
+ <ion-view view-title="Etkinlikleri Yönet">
+    <ion-content ng-class="{expanded:isExpanded}">
+
+      <div class="list">
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Etkinlikler
+          </div>
+          <select name="forma" onchange="location = this.value;">
+             <option value="/www/#/app">Home</option>
+             <option value="#/app/activeevents">Devam Eden Etkinlikler</option>
+             <option value="/www/#/app/passiveevents">Geçmiş Etkinlikler</option>
+            </select>
+        </label>
+
+
+      </div>
+    </ion-content>
+</ion-view>

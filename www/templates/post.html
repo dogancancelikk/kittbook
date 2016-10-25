@@ -1,0 +1,76 @@
+<!--View Information-->
+<!--View name : NEWS Feed-->
+<!--State name : app.newsFeed-->
+<!--URL : #app/newsFeed-->
+
+<ion-view title="NEWS">
+    <!--news feed section-->
+    <ion-content id="news-feed-content">
+
+        <div class="news-item" ng-repeat="post in posts">
+
+            <!--header section-->
+            <div class="row header">
+                <div class="col-20">
+                    <img src="img/arya.jpg" class="user-img"/>
+                </div>
+                <div class="col-80">
+                   <span class="name">
+                        John Smith
+                   </span>
+                    <br/>
+                   <span class="datetime">
+                       1 hours ago
+                   </span>
+                </div>
+            </div><!--end header section-->
+
+            <!--detail section-->
+            <div class="row detail">
+                <div class="col">
+                    <h1>
+                        Material is the metaphor
+                    </h1>
+
+                    <p class="content">
+                        A material metaphor is the unifying theory of a rationalized space and a system of motion. The
+                        material is grounded in tactile reality, inspired by the study of paper and ink, yet
+                        technologically advanced and open to imagination and magic.
+                    </p>
+
+                    <p class="content">
+                        http://google.com/design/spec/material-design/
+                    </p>
+
+                    <p class="tags">
+                        <i class="fa fa-tags"></i> Material Design, Ionic
+                    </p>
+                </div>
+            </div>
+
+            <!--footer section-->
+            <div class="row footer">
+                <div class="col-33">
+                    <span class="number">10.9k</span> <span class="wording">Likes</span>
+                </div>
+                <div class="col-33">
+                    <span class="number">20k</span> <span class="wording">Comments</span>
+                </div>
+                <div class="col-33">
+                    <span class="number">1k</span> <span class="wording">Shared</span>
+                </div>
+            </div><!--end footer section-->
+
+        </div>
+
+
+        <div class="row"></div>
+    </ion-content><!--end news feed section-->
+
+    <!--button section-->
+    <div class="footer-fab-bar">
+        <a class="md-button md-accent md-fab fab-footer" aria-label="Add">
+            <i class="ion ion-plus"></i>
+        </a>
+    </div><!--end button section-->
+</ion-view>

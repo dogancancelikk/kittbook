@@ -1,0 +1,40 @@
+
+<ion-view view-title="Hikaye Yarat">
+     <div class="bar bar-header bar-positive flat">
+            <button class="button button-icon icon ion-star flat pull-left"></button>
+            <h1 class="title">Feature</h1>
+            <button class="button button-icon icon ion-android-search flat pull-right"></button>
+        </div>
+
+    <ion-content style="background: url('https://hd.unsplash.com/photo-1414919823178-e9d9d0afd0ac') center; background-size: cover;">
+
+   <div class="hero no-header flat">
+
+    </div>
+<!--      <ion-slide-box on-slide-changed="slideChanged(index)">
+          <ion-slide>
+          <div class="padding">
+            <ion-md-input placeholder="Hikayenizin Başlığını Giriniz" highlight-color="balanced" type="text" ng-model="data.name"></ion-md-input>
+          </div>
+          </ion-slide>
+          <ion-slide>
+            <p> {{foo}}asdasd</p>
+           <div class="padding">
+            <trix-editor angular-trix ng-model="foo"></trix-editor>
+           </div>
+                        <p> {{foo}}asdasd</p>
+
+
+
+          </ion-slide>
+      </ion-slide-box>      -->
+<trix-editor ng-model="trix" angular-trix trix-initialize="trixInitialize(e, editor);" trix-change="trixChange(e, editor);"
+trix-selection-change="trixSelectionChange(e, editor);" trix-focus="trixFocus(e, editor);" trix-blur="trixBlur(e, editor);"
+trix-file-accept="trixFileAccept(e, editor);" trix-attachment-add="trixAttachmentAdd(e, editor);" trix-attachment-remove="trixAttachmentRemove(e, editor);">
+</trix-editor>
+<p></p>
+<button class="button button-positive" ng-click="trixYarasin()">bu buton yarasın kendimi keserim</button>
+
+
+    </ion-content>
+</ion-view>

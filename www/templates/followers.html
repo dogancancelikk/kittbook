@@ -1,0 +1,14 @@
+<ion-view view-title="Takipçiler">
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div class="content padding-top">
+            <div class="list animate-blinds"  >
+              <a href="#/app/profile/{{follower.id}}" class="item item-avatar item-icon-right" ng-last-repeat="mylist" ng-repeat="follower in followers">
+                   <img src="{{follower.image}}">
+                   <h2>{{follower.userName}}</h2>
+                   <p>{{follower.name}} {{follower.surname}}</p>
+                   <i class="icon ion-chatbubble muted" ui-sref="app.chat({chatid:follower.id})"></i>
+               </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

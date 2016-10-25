@@ -1,0 +1,29 @@
+<ion-view view-title="Giriş Yap" align-title="left">
+  <ion-content class="ionic login animate-pan-in-left" style="background: url('https://hd.unsplash.com/photo-1471107340929-a87cd0f5b5f3') center; background-size: cover;">
+
+    <div class="hero no-header flat">
+      <div class="content">
+<!--       <i class="ion-map icon hero-icon royal-bg"></i>
+ -->        
+<img src="http://kittbook.com/images/kittbook-icon-white.png">
+ <h3>kittbook</h3>
+      </div>
+    </div>
+    <div class="list">
+      <ion-md-input placeholder="Kullanıcı Adı" highlight-color="balanced" type="text" ng-model="data.username"></ion-md-input>
+      <ion-md-input placeholder="Şifre" highlight-color="energized" type="password" ng-model="data.password" ></ion-md-input>
+    </div>
+    <div class="padding">
+      <button class="button button-full button-assertive ink" ng-click="login(data)">Giriş Yap</button>
+    </div>
+    
+  </ion-content>
+  <div class="button-bar social-login">
+      <button class="button button-small button-border icon-left ion-social-google button-assertive-900">Google+
+      </button>
+      <button class="button button-small button-border icon-left ion-social-twitter button-calm-900">Twitter</button>
+      <button class="button button-small button-border icon-left ion-social-facebook button-positive-900">Facebook
+      </button>
+    </div>
+       
+</ion-view>

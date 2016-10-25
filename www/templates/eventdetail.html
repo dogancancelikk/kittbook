@@ -1,0 +1,20 @@
+<ion-view view-title="Etkinlik Detayları">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="hero slide-up" style="background-image: url('{{event.image}}');">
+            <div class="content">
+            <h3><a class="light"> {{event.name}} </a></h3>
+            <!-- <a class="button button-icon icon ion-settings"></a> -->
+            </div>
+        </div>
+        <div class="tabs tabs-dark static">
+            <a   class="tab-item" href="#/app/newchapter/{{storyid}} ">
+                <i class="icon ion-plus-circled"></i>
+            </a>
+            <a ui-sref="app.about" class="tab-item">
+                <i class="icon ion-images"></i>
+            </a>
+        </div>
+
+
+    </ion-content>
+</ion-view>

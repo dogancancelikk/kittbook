@@ -1,0 +1,43 @@
+<div class="bar bar-header bar-positive">
+  <div class="h1 title">Kolektif Kitaplar</div>
+  <button class="button button-clear icon ion-android-search" ui-sref="app.search"></button>
+</div>
+<ion-view view-title="Kollektif Kitap">
+  <ion-tabs class="tabs-striped tabs-background-positive tabs-color-light tabs-top">
+
+    <ion-tab title="Başlayan" ng-click="setStatusProperty(1)">
+    </ion-tab>
+    <ion-tab title="Başlamamış" ng-click="setStatusProperty(2)">
+
+    </ion-tab>
+    <ion-tab title="Tamamlanan" ng-click="setStatusProperty(3)">
+    </ion-tab>
+  </ion-tabs>
+    <ion-content ng-class="{expanded:isExpanded}" class="has-subheader">
+      <div class="list card" ng-repeat="collectivebook in collectivebooks | orderBy: orderProperty : true">
+
+        <div class="item item-thumbnail">
+          <img src="{{collectivebook.userImage}}">
+          <h2>  {{collectivebook.name}}</h2>
+          <time>{{ collectivebook.createdate | amCalendar }}</time>
+        </div>
+
+        <div class="item item-body">
+          <a ui-sref="app.storydetail({storyid:collectivebook.id})">
+            <img class="full-image" src="{{collectivebook.image}}">
+          </a>
+
+          <p ng-bind-html='collectivebook.description'>
+          </p>
+        </div>
+
+      </div>
+      <!-- <ion-infinite-scroll on-infinite="loadMoreStory()" distance="1%"></ion-infinite-scroll> -->
+
+    </ion-content>
+
+
+
+
+</ion-view>
+asdasdasdasd

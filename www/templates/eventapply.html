@@ -1,0 +1,22 @@
+<ion-view view-title="Yazını Gönder">
+    <ion-content style="background: url(img/bookapp.jpg) center; background-size: cover;">
+
+   <div class="hero no-header flat">
+      <div class="content">
+
+        <h3>Başvuru Yap</h3>
+      </div>
+    </div>
+    <div class="list">
+      <ion-md-input placeholder="Yazının Başlığı" highlight-color="balanced" type="text" ng-model="data.title"></ion-md-input>
+      <ion-md-input placeholder="Yazının  içeriği" highlight-color="balanced" type="textarea" ng-model="data.text"></ion-md-input>
+      <ion-md-input placeholder="Yazı Hakkında" highlight-color="balanced" type="text" ng-model="data.about"></ion-md-input>
+
+    </div>
+
+    <div class="padding">
+      <button class="button button-full button-assertive ink" ng-click="applyEvent(data)">Yazıyı Gonder</button>
+    </div>
+
+    </ion-content>
+</ion-view>

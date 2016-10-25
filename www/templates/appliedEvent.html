@@ -1,0 +1,24 @@
+<ion-view view-title="Etkinliğe Başvuranlar">
+    <ion-content ng-class="{expanded:isExpanded}">
+      <div class="list card" ng-repeat="event in appliedEvent">
+
+        <div class="item item-avatar">
+          <img src="{{event.image}}">
+          <h2>  {{event.title}}</h2>
+
+        </div>
+
+        <div class="item item-body">
+          <img class="full-image" src="{{event.image}}">
+
+          <p>{{event.about}}</p>
+          <a class=""href="#"></a>
+
+          <p>
+
+          </p>
+        </div>
+
+      </div>
+    </ion-content>
+</ion-view>

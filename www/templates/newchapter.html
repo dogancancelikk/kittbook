@@ -1,0 +1,35 @@
+<ion-view view-title="Bölüm Yarat">
+    <ion-content style="background: url(https://s.graphiq.com/sites/default/files/2307/media/images/Cream_430135_i0.png) center; background-size: cover;">
+    
+   <div class="hero no-header flat">
+
+    </div>
+    <div class="list">
+<!--       <ion-md-input placeholder="Title" highlight-color="balanced" type="text" ng-model="data.name"></ion-md-input>
+      <ion-md-input placeholder="Text" highlight-color="balanced" type="text" ng-model="data.text"></ion-md-input>
+      <ion-md-input placeholder="Chapter Number" highlight-color="balanced" type="text" ng-model="data.chapterNumber"></ion-md-input> -->
+     
+      <ion-slide-box on-slide-changed="slideChanged(index)">
+          <ion-slide>
+           
+            <ion-md-input placeholder="Bölüm Başlık" highlight-color="balanced" hightlight-assertive type="text" ng-model="data.name"></ion-md-input>
+              
+            <div class="padding">
+              <button class="button button-assertive ink" ng-click="starttowrite()">Bölümü yazmaya başla...</button>
+            </div>            
+          </ion-slide>
+          <ion-slide>            
+                 <trix-editor ng-model-options="{ updateOn: 'blur' }" spellcheck="false" class="trix-content" ng-model="text" angular-trix trix-initialize="trixInitialize(e, editor);" trix-change="trixChange(e, editor);" trix-selection-change="trixSelectionChange(e, editor);" trix-focus="trixFocus(e, editor);" trix-blur="trixBlur(e, editor);" placeholder="Write something.."></trix-editor>      
+                 <button class="button button-assertive ink" ng-click="createChapter()">Bölümü yazmayı bitir...</button>
+ 
+          </ion-slide>
+        </ion-slide-box>
+      
+
+    </div>
+<!--     <div class="padding">
+      <button class="button button-assertive ink" ng-click="createChapter(data)">Hikaye Yarat</button>
+    </div> -->
+   
+    </ion-content>
+</ion-view>

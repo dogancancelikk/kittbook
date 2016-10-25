@@ -1,0 +1,22 @@
+<ion-view view-title="Kolektif Kitap Oluştur">
+    <ion-content style="background: url(img/kittbook2.jpg) center; background-size: cover;">
+
+   <div class="hero no-header flat">
+      <div class="content">
+
+        <h3>Kolektif Kitap</h3>
+      </div>
+    </div>
+    <div class="list">
+      <ion-md-input placeholder="Kitap Adı" highlight-color="balanced" type="text" ng-model="data.name"></ion-md-input>
+      <ion-md-input placeholder="Kitap Hakkında" highlight-color="balanced" type="text" ng-model="data.about"></ion-md-input>
+      
+
+    </div>
+
+    <div class="padding">
+      <button class="button button-full button-assertive ink" ng-click="createCollectiveBook(data)">Kitap Oluştur</button>
+    </div>
+
+    </ion-content>
+</ion-view>

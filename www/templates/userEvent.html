@@ -1,0 +1,46 @@
+<div class="bar bar-header bar-positive">
+  <div class="h1 title">Etkinlikler</div>
+  <button class="button button-clear icon ion-android-search" ui-sref="app.search"></button>
+</div>
+<ion-view view-title="Etkinlikler">
+    <ion-content ng-class="{expanded:isExpanded}" class="has-subheader">
+      <div class="list card" ng-repeat="event in activeEvent">
+
+        <div class="item item-avatar">
+          <img src="{{event.image}}">
+          <h2>  {{event.name}} - ({{event.type}})</h2>
+          <p>{{event.createDate}}</p>
+        </div>
+
+<!--        <div class="item item-body">
+          <img class="full-image" src="{{event.image}}">
+
+          <p>
+            {{event.storyOwnersUser}}
+          </p>
+          <p>
+
+            <p class="item item-icon-left assertive">
+          <i class="icon ion-ios-stopwatch-outline"></i>
+
+              <timer countdown="event.decideToTime" max-time-unit="'hour'" language="tr" interval="1000">
+                 {{yearUnit}} </timer> {{event.text2}}
+             <i class="icon ion-android-apps"></i>
+              <a class="button button-balanced" ng-show="event.removeApply" ng-href="#/app/eventapply/{{event.id}}">Başvur</a>
+            </p>
+          </p>
+        </div> -->
+        <div class="item item-body">
+          <p class="item item-icon-left item-icon-right assertive">
+            <i class="icon ion-ios-stopwatch-outline"></i>
+            {{event.text1}}
+             <timer countdown="event.decideToTime" max-time-unit="'hour'" language="tr" interval="1000">
+                 {{yearUnit}} </timer> {{event.text2}}
+            <i class="icon ion-android-apps"></i>
+          <a class="button button-balanced" ng-if="event.removeApply" ng-href="#/app/eventapply/{{event.id}}">Başvur</a>
+            <a class="button button-balanced" ng-if="event.changeApply" ng-click="applyForWriterEvent(event.id)">Başvur</a>
+          </p>
+        </div>
+      </div>
+    </ion-content>
+</ion-view>

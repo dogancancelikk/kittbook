@@ -1,0 +1,38 @@
+<ion-view view-title="İlan Yarat">
+    <ion-content style="background: url(img/bookapp.jpg) center; background-size: cover;">
+
+   <div class="hero no-header flat">
+      <div class="content">
+
+        <h3>Etkinlik</h3>
+      </div>
+    </div>
+    <div class="list">
+      <ion-md-input placeholder="Etkinlik Adı" highlight-color="balanced" type="text" ng-model="data.name"></ion-md-input>
+      <ion-md-input placeholder="Etkinlik Hakkında" highlight-color="balanced" type="text" ng-model="data.text"></ion-md-input>
+      <ion-md-input placeholder="Etkinlik Tipi" highlight-color="balanced" type="text" ng-model="data.type"></ion-md-input>
+      <label class="item item-input item-select" ng-if="visibilityofbox">
+          <div class="input-label">
+            Kolektif Kitaplar
+          </div>
+          <select ng-model="data.collectivebookID">
+            <option ng-repeat="collectivebook in collectivebooks" value="{{collectivebook.id}}">{{collectivebook.name}}</option>
+
+          </select>
+        </label>
+
+    </div>
+       <label class="item item-input">
+        <span class="input-label">Başvuruya Açılacak Tarih</span>
+        <input type="date" id="basvuruAcilacakTarih">
+      </label>
+          <label class="item item-input">
+        <span class="input-label">Başvuru Bitjjiş Tarihi</span>
+        <input type="date" id="basvuruBitisTarihi" >
+      </label>
+    <div class="padding">
+      <button class="button button-full button-assertive ink" ng-click="createActivity()">Etkinlik Yarat</button>
+    </div>
+
+    </ion-content>
+</ion-view>
