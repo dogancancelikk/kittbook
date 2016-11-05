@@ -22,7 +22,7 @@
           <p>{{event.createDate}}</p>
         </div>
 
-<!--        <div class="item item-body">
+<!--   <div class="item item-body">
           <img class="full-image" src="{{event.image}}">
 
           <p>
@@ -40,15 +40,17 @@
             </p>
           </p>
         </div> -->
+
         <div class="item item-body">
-          <p class="item item-icon-left item-icon-right assertive">
+        <div class="item"> {{event.about}}</div>
+          <p class="item item-icon-left item-button-right assertive">
             <i class="icon ion-ios-stopwatch-outline"></i>
             {{event.text1}}
              <timer countdown="event.decideToTime" max-time-unit="'hour'" language="tr" interval="1000">
                  {{yearUnit}} </timer> {{event.text2}}
-            <i class="icon ion-android-apps"></i>
-          <a class="button button-balanced" ng-if="event.removeApply" ng-href="#/app/eventapply/{{event.id}}">Başvur</a>
-            <a class="button button-balanced" ng-if="event.writerEventApplyButton" ng-click="applyForWriterEvent(event.id)">Başvur</a>
+           
+          <a class="button button-clear button-small button-positive" ng-if="event.removeApply" ng-href="#/app/eventapply/{{event.id}}">Başvur</a>
+            <a class="button button-clear button-small button-positive" ng-if="event.writerEventApplyButton" ng-click="applyForWriterEvent(event.id)">Başvur Yazara</a>
           </p>
         </div>
       </div>
@@ -56,8 +58,8 @@
 <script id="templates/modal.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-positive">
-          <h1 class="title">New Contact</h1>
-          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+          <h1 class="title">Etkinlik Türleri</h1>
+          <button class="button button-clear button-primary" ng-click="modal.hide()">X</button>
         </ion-header-bar>
         <ion-content class="padding">
         <ion-list>
