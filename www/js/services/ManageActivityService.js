@@ -31,6 +31,27 @@ angular.module('starter')
       return(request.then(handleSuccess,handleError));
       }
 
+      function getNotStartedEvents(){
+        var request = $http({
+          method: 'GET',
+          url : domainConstant.activityApi +'/getNotStartedEvents/',
+          params:{
+            action:'get'
+          }
+        });
+        return(request.then(handleSuccess,handleError));
+      }
+      function getStartedEvents(){
+        var request = $http({
+          method: 'GET',
+          url : domainConstant.activityApi +'/getStartedEvents/',
+          params:{
+            action:'get'
+          }
+        });
+        return(request.then(handleSuccess,handleError));
+      }
+
     function addActivity(name,about,startDate,endDate,type,collectiveBookID){
       var request=$http({
         method:'POST',
@@ -56,7 +77,7 @@ angular.module('starter')
       });
       return (request.then(handleSuccess,handleError));
     }
-    
+
     function addWriter(storyID,userID){
       var request=$http({
         method:'POST',
@@ -72,7 +93,7 @@ angular.module('starter')
       });
       return(request.then(handleSuccess,handleError));
     }
-  
+
     function setInactiveToEvent(id){
       var request=$http({
         method:'PUT',
@@ -85,7 +106,7 @@ angular.module('starter')
           id:id
         }
       });
-      
+
       return(request.then(handleSuccess,handleError));
     }
    function handleSuccess(response){

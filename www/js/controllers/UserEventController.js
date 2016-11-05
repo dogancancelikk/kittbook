@@ -1,84 +1,121 @@
 'use strict';
 angular
   .module('starter')
-  .controller('UserEventController', function($scope, ManageActivityService, UserEventService, $rootScope,$q,$timeout) {
+  .filter('eventFilter', function() {
+    return function(items, search) {
+      var date = new Date();
+      var today = parseInt(date.getTime() / 1000);
+        if (!search) {
+            return items;
+        }
+
+        var eventType = search;
+        if (!eventType || '' === eventType) {
+            return items;
+        }
+
+        return items.filter(function(element, index, array) {
+            if(eventType == 2){
+              return (element.startDate/1000) <= today;
+            }else if (eventType == 1) {
+              return (element.startDate/1000) > today;
+            }
+        });
+
+    };
+  })
+  .controller('UserEventController', function($scope, ManageActivityService, UserEventService,$ionicModal, $rootScope,$q,$timeout,$ionicTabsDelegate) {
     $timeout(function() {
         $scope.$parent.hideHeader();
     }, 0);
 
+  $timeout( function() {
+    $ionicTabsDelegate .select(0, false);
+    $scope.setEvents(2);
+    
+  },400);
+    $scope.orderProperty = "createdate";
+    
     $scope.activeEvent = [];
     var _userid = $rootScope.globals.currentUser.id;
 
-  ManageActivityService.getActivity().then(function(events) {
-      angular.forEach(events, function(event) {
-        if (event.isActive == 1) {
-          var decideToTime;
-          var removeApply = true;
-          var changeApply = false;
-          var text1;
-          var text2;
-          var date = new Date();
-          var today = parseInt(date.getTime() / 1000);
-          var type;
+        ManageActivityService.getActivity().then(function(events) {
+            angular.forEach(events, function(event) {
+              if (event.isActive == 1) {
+                var decideToTime;
+                var sendStoryButton = true;
+                var writerEventApplyButton = false;
+                var text1;
+                var text2;
+                var date = new Date();
+                var today = parseInt(date.getTime() / 1000);
+                var type;
 
-          if (((event.startDate / 1000) - today) >= 0) {
-            text1 = "Başvuruların başlamasına ";
-            text2 = " kaldı";
-            removeApply = false;
-            decideToTime = (event.startDate / 1000) - (today);
-          } else {
-            if (((event.endDate / 1000) - today) >= 0) {
-              text1 = "Başvurunun kapanmasına ";
-              text2 = " kaldı";
-              decideToTime = ((event.endDate / 1000) - today);
-              if (event.type == 2) {
-                removeApply = false;
-                changeApply = true;
+                if (((event.startDate / 1000) - today) >= 0) {
+                  text1 = "Başvuruların başlamasına ";
+                  text2 = " kaldı";
+                  sendStoryButton = false;
+                  decideToTime = (event.startDate / 1000) - (today);
+                } else {
+                    text1 = "Başvurunun kapanmasına ";
+                    text2 = " kaldı";
+                    decideToTime = ((event.endDate / 1000) - today);
+                    if (event.type == 2) {
+                      sendStoryButton = false;
+                      writerEventApplyButton = true;
+                    }
+                }
+                //Etkinlik Tipinin adını yazdır.
+                var type=function(){
+                  if (event.type == 2) {
+                    type="Yazar Etkinliği";
+                    return type;
+                  }
+                  else if (event.type==3) {
+                    type="Yazı gönderme etkinliği";
+                    return type;
+                  }
+                  else {
+                    type="Kolektif Kitap Etkinliği";
+                    return type;
+                  }
+                }
+
+                $scope.activeEvent.push({
+                  id: event.id,
+                  name: event.name,
+                  about: event.about,
+                  image: event.image,
+                  startDate:event.startDate,
+                  createDate: event.createDate,
+                  type:type(),
+                  decideToTime: decideToTime,
+                  sendStoryButton: sendStoryButton,
+                  writerEventApplyButton: writerEventApplyButton,
+                  text1: text1,
+                  text2: text2
+                });
               }
-          } else {
-              debugger;
-              removeApply = false;
-              ManageActivityService.setInactiveToEvent(event.id).then(function(data) {
-                console.log(data);
-              }, function(err) {
-                console.log(err);
-              });
-            }
-          }
-          //Etkinlik Tipinin adını yazdır.
-          var type=function(){
-            if (event.type == 2) {
-              type="Yazar Etkinliği";
-              return type;
-            }
-            else if (event.type==3) {
-              type="Yazı gönderme etkinliği";
-              return type;
-            }
-            else {
-              type="Kolektif Kitap Etkinliği";
-              return type;
-            }
-          }
-
-          $scope.activeEvent.push({
-            id: event.id,
-            name: event.name,
-            about: event.about,
-            image: event.image,
-            type:type(),
-            decideToTime: decideToTime,
-            removeApply: removeApply,
-            changeApply: changeApply,
-            text1: text1,
-            text2: text2
+            });
+          }, function(err) {
+            console.log(err);
           });
+          $ionicModal.fromTemplateUrl('templates/modal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
 
-        }
-      });
-    }, function(err) {
-      console.log(err);
-    });
+        
+    $scope.setEvents=function(id){
+      if(id == 1){
+        $ionicTabsDelegate.select(1,true);
+      }else if(id == 2){
+        $ionicTabsDelegate.select(0,true);
+      }
+  		console.log($scope.filterProperty);
+  		setFilterProperty(id);
+  	}
 
     $scope.applyForWriterEvent = function(activityID) {
       UserEventService.createApplyWriterEvent(activityID, _userid).then(function(data) {
@@ -87,6 +124,11 @@ angular
         console.log(err);
       })
     }
+
+  function setFilterProperty(id){
+    $rootScope.filterProperty = "";
+    $rootScope.filterProperty=id;
+  }
 
 
 
