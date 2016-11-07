@@ -31,7 +31,7 @@ angular
     });
        return (request.then(handleSuccess,handleError));
   }
-  function createApplyWriterEvent(activityID,userID){
+  function createApplyWriterEvent(eventID,userID){
     var request=$http({
             method:'POST',
             url:domainConstant.applyeventApi+'/create',
@@ -41,7 +41,7 @@ angular
             },
             data: {
              id:0,
-             activityID:activityID,
+             activityID:eventID,
              userID:userID,
              status:1
             }

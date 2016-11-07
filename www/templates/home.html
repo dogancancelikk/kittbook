@@ -8,11 +8,11 @@
 </div>
 <ion-view>
 
-  <ion-tabs class="tabs-striped tabs-background-positive tabs-color-light tabs-top">
+  <ion-tabs class="tabs-striped tabs-background-positive tabs-color-light tabs-top" delegate-handle="myTabs">
 
-    <ion-tab title="En Yeniler" ng-click="setOrderProperty('createdate')" href="#/app/home">
+    <ion-tab title="En Yeniler" ng-click="setOrderProperty('createDate')" href="#/app/home">
     </ion-tab>
-    <ion-tab title="En Beğenilenler" ng-click="setOrderProperty('storyrate')">
+    <ion-tab title="En Beğenilenler" ng-click="setOrderProperty('storyrate')" >
 
     </ion-tab>
     <ion-tab title="Kategoriler" ui-sref="app.categories">
@@ -21,7 +21,7 @@
 
   <ion-content ng-class="{expanded:isExpanded}" class="has-subheader">
 
-    <div class="list card" ng-repeat="story in stories | categoryFilter: filterProperty | orderBy: orderProperty : true">
+    <div class="list card" ng-repeat="story in stories | categoryFilter: filterProperty |orderBy: orderProperty : false">
 
       <div class="item item-avatar">
         <img src="{{story.userImage}}">
@@ -34,7 +34,7 @@
           <img class="full-image" src="{{story.image}}">
         </a>
 
-        <p ng-bind-html='story.description'>
+        <p ng-bind-html='story.description |limitTo:75'>
 
         </p>
         <p>

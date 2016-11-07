@@ -171,8 +171,8 @@ angular
   		setFilterProperty(id);
   	}
 
-    $scope.applyForWriterEvent = function(activityID) {
-      UserEventService.createApplyWriterEvent(activityID, _userid).then(function(data) {
+    $scope.applyForWriterEvent = function(eventID) {
+      UserEventService.createApplyWriterEvent(eventID, _userid).then(function(data) {
         console.log(data);
       }, function(err) {
         console.log(err);

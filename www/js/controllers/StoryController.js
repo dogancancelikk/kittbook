@@ -21,7 +21,7 @@ angular.module('starter')
 
     };
 })
-.controller('StoryController',function($state,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope){
+.controller('StoryController',function($state,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
 	  $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -33,7 +33,7 @@ angular.module('starter')
 
 	$scope.stories=[];
 	$scope.categories=[];
-	$scope.orderProperty = "createdate";
+	$scope.orderProperty = "createDate";
 
 	StoryService.getStory().then(function(data){
 		$scope.stories=data;
@@ -65,8 +65,14 @@ angular.module('starter')
 		$rootScope.filterProperty=id;
 	}
 
-	$scope.setOrderProperty=function(id){
+	$scope.setOrderProperty=function(id){		
+		console.log(id);
+		if(id =='createDate'){
+			$ionicTabsDelegate.select(0,false);
+		}else if(id == 'storyrate'){
+			$ionicTabsDelegate.$getByHandle('myTabs').select(1,false);
+		}
 		$rootScope.filterProperty = "";
-		$scope.â = id;
+		$scope.orderProperty = id;
 	}
 });
