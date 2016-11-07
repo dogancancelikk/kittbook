@@ -14,7 +14,7 @@
     </ion-tab>
   </ion-tabs>
     <ion-content ng-class="{expanded:isExpanded}" class="has-subheader">
-      <div class="list card" ng-repeat="event in activeEvent|eventFilter:filterProperty | orderBy: orderProperty : true">
+      <div class="list card" ng-repeat="event in activeEvent|eventFilter:filterProperty | eventTypeFilter:eventFilterProperty | orderBy: orderProperty : true">
 
         <div class="item item-avatar">
           <img src="{{event.image}}">
@@ -50,7 +50,7 @@
                  {{yearUnit}} </timer> {{event.text2}}
            
           <a class="button button-clear button-small button-positive" ng-if="event.removeApply" ng-href="#/app/eventapply/{{event.id}}">Başvur</a>
-            <a class="button button-clear button-small button-positive" ng-if="event.writerEventApplyButton" ng-click="applyForWriterEvent(event.id)">Başvur Yazara</a>
+            <a class="button button-clear button-small button-positive" ng-if="event.writerEventApplyButton" ng-click="applyForWriterEvent(event.id)">Başvur.</a>
           </p>
         </div>
       </div>
@@ -63,9 +63,12 @@
         </ion-header-bar>
         <ion-content class="padding">
         <ion-list>
-          <ion-radio ng-model="choice" ng-value="'A'">Yazar Kadrosu Etkinliği</ion-radio>
-          <ion-radio ng-model="choice" ng-value="'B'">Kolektif Kitap Etkinliği</ion-radio>
-          <ion-radio ng-model="choice" ng-value="'B'">Yazı Gönderme Etkinliği</ion-radio>
+        <ion-radio ng-repeat="item in radioEventType"
+                   ng-value="item.value"
+                   ng-model="data.choice"
+                   ng-change="typeChanged(item)">                   
+          {{ item.name }}
+        </ion-radio>
         </ion-list>
         </ion-content>
       </ion-modal-view>

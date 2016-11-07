@@ -24,6 +24,29 @@ angular
 
     };
   })
+.filter('eventTypeFilter', function(){
+  return function(items,search){
+    if(!search){
+      return items
+    }
+    
+    var eventType = search;
+    if(!eventType || '' === eventType){
+      return items;
+    }
+    
+    return items.filter(function(element,index,array){
+      if(eventType == 1){
+        return element.eventType === 1;
+      }else if(eventType == 2){        
+        return element.eventType === 2;        
+      }else if(eventType == 3){
+        return element.eventType === 3;
+      }
+    });
+    
+  }
+})
   .controller('UserEventController', function($scope, ManageActivityService, UserEventService,$ionicModal, $rootScope,$q,$timeout,$ionicTabsDelegate) {
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -32,79 +55,110 @@ angular
   $timeout( function() {
     $ionicTabsDelegate .select(0, false);
     $scope.setEvents(2);
-    
   },400);
-    $scope.orderProperty = "createdate";
-    
-    $scope.activeEvent = [];
-    var _userid = $rootScope.globals.currentUser.id;
+  $scope.data ={
+    choice:'A'
+  };
+  
+  $scope.radioEventType = [
+    {
+      name : "Yazar Kadrosu Etkinliği",
+      value : "2"
+    },
+    {
+      name : "Kolektif Kitap Etkinliği",
+      value :"1"
+    },
+    {
+      name:"Yazı Gönderme Etkinliği",
+      value:"3"
+    },
+    {
+      name:"Tüm Etkinlik Türleri",
+      value:""
+    }
+   ]; 
+  
+  $scope.orderProperty = "createdate";
 
-        ManageActivityService.getActivity().then(function(events) {
-            angular.forEach(events, function(event) {
-              if (event.isActive == 1) {
-                var decideToTime;
-                var sendStoryButton = true;
-                var writerEventApplyButton = false;
-                var text1;
-                var text2;
-                var date = new Date();
-                var today = parseInt(date.getTime() / 1000);
-                var type;
+  $scope.activeEvent = [];
+  var _userid = $rootScope.globals.currentUser.id;
 
-                if (((event.startDate / 1000) - today) >= 0) {
-                  text1 = "Başvuruların başlamasına ";
+      ManageActivityService.getActivity().then(function(events) {
+          angular.forEach(events, function(event) {
+            if (event.isActive == 1) {
+              var decideToTime;
+              var sendStoryButton = true;
+              var writerEventApplyButton = false;
+              var text1;
+              var text2;
+              var date = new Date();
+              var today = parseInt(date.getTime() / 1000);
+              var type;
+
+              if (((event.startDate / 1000) - today) >= 0) {
+                text1 = "Başvuruların başlamasına ";
+                text2 = " kaldı";
+                sendStoryButton = false;
+                decideToTime = (event.startDate / 1000) - (today);
+              } else {
+                  text1 = "Başvurunun kapanmasına ";
                   text2 = " kaldı";
-                  sendStoryButton = false;
-                  decideToTime = (event.startDate / 1000) - (today);
-                } else {
-                    text1 = "Başvurunun kapanmasına ";
-                    text2 = " kaldı";
-                    decideToTime = ((event.endDate / 1000) - today);
-                    if (event.type == 2) {
-                      sendStoryButton = false;
-                      writerEventApplyButton = true;
-                    }
-                }
-                //Etkinlik Tipinin adını yazdır.
-                var type=function(){
+                  decideToTime = ((event.endDate / 1000) - today);
                   if (event.type == 2) {
-                    type="Yazar Etkinliği";
-                    return type;
+                    sendStoryButton = false;
+                    writerEventApplyButton = true;
                   }
-                  else if (event.type==3) {
-                    type="Yazı gönderme etkinliği";
-                    return type;
-                  }
-                  else {
-                    type="Kolektif Kitap Etkinliği";
-                    return type;
-                  }
-                }
-
-                $scope.activeEvent.push({
-                  id: event.id,
-                  name: event.name,
-                  about: event.about,
-                  image: event.image,
-                  startDate:event.startDate,
-                  createDate: event.createDate,
-                  type:type(),
-                  decideToTime: decideToTime,
-                  sendStoryButton: sendStoryButton,
-                  writerEventApplyButton: writerEventApplyButton,
-                  text1: text1,
-                  text2: text2
-                });
               }
-            });
-          }, function(err) {
-            console.log(err);
+              //Etkinlik Tipinin adını yazdır.
+              var type=function(){
+                if (event.type == 2) {
+                  type="Yazar Etkinliği";
+                  return type;
+                }
+                else if (event.type==3) {
+                  type="Yazı gönderme etkinliği";
+                  return type;
+                }
+                else {
+                  type="Kolektif Kitap Etkinliği";
+                  return type;
+                }
+              }
+
+              $scope.activeEvent.push({
+                id: event.id,
+                name: event.name,
+                about: event.about,
+                image: event.image,
+                startDate:event.startDate,
+                createDate: event.createDate,
+                type:type(),
+                eventType:event.type,
+                decideToTime: decideToTime,
+                sendStoryButton: sendStoryButton,
+                writerEventApplyButton: writerEventApplyButton,
+                text1: text1,
+                text2: text2
+              });
+            }
           });
-          $ionicModal.fromTemplateUrl('templates/modal.html', {
+        }, function(err) {
+          console.log(err);
+        });
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
+    console.log($scope.data.choice)
   });
+  
+  $scope.typeChanged = function(item){
+    console.log(item.value);
+    setEventFilterProperty(item.value);
+    console.log($rootScope.eventFilterProperty);
+    $scope.modal.hide();
+  }
 
         
     $scope.setEvents=function(id){
@@ -113,7 +167,7 @@ angular
       }else if(id == 2){
         $ionicTabsDelegate.select(0,true);
       }
-  		console.log($scope.filterProperty);
+  		console.log($rootScope.filterProperty);
   		setFilterProperty(id);
   	}
 
@@ -128,6 +182,11 @@ angular
   function setFilterProperty(id){
     $rootScope.filterProperty = "";
     $rootScope.filterProperty=id;
+  }
+  
+  function setEventFilterProperty(id){
+    $rootScope.eventFilterProperty = "";
+    $rootScope.eventFilterProperty = id;  
   }
 
 
