@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionMdInput','timer',
-    'angularMoment','ngCookies','ionic-modal-select','angularTrix','ChatModule'])
+    'angularMoment','ngCookies','ionic-modal-select','ui.tinymce','ChatModule'])
 
   .directive('headerShrink', function($document) {
   return {

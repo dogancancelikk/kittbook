@@ -5,7 +5,27 @@ h1 {
     text-shadow: 0 1px 0px #000;
     font-size: 42px;
 }
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
 
+
+.centre {
+    text-align: center;
+}
+
+textarea {  /* position is inherited */
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 100px;  /* Actually the height of select and input */
+    width: 100%;
+    height: 100% !important;
+}
 
 /* Utilities
 ==================================*/

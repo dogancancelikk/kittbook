@@ -3,25 +3,47 @@
 angular
 .module("starter")
 
-.controller('NewStoryController',function($scope,StoryService,ionicMaterialInk,$state,$ionicSlideBoxDelegate){
-	  $scope.$parent.clearFabs();
-	 ionicMaterialInk.displayEffect();
- 		 $scope.data = {};
+.controller('NewStoryController',function($scope,StoryService,ionicMaterialInk,$state,$ionicSlideBoxDelegate,$timeout,$ionicLoading,CategoryService){
+	$scope.$parent.clearFabs();
+	$timeout(function() {
+			 $scope.$parent.hideHeader();
+	 }, 0);
+	ionicMaterialInk.displayEffect();
+  $scope.data = {};
 
-  //login (AuthService servisi kullanılıyor(services.js))
-	var events = ['trixInitialize', 'trixChange', 'trixSelectionChange', 'trixFocus', 'trixBlur', 'trixFileAccept', 'trixAttachmentAdd', 'trixAttachmentRemove'];
+		$ionicLoading.show({
+		content: 'Loading',
+		animation: 'fade-in',
+		showBackdrop: true,
+		maxWidth: 200,
+		showDelay: 0
+	});
 
-	for (var i = 0; i < events.length; i++) {
-	    $scope[events[i]] = function(e, editor) {
-	        console.info('Event type:', e.type);
-	    }
+	$scope.getContent = function(data) {
+	console.log('Editor content:',data.tinymceModel);
 	};
-	$scope.trixInitialize = function(e, editor) {
+	$scope.setContent = function() {
+    $scope.tinymceModel = 'Time: ' + (new Date());
+  };
 
-	    // Insert “Hello” at the beginning of the document
-	    editor.setSelectedRange([0, 0])
-	    editor.insertString("Hello")
-	}
+		CategoryService.getCategories().then(function(data){
+			$scope.categories=data;
+			$ionicSlideBoxDelegate.update();
+			$ionicLoading.hide();
+		},function(Err){
+			console.log(Err);
+		});
+
+	$scope.tinymceOptions = {
+				plugins: 'print wordcount fullscreen',
+        toolbar: "undo redo bold italic,fullscreen",
+				menubar: false,
+				theme: 'modern',
+				height:2800,
+				fullscreen_new_window : true
+		};
+
+
   $scope.createStory=function(data){
   	StoryService.addStory(data.name,3,data.description,0).then(function(data){
 
