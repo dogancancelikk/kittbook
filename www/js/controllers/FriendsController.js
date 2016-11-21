@@ -1,8 +1,16 @@
 'use strict';
 angular
 .module('starter')
-.controller('FriendsController',function($scope,$stateParams,$timeout,ionicMaterialInk,ionicMaterialMotion,RelationshipService,USER_DATA)
+.controller('FriendsController',function($scope,$stateParams,$timeout,ionicMaterialInk,$ionicLoading,ionicMaterialMotion,RelationshipService,USER_DATA)
 {
+
+  $ionicLoading.show({
+  content: 'Loading',
+  animation: 'fade-in',
+  showBackdrop: true,
+  maxWidth: 200,
+  showDelay: 0
+});
 	//Begin
 	// Set Header
     $scope.$parent.showHeader();
@@ -21,7 +29,7 @@ angular
 	   $timeout(function() {
        ionicMaterialMotion.blinds();
     }, 400);
-   
+
 		// Set Ink
 // 		$scope.$on('ngLastRepeat.mylist',function(e) {
 // 			 ionicMaterialInk.displayEffect();
@@ -35,21 +43,24 @@ angular
 	$scope.followers=[];
 	getFollowers();
 	getFollowedUsers();
-	
-	
+
+
 	function getFollowers(){
 		RelationshipService.getFollowers(userid).then(function(followers){
 			$scope.followers=followers;
 			console.log($scope.followers);
+      $ionicLoading.hide();
+
 	// 		ionicMaterialInk.displayEffect();
 		},function(err){
 			console.log(err);
 		});
 	}
-	
+
 	function getFollowedUsers(){
 		RelationshipService.getFollowedUsers(userid).then(function(followedUsers){
 			 $scope.followedUsers=followedUsers;
+       $ionicLoading.hide();
 		 },function(err){
 			 console.log(err);
 		 })

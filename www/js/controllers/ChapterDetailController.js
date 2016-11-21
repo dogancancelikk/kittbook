@@ -1,7 +1,7 @@
 'use strict';
 angular
 .module('starter')
-.controller('ChapterDetailController',function($scope,$rootScope,ChapterService,$stateParams,ionicMaterialInk,ionicMaterialMotion,$timeout,$ionicPopup,StoryService){
+.controller('ChapterDetailController',function($scope,$rootScope,ChapterService,$stateParams,$state,ionicMaterialInk,ionicMaterialMotion,$timeout,$ionicPopup,StoryService){
   $scope.$parent.showHeader();
 	$scope.$parent.clearFabs();
 	$scope.isExpanded = false;
@@ -23,35 +23,41 @@ angular
 	//end
   var chapterid=$stateParams.chapterid;
 	var _userid=$rootScope.globals.currentUser.id;
-	
-	
+
+  $scope.goOtherChapter = function(chapter){
+    ChapterService.getStoryChapter(chapter.storyID,true).then(function(storyData){
+      $state.go('app.chapterdetail',{chapterid:chapterid});
+    })
+  }
+
+
   ChapterService.getChapter(chapterid).then(function(data){
 		$scope.chapter=data;
+    console.log(data);
 		var storyid = data.storyID;
-		
 		StoryService.getStoryWithID(storyid).then(function(storyData){
 			$scope.storyname=storyData.name;
 		},function(err){
 			console.log(err);
 		});
-		
+
   },function(err){
     console.log(err);
   });
-	
+
 	$scope.showPopup = function() {
       $scope.data = {}
-    
+
       // Custom popup
       var myPopup = $ionicPopup.show({
          template: ' <ionic-ratings ratingsobj="ratingsObject" index="$index"></ionic-ratings>',
-         title: 'Hikayeye Puan Ver',        
+         title: 'Hikayeye Puan Ver',
          scope: $scope,
 				 buttons: [
             { text: 'İptal Et' }, {
                text: '<b>Puanla</b>',
                type: 'button-positive',
-                  onTap: function(e) {	
+                  onTap: function(e) {
 										if($scope.ratingsObject.rating == 0){
 											return null;
 										}else{
@@ -71,8 +77,8 @@ angular
 					},function(err){
 						console.log(err);
 					})
-				
-			});    
+
+			});
    };
 	 $scope.myTitle = 'IONIC RATINGS DEMO';
 
@@ -87,7 +93,7 @@ angular
 			callback: function(rating,index){
 				console.log(rating + " " + index);
 			}
-		};	
+		};
 
-  
+
 })

@@ -20,11 +20,10 @@
   </ion-tabs>
 
   <ion-content ng-class="{expanded:isExpanded}" class="has-subheader">
-
     <div class="list card" ng-repeat="story in stories | categoryFilter: filterProperty |orderBy: orderProperty : false">
 
       <div class="item item-avatar">
-        <img src="{{story.userImage}}">
+        <img ui-sref="app.profile({userid:story.ownerID})" src="{{story.userImage}}">
         <h2>  {{story.name}}</h2>
         <time>{{ story.createdate | amCalendar }}</time>
       </div>
@@ -45,7 +44,6 @@
       </div>
 
     </div>
-
   </ion-content>
   <ion-tabs class="tabs-striped tabs-outline tabs-icon-top">
 
@@ -64,11 +62,5 @@
     </ion-tab>
     <ion-tab title="Profil" icon-on="ion-ios-gear" ui-sref="app.profile" icon-off="ion-ios-gear-outline">
     </ion-tab>
-
-
   </ion-tabs>
-
-
-
-
 </ion-view>

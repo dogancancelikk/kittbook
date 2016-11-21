@@ -2,8 +2,16 @@
 angular.module('starter')
 .controller('StorydetailController', function($rootScope,$scope,$stateParams,
     StoryService,$ionicModal,$timeout,ionicMaterialMotion,ionicMaterialInk,$state,AuthService,ChapterService,
-    $ionicSlideBoxDelegate,$ionicScrollDelegate, LibraryService) {
-  //Begin 
+    $ionicSlideBoxDelegate,$ionicScrollDelegate, LibraryService, $ionicLoading,$mdToast) {
+
+      $ionicLoading.show({
+      content: 'Loading',
+      animation: 'fade-in',
+      showBackdrop: true,
+      maxWidth: 200,
+      showDelay: 0
+    });
+  //Begin
   // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -18,6 +26,8 @@ angular.module('starter')
         });
     }, 300);
 
+
+
     $timeout(function() {
         ionicMaterialMotion.fadeSlideInRight({
             startVelocity: 3000
@@ -27,9 +37,9 @@ angular.module('starter')
     // Set Ink
     ionicMaterialInk.displayEffect();
     //End
-  
+
   //Parallax Theme
-    
+
   $ionicSlideBoxDelegate.update();
   $scope.onUserDetailContentScroll = onUserDetailContentScroll
 
@@ -46,33 +56,59 @@ angular.module('starter')
    var libraryid = $rootScope.globals.currentUser.libraryid;
    console.log(libraryid);
     $scope.alreadyHave=false;
-    $scope.isOwnStory = false;  
+    $scope.isOwnStory = false;
 
-  
+
   $scope.deleteStoryFromLibrary = function(){
     LibraryService.deleteStoryFromLibrary(libraryid,$scope.storyid).then(function(data){
       console.log(data);
       $scope.alreadyHave=false;
+      $state.go("app.storydetail",{storyid:$scope.storyid},{inherit:false});
+      $mdToast.show({
+          controller: 'toastController',
+          templateUrl: 'toast.html',
+          hideDelay: 800,
+          position: 'bottom',
+          locals: {
+              displayOption: {
+                  title: 'Kitaplığınızdan çıkarıldı.'
+              }
+          }
+      });
+      $ionicLoading.hide();
     },function(err){
       console.log(err);
     })
   }
-  
+
     $scope.addToLibrary = function() {
       LibraryService.addStoryToLibrary(libraryid, $scope.storyid).then(function(data) {
-        console.log(data);
+        $ionicLoading.show();
+          $state.go("app.storydetail",{storyid:$scope.storyid},{inherit:false});
           $scope.alreadyHave = true;
+          $mdToast.show({
+              controller: 'toastController',
+              templateUrl: 'toast.html',
+              hideDelay: 800,
+              position: 'bottom',
+              locals: {
+                  displayOption: {
+                      title: 'Kitaplığınıza Eklendi.'
+                  }
+              }
+          });
+            $ionicLoading.hide();
       },function(err){
         console.log(err);
       });
     }
-    
+
     StoryService.getStoryWithID($stateParams.storyid).then(function(data){
       $scope.story=data;
-      $scope.storyid=data.id;      
+      $scope.storyid=data.id;
       if($rootScope.globals.currentUser.id == data.ownerID){
         $scope.isOwnStory = true;
-      }else{            
+      }else{
         LibraryService.hasStory(libraryid,$scope.storyid).then(function(data){
             console.log(data);
             if(data==true){
@@ -84,8 +120,7 @@ angular.module('starter')
             console.log(err);
           });
       }
-      
-      
+        $ionicLoading.hide();
     },function(err){
         console.log(err);
     });
@@ -96,6 +131,7 @@ angular.module('starter')
 
     $scope.chapters=[];
     ChapterService.getStoryChapter($scope.storyid,true).then(function(chapters){
+      console.log(chapters.length);
       angular.forEach(chapters,function(chapter){
         $scope.chapters.push({
           name:chapter.name,
@@ -106,7 +142,7 @@ angular.module('starter')
       });
 
     });
- 
+
 
     $ionicModal.fromTemplateUrl('templates/modal.html', {
       scope: $scope
@@ -122,33 +158,13 @@ angular.module('starter')
       $scope.modal.hide();
     }
 
-    // var addChapter=[];
-    // $scope.createChapter = function(newChapterParameter) {
-    //   addChapter.push({
-    //     status:1,
-    //     name: newChapterParameter.chapterName,
-    //     chapterstatus:'B',
-    //     storyID:1,
-    //     userID:USER_DATA.userid,
-    //     text:"asdasd"
-    //
-    //   });
-    //   console.log(addChapter);
-    //
-    //   ChapterService.addStoryChapter(
-    //     addChapter.status,
-    //     addChapter.name,
-    //     addChapter.chapterstatus,
-    //     addChapter.storyID,
-    //     addChapter.userID,
-    //     addChapter.text
-    //
-    //   ).then(function(data){
-    //     console.log("eklendiyse burada değer vardır:"+data);
-    //   });
-    //   $scope.modal.hide();
-    // };
-
-
 })
+.filter('limitHtml', function() {
+    return function(text, limit) {
 
+        var changedString = String(text).replace(/<[^>]+>/gm, '');
+        var length = changedString.length;
+
+        return changedString.length > limit ? changedString.substr(0, limit - 1) : changedString;
+    }
+});

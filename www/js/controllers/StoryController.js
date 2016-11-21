@@ -21,8 +21,17 @@ angular.module('starter')
 
     };
 })
-.controller('StoryController',function($state,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
-	  $scope.$parent.clearFabs();
+
+
+.controller('StoryController',function($mdBottomSheet, $mdToast, $mdDialog,$state,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
+  $ionicLoading.show({
+  content: 'Loading',
+  animation: 'fade-in',
+  showBackdrop: true,
+  maxWidth: 200,
+  showDelay: 0
+});
+    $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
     }, 0);
@@ -37,10 +46,13 @@ angular.module('starter')
 
 	StoryService.getStory().then(function(data){
 		$scope.stories=data;
+    console.log(data);
+    $ionicLoading.hide();
 
 	},function(err){
 		console.log(err);
-	})
+	});
+
 
   $scope.reportSlideChanged = function(slideNum) {
     setFilterProperty(slideNum);
@@ -49,6 +61,7 @@ angular.module('starter')
 	CategoryService.getCategories().then(function(data){
 			$scope.categories=data;
 			$ionicSlideBoxDelegate.update();
+      $ionicLoading.hide();
 		},function(Err){
 			console.log(Err);
 		});
@@ -65,7 +78,7 @@ angular.module('starter')
 		$rootScope.filterProperty=id;
 	}
 
-	$scope.setOrderProperty=function(id){		
+	$scope.setOrderProperty=function(id){
 		console.log(id);
 		if(id =='createDate'){
 			$ionicTabsDelegate.select(0,false);

@@ -5,8 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionMdInput','timer',
-    'angularMoment','ngCookies','ionic-modal-select','ui.tinymce','ChatModule'])
+    'angularMoment','ngCookies','ionic-modal-select','ui.tinymce','ChatModule','ngMaterial','ngMessages','ngCordova'])
 
+
+    .controller('toastController', function ($scope, displayOption) {
+        $scope.displayOption = displayOption;
+    })
   .directive('headerShrink', function($document) {
   return {
     restrict: 'A',

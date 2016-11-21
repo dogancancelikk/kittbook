@@ -2,8 +2,15 @@
 angular
 .module('starter')
 .controller('ProfileController',function(ionicMaterialInk,$ionicTabsDelegate,$timeout,$scope,$state,$stateParams,
-  $rootScope,UserService,ionicMaterialMotion,RelationshipService,$ionicModal,PostService){
-	
+  $rootScope,UserService,ionicMaterialMotion,RelationshipService,$ionicModal,PostService,$ionicLoading){
+
+    $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
 		//begin
    $scope.$parent.showHeader();
    $scope.$parent.clearFabs();
@@ -33,7 +40,7 @@ angular
    $scope.isFollowed=false;
    var currentUser=$rootScope.globals.currentUser;
    var _userid = $rootScope.globals.currentUser.id;
-   
+
    var getUserId = function(){
    	if($stateParams.userid == ""){
    		var userid= _userid;
@@ -42,12 +49,12 @@ angular
    		return $stateParams.userid;
    	}
    }
-   
+
 	 $scope.lastUserID=getUserId();
    $scope.followers=[];
    $scope.followedUsers=[];
-  
-  
+
+
    UserService.getUserDetail(getUserId()).then(function(data){
    		$scope.user=data;
    		isOwn($scope.user.id,_userid);
@@ -59,9 +66,10 @@ angular
             break;
           }
         }
+        $ionicLoading.hide();
 		},function(err){
 			console.log(err);
-		});	
+		});
    },function(err){
    	console.log(err);
    });
@@ -70,11 +78,11 @@ angular
   },function(err){
    console.log(err);
   })
- 
+
  	console.log($scope.followers);
   $scope.follow = function() {
-    
-      RelationshipService.follow(_userid, $scope.lastUserID).then(function(data) {
+
+    RelationshipService.follow(_userid, $scope.lastUserID).then(function(data) {
         $scope.isFollowed = true;
       console.log('işlem tamam');
       $state.go('app.home');
@@ -90,11 +98,12 @@ angular
     },function(err) {
       alert('hata var');
     })
-      
+
   };
 	$scope.posts=[];
 	PostService.getUserPosts(_userid).then(function(data){
 		$scope.posts=data;
+    $ionicLoading.hide();
 	},function(err){
 		console.log(err);
 	})
@@ -111,12 +120,12 @@ angular
 					console.log(data);
 					$scope.posts.push(data);
 					$scope.modal.hide();
-			
+
 				},function(err){
 					console.log(err);
 				})
 			}
-			
+
 	var isOwn = function(serviceId,rootId){
 		if(serviceId == rootId){
    			$scope.isOwnProfile=true;

@@ -10,6 +10,11 @@
     <link href="lib/ionic-material/dist/ionic.material.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="lib/waves/dist/waves.css" rel="stylesheet">
+     <link href="lib/robotodraft/robotodraft.css">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="lib/angular-material/angular-material.css">
+  <link rel="stylesheet" href="lib/font-awesome-4.4.0/css/font-awesome.css">
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/ionic-material/dist/ionic.material.min.js"></script>
@@ -24,6 +29,12 @@
     <script src="lib/waves/dist/waves.min.js"></script>
     <script src="lib/tinymce/tinymce.js"></script>
     <script src="lib/angular-ui-tinymce/dist/tinymce.min.js"></script>
+
+    <script src="lib/angular-messages/angular-messages.js"></script>
+   <script src="lib/angular-aria/angular-aria.js"></script>
+   <script src="lib/angular-material/angular-material.js"></script>
+    <script src="lib/jQuery/jquery.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -82,3 +93,8 @@
 
 </body>
 </html>
+<script type="text/ng-template" id="toast.html">
+    <md-toast class="toast-form">
+        <span flex>{{displayOption.title}}</span>
+    </md-toast>
+</script>
