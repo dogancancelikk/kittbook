@@ -101,8 +101,9 @@ angular
 
   };
 	$scope.posts=[];
-	PostService.getUserPosts(_userid).then(function(data){
+	PostService.getUserPosts(getUserId()).then(function(data){
 		$scope.posts=data;
+    console.log(data);
     $ionicLoading.hide();
 	},function(err){
 		console.log(err);

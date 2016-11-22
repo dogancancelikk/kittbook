@@ -4,11 +4,23 @@ angular.module('starter')
   return({
     getStoryChapter:getStoryChapter,
     addStoryChapter:addStoryChapter,
-    getChapter:getChapter
+    getChapter:getChapter,
+    getChapterWithChapterNumber:getChapterWithChapterNumber
   });
-  
+
+  function getChapterWithChapterNumber(chapterNumber,storyID){
+    var request = $http({
+      method:'GET',
+      url:domainConstant.chapterApi+"/getChapterWithNumber/"+chapterNumber+"," + storyID,
+      params:{
+        action:'get'
+      }
+    });
+    return(request.then(handleSuccess,handleError));
+  }
+
   function addStoryChapter(name,storyID, userID, text,chapterNumber) {
-    
+
       var request = $http({
           method: "post",
           url: domainConstant.chapterApi + "/create",

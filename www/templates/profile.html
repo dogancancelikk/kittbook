@@ -1,4 +1,4 @@
-<ion-view view-title="Profile" ng-cloak>
+<ion-view view-title="Profil" ng-cloak>
   <ion-content ng-class="{expanded:$scope.isExpanded}" ng-cloak>
     <div class="hero slide-up static" style="background-image: url('img/profile-bg.jpg');">
       <div class="content">
@@ -20,22 +20,34 @@
         <i class="icon ion-images"></i> Hakkında
       </a>
     </div>
-       
-    
-      <div class="item card-item" collection-repeat="post in posts">
-            <div ui-sref="app.gallery" class="card stable-bg ink ink-dark">
-                <div class="item item-avatar item-text-wrap">
-                    <span class="avatar" style="background-image: url('{{user.image}}');"></span>
-<!--                     <strong>{{post.text}}</strong> <strong>"dene</strong> -->
-                        {{post.text}}
-                    <div class="card-footer text-right">
-                        <i class="icon ion-chatbubbles positive"></i> 6
-                        <i class="icon ion-heart assertive"></i> 23
-                        <div class="pull-left">
-                            <i class="icon ion-clock"></i> {{ post.postDate | date }}
+        <div collection-repeat="post in posts">
+            <div id="news-feed-content">
+                <div class="news-item">
+
+                    <div class="row header">
+                        <div class="col-20">
+                            <img src="{{user.image}}" class="user-img"/>
+                        </div>
+                        <div class="col-75">
+                           <span class="name">
+                              {{user.name}} {{user.surname}}
+                           </span>
+                            <br/>
+                           <span class="datetime">
+                               {{post.postDate | amCalendar}}
+                           </span>
+                        </div>
+                        <div class="col-5" ng-if="isOwnProfile">
+                          <i class="icon ion-android-cancel"></i>
+                        </div>
+                    </div>
+                    <div class="row detail">
+                        <div class="col">
+                          <p class="content" ng-bind-html='post.text'></p>
                         </div>
                     </div>
                 </div>
+                <div class="row"></div>
             </div>
         </div>
   </ion-content>

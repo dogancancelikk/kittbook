@@ -12,7 +12,7 @@
         </div>
           </a>
       <div class="mid-bar dark-bg z1 padding">
-      <h3>{{storyname}} {{chapter.chapterNumber}}. Bölüm </h3>
+      <h3>{{chapter.storyName}} {{chapter.chapterNumber}}. Bölüm </h3>
 
       <p><i class="icon assertive icon-small ion-ios-star"></i>{{chapter.rate}}</p>
       </div>
@@ -22,8 +22,10 @@
         <div ng-bind-html='chapter.text'></div>
         </p> -->
         <div ng-bind-html='chapter.text'></div>
-        <h3 class="outline padding balanced inline img-rounded" ng-click="goOtherChapter(chapter)">
-        {{chapter.chapterNumber+1}}.Bölüme Git
+        <h3 class="outline padding balanced inline img-rounded">
+          <a ng-click="goOtherChapter(chapter)">
+            {{chapter.chapterNumber+1}}.Bölüme Git
+          </a>
         </h3>
       </div>
   </ion-content>

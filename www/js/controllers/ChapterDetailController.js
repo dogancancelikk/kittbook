@@ -25,9 +25,12 @@ angular
 	var _userid=$rootScope.globals.currentUser.id;
 
   $scope.goOtherChapter = function(chapter){
-    ChapterService.getStoryChapter(chapter.storyID,true).then(function(storyData){
-      $state.go('app.chapterdetail',{chapterid:chapterid});
-    })
+    var chapterNumber = chapter.chapterNumber+1;
+    console.log(chapterNumber);
+    ChapterService.getChapterWithChapterNumber(chapterNumber, chapter.storyID).then(function(chapterData){
+      console.log(chapterData);
+      $state.go('app.chapterdetail',{chapterid:chapterData.id});
+    });
   }
 
 

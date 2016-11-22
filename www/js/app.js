@@ -566,6 +566,15 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 }
             }
         })
+        .state('app.postdetail', {
+                url: '/postdetail/:postid',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/postDetail.html',
+                        controller: 'PostDetailController'
+                    }
+                }
+            })
         .state('app.newpost', {
             url: '/newpost',
             views: {
