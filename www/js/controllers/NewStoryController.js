@@ -34,14 +34,14 @@ angular
 			console.log(Err);
 		});
 
-	$scope.tinymceOptions = {
-				plugins: 'print wordcount fullscreen',
-        toolbar: "undo redo bold italic,fullscreen",
-				menubar: false,
-				theme: 'modern',
-				height:2800,
-				fullscreen_new_window : true
-		};
+// 	$scope.tinymceOptions = {
+// 				plugins: 'print wordcount fullscreen',
+//         toolbar: "undo redo bold italic,fullscreen",
+// 				menubar: false,
+// 				theme: 'modern',
+// 				height:2800,
+// 				fullscreen_new_window : true
+// 		};
 
 
   $scope.createStory=function(data){

@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionMdInput','timer',
-    'angularMoment','ngCookies','ionic-modal-select','ui.tinymce','ChatModule','ngMaterial','ngMessages','ngCordova'])
+    'angularMoment','ngCookies','ionic-modal-select','ui.tinymce','ChatModule','ngMaterial','ngMessages','ngCordova','angularTrix'])
 
 
     .controller('toastController', function ($scope, displayOption) {

@@ -5,7 +5,10 @@
 <ion-view view-title="Hikaye Yarat">
  <ion-content class="has-subheader">
 
- <textarea ui-tinymce="tinymceOptions" ng-model="data.tinymceModel" ></textarea>
-
+<!--  <textarea ui-tinymce="tinymceOptions" ng-model="data.tinymceModel" ></textarea>
+ -->
+   
+   <trix-editor ng-if="true" angular-trix ng-model="data.tinymceModel"></trix-editor>
+   {{data.tinymceModel}}
  </ion-content>
 </ion-view>
