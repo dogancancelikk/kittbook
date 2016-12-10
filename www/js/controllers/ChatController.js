@@ -13,7 +13,14 @@ angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
 })
 
 .controller('ChatController',function($scope, $rootScope, $state, $stateParams, MockService,UserService,$ionicActionSheet,
-    $ionicPopup, $ionicScrollDelegate, $timeout, $interval,ChatService) {
+    $ionicPopup, $ionicScrollDelegate, $timeout, $interval,ChatService,$ionicLoading) {
+      $ionicLoading.show({
+      content: 'Loading',
+      animation: 'fade-in',
+      showBackdrop: true,
+      maxWidth: 200,
+      showDelay: 0
+    });
       var _userArray={};
       var _toUserArray={};
       var _user = $rootScope.globals.currentUser.id;
@@ -95,6 +102,9 @@ angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
         $timeout(function() {
           viewScroll.scrollBottom();
         }, 0);
+        $ionicLoading.hide();
+      },function(err){
+        console.log(err);
       });
     }
 
@@ -117,9 +127,9 @@ angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
 
       //MockService.sendMessage(message).then(function(data) {
       $scope.input.message = '';
-			
-		ChatService.sendMessage(_user, _toUser, message.text).then(function(data) {   
-     	 message.messageTime = new Date();     	 
+
+		ChatService.sendMessage(_user, _toUser, message.text).then(function(data) {
+     	 message.messageTime = new Date();
      	 message.sender = $scope.user._id;
        message.pic = $scope.user.pic;
 			 $scope.messages.push(message);
@@ -127,13 +137,13 @@ angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
         keepKeyboardOpen();
         viewScroll.scrollBottom(true);
       }, 0);
-        
+
       },function(err){
 			console.log(err);
 		});
-			 
-		 
-     
+
+
+
 		};
 
     // this keeps the keyboard open on a device only after sending a message, it is non obtrusive
@@ -178,7 +188,7 @@ angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
     // this prob seems weird here but I have reasons for this in my app, secret!
     $scope.viewProfile = function(msg) {
       if (msg.sender === $scope.user._id) {
-$state.go('app.profile')    
+$state.go('app.profile')
 			} else {
         // go to other users profile
 				$state.go('app.profile', {userid:_toUser});
@@ -201,6 +211,7 @@ $state.go('app.profile')
       footerBar.style.height = newFooterHeight + 'px';
       scroller.style.bottom = newFooterHeight + 'px';
     });
+    $ionicLoading.hide();
 
 })
 

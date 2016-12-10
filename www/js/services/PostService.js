@@ -4,7 +4,8 @@ angular.module('starter')
         // Return public API.
         return({
             addPost: addPost,
-            getUserPosts: getUserPosts
+            getUserPosts: getUserPosts,
+            deletePost:deletePost
         });
         // PUBLIC METHODS
         function addPost(userID, text) {
@@ -19,11 +20,23 @@ angular.module('starter')
                 	userID: userID,
                     text: text,
                   status: "1"
-                    
+
                 }
             });
             return( request.then( handleSuccess, handleError ) );
         }
+
+        function deletePost(id){
+          var request = $http({
+            method:"delete",
+            url: domainConstant.postApi + "/delete/" + id,
+            headers: {"Content-Type":"application/json"},
+            data : {id:id}
+          });
+          return(request.then(handleSuccess,handleError));
+        }
+
+
         function getUserPosts(userId) {
             var request = $http({
                 method: "get",

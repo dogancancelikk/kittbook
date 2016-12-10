@@ -8,6 +8,6 @@ angular.module("starter")
 			$scope.user=userdata;
 		},function(err){
 			console.log(err);
-		})
+		});
 	
 });

@@ -1,4 +1,4 @@
-<ion-view view-title="Hikaye Detay">
+<ion-view view-title="{{story.name}}">
     <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll='false' delegate-handle="userDetailContent" on-scroll="onUserDetailContentScroll()" header-shrink scroll-event-interval="5">
       <div class="about-header">
           <ion-slide-box auto-play="false" show-pager="false">
@@ -29,15 +29,16 @@
 <!--   First Card -->
    <div class="list card ">
 
-      <div class="item item-divider item-assertive">
+      <div class="item item-divider item-positive">
         Hakkında
       </div>
 
       <div class="item item-text-wrap" >
-        <div ng-bind-html="story.description| limitHtml: 250" ></div>
+        <span ng-bind-html="story.description| limitHtml: descriptionLimit" ></span><a ng-if="ifLimitto" ng-click="increaseDescription()">(Devamı ...)</a>
         <div class="content padding-top">
           <a href="#" class="subdued"><i class="icon assertive icon-small ion-ios-star"></i> {{story.storyrate}} </a>
           <a href="#" class="subdued"><i class="icon assertive icon-small ion-ios-eye"></i> {{story.readcount}} </a>
+          <a href="#" class="subdued"><i class="icon assertive icon-small ion-chatbubbles"></i> {{story.readcount}} </a>
         </div>
       </div>
 
@@ -63,27 +64,30 @@
           <i class="icon ion-ios-skipforward"></i>
         </button>
       </a>
-
+</div>
 
 <!--       End -->
-   <div class="card" >
+
+   <div class="list card" >
       <div class="item item-divider item-positive" style="bold">
         Bölümler
       </div>
-  </div>
-  <div class="card" ng-if="chapters.length==0">
-    <div class="item item-text-wrap">
+
+    <div class="item item-text-wrap" ng-if="chapters.length==0">
       Bölüm eklenmedi <i class="icon ion-android-sad assertive"></i>
     </div>
-  </div>
- <div class="card" ng-repeat="chapter in chapters">
-    <!-- <div class="item item-text-wrap">
-      {{chapter.name}}
-    </div> -->
-     <a class="item item-text-wrap" ui-sref="app.chapterdetail({chapterid:chapter.id})">
+
+
+   <div class="card" ng-repeat="chapter in chapters" ng-if="chapters.length!=0">
+      <!-- <div class="item item-text-wrap">
         {{chapter.name}}
-      </a>
-  </div>
+      </div> -->
+       <a class="item item-text-wrap" ui-sref="app.chapterdetail({chapterid:chapter.id})">
+          {{chapter.name}}
+        </a>
+    </div>
+    </div>
+
 
 
   </ion-content>

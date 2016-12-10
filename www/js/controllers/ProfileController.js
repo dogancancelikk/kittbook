@@ -90,6 +90,27 @@ angular
       alert('hata var hata');
     })
   };
+
+  $scope.deletePost = function(post) {
+        $ionicLoading.show({
+        content: 'Loading',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+      });
+    PostService.deletePost(post.id).then(function(response) {
+       var index = $scope.posts.indexOf(post);
+       $scope.posts.splice(index, 1);
+       console.log("işlem başarılı");
+       $ionicLoading.hide();
+    }, function(error) {
+        Alert('Bir Hata var');
+    }).finally(function() {
+        alert('işlem bitti');
+    });
+  }
+
   $scope.unfollow = function() {
     RelationshipService.unfollow(_userid, $scope.lastUserID).then(function(data) {
        $scope.isFollowed = false;

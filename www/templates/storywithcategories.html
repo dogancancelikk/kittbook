@@ -8,8 +8,8 @@
     <ion-content id="restaurant">
         <!--slider section-->
         <ion-slide-box id="restaurant-slide-box"  show-pager="true" active-slide="activeCategory"  on-slide-changed="reportSlideChanged(index+1)">
-            <ion-slide ng-repeat="category in categories" ng-style="{'background-image': 'url(' + category.image + ')', 'background-size' : '100% 100%', 'width':'100%', 'height':'100%'}">           
-              
+            <ion-slide ng-repeat="category in categories" ng-style="{'background-image': 'url(' + category.image + ')', 'background-size' : '100% 100%', 'width':'100%', 'height':'100%'}">
+
 <!--               style="background-image: url('img/rsz_1rsz_1rsz_Teknoloji.jpg');background-repeat: no-repeat; background-size: 100% 100%;width: 100%;height:100%;" -->
                 <div class="content">
                     <h1>
@@ -20,7 +20,7 @@
                     </p>
                 </div>
             </ion-slide>
-                
+
         </ion-slide-box><!--end slider section-->
 
         <!--restaurant content section-->
@@ -32,7 +32,7 @@
                     </h1>
                 </div>
             </div>
-        <div class="list card" ng-repeat="story in stories | categoryFilter: filterProperty">
+        <div class="list card" ng-repeat="story in stories | categoryFilter: filtersProperty">
 
             <div class="item item-avatar">
               <img src="{{story.writerImage}}">
@@ -43,22 +43,19 @@
             <div class="item item-body">
               <img class="full-image" src="{{story.image}}">
               <p ng-bind-html='story.description'>
-               
+
               </p>
               <p>
                 <a href="#" class="subdued"><i class="icon assertive icon-small ion-ios-star"></i> {{story.storyrate}} </a>
                  <a href="#" class="subdued"><i class="icon assertive icon-small ion-ios-skipforward"></i> Oku </a>
-<!--                               
+<!--
                 <a class="item item-icon-right assertive " ng-href="#/app/storydetail/{{story.id}}">
                   <i class="icon ion-ios-skipforward" style="font-size: smaller;"></i>
                 </a> -->
 
               </p>
             </div>
-
         </div>
-           
-
         </div> <!--end restaurant content section-->
     </ion-content><!--end restaurant section-->
 </ion-view>

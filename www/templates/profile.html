@@ -20,7 +20,8 @@
         <i class="icon ion-images"></i> Hakkında
       </a>
     </div>
-        <div collection-repeat="post in posts">
+    <br>
+        <div ng-repeat="post in posts">
             <div id="news-feed-content">
                 <div class="news-item">
 
@@ -37,8 +38,8 @@
                                {{post.postDate | amCalendar}}
                            </span>
                         </div>
-                        <div class="col-5" ng-if="isOwnProfile">
-                          <i class="icon ion-android-cancel"></i>
+                        <div class="col-5" ng-if="isOwnProfile" >
+                          <i class="icon ion-android-cancel" ng-click="deletePost(post)"></i>
                         </div>
                     </div>
                     <div class="row detail">
@@ -47,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row"></div>
+
             </div>
         </div>
   </ion-content>
@@ -69,7 +70,7 @@
     <ion-tab ng-if="!isOwnProfile" title="Kitaplık" icon-on="ion-ios-gear" href="#/app/profile/" icon-off="ion-ios-gear-outline">
       <!-- Tab 3 content -->
     </ion-tab>
-    <ion-tab ng-if="!isOwnProfile" title="Hikayeler" icon-on="ion-edit" href="#/app/usersstories/{{lastUserID}}" icon-off="ion-edit">
+    <ion-tab ng-if="!isOwnProfile" title="Hikayeler" icon-on="ion-edit" ui-sref="app.usersstories({userid:lastUserID})" icon-off="ion-edit">
       <!-- Tab 3 content -->
     </ion-tab>
 

@@ -2,15 +2,14 @@
   <ion-content ng-class="{expanded:isExpanded}">
 <!--       <div class="hero slide-up static" style="background-image: url('img/profile-bg.jpg');">
       </div> -->
-         <a href="">
-             <div class="hero slide-up " style="background-image: url('{{chapter.image}}');">
-            <div class="content">
-              <button class="button button-large button-clear flat waves-effect waves-button waves-light icon ion-heart pull-right text-white" ng-click="showPopup()">                       </button>
-              <button class="button button-large button-clear flat waves-effect waves-button waves-light icon ion-images pull-right text-white">                        </button>
-              <button class="button button-large button-clear flat waves-effect waves-button waves-light icon ion-map pull-right text-white"></button>
-            </div>
+
+        <div class="hero slide-up " style="background-image: url('{{chapter.image}}');">
+           <div class="content">
+               <button class="button button-large button flat waves-effect waves-button waves-light icon ion-heart pull-right text-white" ng-click="showPopup()"></button>
+               <button class="button button-large button flat waves-effect waves-button waves-light icon ion-ios-compose pull-right text-white"></button>
+           </div>
         </div>
-          </a>
+
       <div class="mid-bar dark-bg z1 padding">
       <h3>{{chapter.storyName}} {{chapter.chapterNumber}}. Bölüm </h3>
 

@@ -29,22 +29,22 @@ angular
     if(!search){
       return items
     }
-    
+
     var eventType = search;
     if(!eventType || '' === eventType){
       return items;
     }
-    
+
     return items.filter(function(element,index,array){
       if(eventType == 1){
         return element.eventType === 1;
-      }else if(eventType == 2){        
-        return element.eventType === 2;        
+      }else if(eventType == 2){
+        return element.eventType === 2;
       }else if(eventType == 3){
         return element.eventType === 3;
       }
     });
-    
+
   }
 })
   .controller('UserEventController', function($scope, ManageActivityService, UserEventService,$ionicModal, $rootScope,$q,$timeout,$ionicTabsDelegate) {
@@ -59,7 +59,7 @@ angular
   $scope.data ={
     choice:'A'
   };
-  
+
   $scope.radioEventType = [
     {
       name : "Yazar Kadrosu Etkinliği",
@@ -77,14 +77,15 @@ angular
       name:"Tüm Etkinlik Türleri",
       value:""
     }
-   ]; 
-  
+   ];
+
   $scope.orderProperty = "createdate";
 
   $scope.activeEvent = [];
   var _userid = $rootScope.globals.currentUser.id;
 
       ManageActivityService.getActivity().then(function(events) {
+        console.log(events);
           angular.forEach(events, function(event) {
             if (event.isActive == 1) {
               var decideToTime;
@@ -97,15 +98,17 @@ angular
               var type;
 
               if (((event.startDate / 1000) - today) >= 0) {
+
                 text1 = "Başvuruların başlamasına ";
                 text2 = " kaldı";
                 sendStoryButton = false;
                 decideToTime = (event.startDate / 1000) - (today);
               } else {
+                console.log("Başladı");
                   text1 = "Başvurunun kapanmasına ";
                   text2 = " kaldı";
                   decideToTime = ((event.endDate / 1000) - today);
-                  if (event.type == 2) {
+                  if (event.type == 2 || event.type == 3) {
                     sendStoryButton = false;
                     writerEventApplyButton = true;
                   }
@@ -152,7 +155,7 @@ angular
     $scope.modal = modal;
     console.log($scope.data.choice)
   });
-  
+
   $scope.typeChanged = function(item){
     console.log(item.value);
     setEventFilterProperty(item.value);
@@ -160,7 +163,7 @@ angular
     $scope.modal.hide();
   }
 
-        
+
     $scope.setEvents=function(id){
       if(id == 1){
         $ionicTabsDelegate.select(1,true);
@@ -183,10 +186,10 @@ angular
     $rootScope.filterProperty = "";
     $rootScope.filterProperty=id;
   }
-  
+
   function setEventFilterProperty(id){
     $rootScope.eventFilterProperty = "";
-    $rootScope.eventFilterProperty = id;  
+    $rootScope.eventFilterProperty = id;
   }
 
 

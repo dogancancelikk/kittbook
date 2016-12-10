@@ -8,6 +8,7 @@ angular.module('starter.controllers', [])
     //Authentication operations
     //Yetkisiz girişlerin yakalandığı yer
 //     $scope._userid=$rootScope.globals.currentUser.id;
+$scope.libraryUserid= $rootScope.globals.currentUser.id;
     $scope.$on(AUTH_EVENTS.notAuthorized, function (event) {
       alert('Yetkisiz giriş');
     });

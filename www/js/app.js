@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionMdInput','timer',
-    'angularMoment','ngCookies','ionic-modal-select','ui.tinymce','ChatModule','ngMaterial','ngMessages','ngCordova','angularTrix'])
+    'angularMoment','ngCookies','ionic-modal-select','ui.tinymce','ChatModule','ngMaterial','ngMessages','ngCordova','angularTrix','ngSanitize'])
 
 
     .controller('toastController', function ($scope, displayOption) {
@@ -239,7 +239,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
         views: {
             'menuContent': {
                 templateUrl: 'templates/storywithcategories.html',
-                controller: 'StoryController'
+                controller: 'StoryWithCategories'
             }
 
 //             },
@@ -254,6 +254,23 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/storydetail.html',
                 controller: 'StorydetailController'
+            },
+            'fabContent': {
+                template: '<button id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-ios-paper-outline"></i></button>',
+                controller: function ($timeout) {
+                    $timeout(function () {
+                        document.getElementById('fab-activity').classList.toggle('on');
+                    }, 200);
+                }
+            }
+        }
+    })
+    .state('app.library', {
+        url: '/library/:userid',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/library.html',
+                controller: 'LibraryController'
             },
             'fabContent': {
                 template: '<button id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-ios-paper-outline"></i></button>',
@@ -309,7 +326,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
         views: {
             'menuContent': {
                 templateUrl: 'templates/categories.html',
-                controller: 'StoryController'
+                controller: 'CategoriesController'
             },
             'fabContent': {
 

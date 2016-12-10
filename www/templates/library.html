@@ -1,4 +1,4 @@
-<ion-view view-title="Kullanıcı Hikayeleri">
+<ion-view view-title="Kütüphanem">
     <ion-content ng-class="{expanded:isExpanded}" >
 <!--       <div class="list item-image">
         <a href="#/{{item.id}}"
@@ -8,23 +8,25 @@
           <h4>{{userstory.description}}</h4>
         </a>
       </div>-->
+      <div class="library" style="height:100%;">
+        <div class="list">
 
-      <div class="list">
+          <a ng-repeat="userstory in userStories"
+             ng-href="#/app/storydetail/{{userstory.id}}"
+             class="item item-thumbnail-left">
 
-        <a ng-repeat="userstory in userStories"
-           ng-href="#/app/storydetail/{{userstory.id}}"
-           class="item item-thumbnail-left">
+            <img ng-src="{{ userstory.image }}">
+            <h2>{{ userstory.name }}</h2>
+             <br>
+            <h4 ng-bind-html="userstory.description | limitTo:100"></h4>
+            <br>
+            <br>
 
-          <img ng-src="{{ userstory.image }}">
-          <h2>{{ userstory.name }}</h2>
-           <br>
-          <h4 ng-bind-html="userstory.description"></h4>
-          <br>
-          <br>
+          </a>
 
-        </a>
-
+        </div>
       </div>
+
 <!--       <a class="item item-list-detail">
             <ion-scroll direction="x">
                 <img ng-repeat="userstory in userStories" ng-src="{{userstory.image}}" class="image-list-thumb"/>

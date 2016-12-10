@@ -9,7 +9,7 @@ angular.module('starter')
             hasStory:hasStory,
           deleteStoryFromLibrary:deleteStoryFromLibrary
         });
-   
+
         function hasStory(libraryId,storyId){
           var request=$http({
             method:'get',
@@ -17,23 +17,23 @@ angular.module('starter')
             headers: {"Content-Type":"application/json"},
             params: {
                     action: "get"
-            } 
+            }
           });
           return (request.then(handleSuccess,handleError))
-        }      
-        
+        }
+
           function deleteStoryFromLibrary(libraryId,storyId){
              var request = $http({
                 method: "delete",
                 url: domainConstant.libraryApi + "/deletestory/" + libraryId + "," + storyId,
                 headers: {"Content-Type":"application/json"},
-                data: { storyId: storyId, 
+                data: { storyId: storyId,
                        libraryId: libraryId }
             });
             return( request.then( handleSuccess, handleError ) );
           }
-  
-  
+
+
          function addStoryToLibrary( libraryId, storyId ) {
             var request = $http({
                 method: "post",
@@ -52,7 +52,7 @@ angular.module('starter')
         function getLibrary(userId) {
             var request = $http({
                 method: "get",
-                url: domainConstant.libraryApi + "/getUserLibrary/" + userId,
+                url: domainConstant.libraryApi + "/getuserlibrarystories/" + userId,
                 params: {
                     action: "get"
                 }

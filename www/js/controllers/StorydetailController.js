@@ -57,7 +57,13 @@ angular.module('starter')
    console.log(libraryid);
     $scope.alreadyHave=false;
     $scope.isOwnStory = false;
+    $scope.ifLimitto =true;
+    $scope.descriptionLimit=260;
 
+    $scope.increaseDescription = function(){
+      $scope.descriptionLimit = 3000;
+        $scope.ifLimitto =false;
+    }
 
   $scope.deleteStoryFromLibrary = function(){
     LibraryService.deleteStoryFromLibrary(libraryid,$scope.storyid).then(function(data){
