@@ -35,14 +35,14 @@
         <div class="list card" ng-repeat="story in stories | categoryFilter: filtersProperty">
 
             <div class="item item-avatar">
-              <img ui-sref="app.profile({userid:story.ownerID})" src="{{story.userImage}}">
+              <img ui-sref="app.profile({userid:story.ownerID})" ng-src="{{story.userImage}}">
               <h2>  {{story.name}}</h2>
               <time>{{ story.createdate | amCalendar }}</time>
             </div>
 
             <div class="item item-body">
               <a ui-sref="app.storydetail({storyid:story.id})">
-                <img class="full-image" src="{{story.image}}">
+                <img class="full-image" ng-src="{{story.image}}">
               </a>
               <p ng-bind-html='story.description | limitTo:250'>
 

@@ -46,9 +46,8 @@ angular.module('starter')
 
 	StoryService.getStory().then(function(data){
 		$scope.stories=data;
-
-    $ionicLoading.hide();
-
+		console.log($scope.stories);
+    	$ionicLoading.hide();
 	},function(err){
 		console.log(err);
 	});

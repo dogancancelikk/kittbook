@@ -1,17 +1,4 @@
 angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
-
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
-
-  .state('UserMessages', {
-    url: '/UserMessages',
-    templateUrl: 'templates/UserMessages.html',
-    controller: 'UserMessagesCtrl'
-  });
-
-  $urlRouterProvider.otherwise('/UserMessages');
-})
-
 .controller('ChatController',function($scope, $rootScope, $state, $stateParams, MockService,UserService,$ionicActionSheet,
     $ionicPopup, $ionicScrollDelegate, $timeout, $interval,ChatService,$ionicLoading) {
       $ionicLoading.show({

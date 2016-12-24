@@ -458,7 +458,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             }
         }
     })
-         .state('app.passiveevents', {
+    .state('app.passiveevents', {
         url: '/passiveevents',
         views: {
             'menuContent': {
@@ -520,25 +520,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             }
         }
     })
-
-/*    .state('app.profile', {
-        url: '/profile',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/profile.html',
-                controller: 'ProfileController'
-            },
-            'fabContent': {
-                template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900" ng-click="changeState()"><i class="icon ion-plus"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-profile').classList.toggle('on');
-                    }, 800);
-                }
-            }
-        }
-    })
-*/
     .state('app.profile', {
         url: '/profile/:userid',
         views: {
@@ -547,21 +528,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'ProfileController'
             },
             'fabContent': {
-//                 template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900" "><i class="icon ion-plus"></i></button>',
-//                 controller: function ($timeout,$stateParams,USER_DATA,$scope) {
-//                     $timeout(function () {
-//                         document.getElementById('fab-profile').classList.toggle('on');
-//                     }, 800);
-
-                    // if($stateParams.userid==USER_DATA.userid){
-                    //     $scope.showOrNot=false;
-                    // }
-                    // else{
-                    //     $scope.showOrNot=true;
-                    // }
-
-
-               // }
             }
         }
     })
@@ -583,16 +549,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 }
             }
         })
-        .state('app.postdetail', {
-                url: '/postdetail/:postid',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/postDetail.html',
-                        controller: 'PostDetailController'
-                    }
-                }
-            })
-        .state('app.newpost', {
+    .state('app.newpost', {
             url: '/newpost',
             views: {
                 'menuContent': {
