@@ -48,7 +48,7 @@ angular
 	function getFollowers(){
 		RelationshipService.getFollowers(userid).then(function(followers){
 			$scope.followers=followers;
-			console.log($scope.followers);
+			
       $ionicLoading.hide();
 
 	// 		ionicMaterialInk.displayEffect();

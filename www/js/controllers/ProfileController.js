@@ -81,11 +81,18 @@ angular
 
  	console.log($scope.followers);
   $scope.follow = function() {
-
+        $ionicLoading.show({
+        content: 'Loading',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+      });
     RelationshipService.follow(_userid, $scope.lastUserID).then(function(data) {
+
         $scope.isFollowed = true;
-      console.log('işlem tamam');
-      $state.go('app.home');
+        $ionicLoading.hide();
+     
     },function(err) {
       alert('hata var hata');
     })
@@ -115,7 +122,7 @@ angular
     RelationshipService.unfollow(_userid, $scope.lastUserID).then(function(data) {
        $scope.isFollowed = false;
       console.log('işlem tamam');
-      $state.go('app.home');
+      
     },function(err) {
       alert('hata var');
     })

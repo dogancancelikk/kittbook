@@ -23,7 +23,7 @@ angular.module('starter')
 })
 
 
-.controller('StoryController',function($mdBottomSheet, $mdToast, $mdDialog,$state,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
+.controller('StoryController',function($state,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
   $ionicLoading.show({
   content: 'Loading',
   animation: 'fade-in',
@@ -61,7 +61,7 @@ angular.module('starter')
 	CategoryService.getCategories().then(function(data){
 			$scope.categories=data;
 			$ionicSlideBoxDelegate.update();
-      $ionicLoading.hide();
+    
 		},function(Err){
 			console.log(Err);
 		});

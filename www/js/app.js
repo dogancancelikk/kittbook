@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionMdInput','timer',
-    'angularMoment','ngCookies','ionic-modal-select','ui.tinymce','ChatModule','ngMaterial','ngMessages','ngCordova','angularTrix','ngSanitize'])
+    'angularMoment','ngCookies','ionic-modal-select','ChatModule','ngMessages','ngCordova','angularTrix','ngSanitize','ngMaterial'])
 
 
     .controller('toastController', function ($scope, displayOption) {
@@ -338,7 +338,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
         views: {
             'menuContent': {
                 templateUrl: 'templates/followers.html',
-                controller: 'FriendsController'
+                controller: 'FollowersController'
             },
             'fabContent': {
                 template: '<button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
@@ -355,7 +355,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
         views: {
             'menuContent': {
                 templateUrl: 'templates/followedUsers.html',
-                controller: 'FriendsController'
+                controller: 'FollowedUsersController'
             },
             'fabContent': {
                 template: '<button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',

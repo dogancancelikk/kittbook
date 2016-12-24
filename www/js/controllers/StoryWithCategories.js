@@ -45,6 +45,7 @@ angular.module('starter')
 	$scope.orderProperty = "createDate";
 
 	StoryService.getStory().then(function(data){
+		console.log(data);
 		$scope.stories=data;
 
     $ionicLoading.hide();
