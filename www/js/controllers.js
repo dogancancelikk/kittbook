@@ -4,7 +4,7 @@
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope,USER_DATA,$ionicModal, $ionicPopover,
-    $timeout,AuthService,AUTH_EVENTS,$state,$rootScope) {
+    $timeout,AuthService,AUTH_EVENTS,$state,$rootScope,$ionicHistory) {
     //Authentication operations
     //Yetkisiz girişlerin yakalandığı yer
 //     $scope._userid=$rootScope.globals.currentUser.id;

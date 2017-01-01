@@ -31,10 +31,14 @@ angular.module('starter')
   maxWidth: 200,
   showDelay: 0
 });
+       $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
-    $timeout(function() {
-        $scope.$parent.hideHeader();
-    }, 0);
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
+    // $timeout(function() {
+    //     $scope.$parent.hideHeader();
+    // }, 0);
 	  ionicMaterialInk.displayEffect();
 	   $timeout(function() {
        ionicMaterialMotion.blinds();
@@ -62,7 +66,6 @@ angular.module('starter')
 	CategoryService.getCategories().then(function(data){
 			$scope.categories=data;
 			$ionicSlideBoxDelegate.update();
-      $ionicLoading.hide();
 		},function(Err){
 			console.log(Err);
 		});

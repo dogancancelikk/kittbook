@@ -1,12 +1,7 @@
-<!--View Information-->
-<!--View name : Restaurant-->
-<!--State name : app.restaurant-->
-<!--URL : #app/restaurant-->
-
 <ion-view title="Kategoriler">
     <!--restaurant section-->
-    <ion-content id="restaurant">
-        <!--slider section-->
+    <ion-content id="restaurant" class="has-header" ng-cloak>
+        <!--slider section-->   
         <ion-slide-box id="restaurant-slide-box"  show-pager="true" active-slide="activeCategory"  on-slide-changed="reportSlideChanged(index+1)">
             <ion-slide ng-repeat="category in categories" ng-style="{'background-image': 'url(' + category.image + ')', 'background-size' : '100% 100%', 'width':'100%', 'height':'100%'}">
 
