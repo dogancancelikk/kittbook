@@ -1,5 +1,17 @@
 /* General
 ==================================*/
+.bar-header .title img {
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-top: -5px;
+}
+  .sub-title {
+    font-family: Georgia;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.2;
+  }
 h1 {
     color: #fff;
     text-shadow: 0 1px 0px #000;

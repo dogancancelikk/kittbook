@@ -7,7 +7,8 @@ angular.module('starter')
       getStory:getStory,
       addStory:addStory,
       getStoryWithID:getStoryWithID,
-      storyRate:storyRate
+      storyRate:storyRate,
+      getStoryWithPagination:getStoryWithPagination
     })
 
 
@@ -59,6 +60,18 @@ angular.module('starter')
       });
       return(request.then(handleSuccess,handleError));
     }
+
+    function getStoryWithPagination(id,page){
+      var request=$http({
+        method:'GET',
+        url:domainConstant.storyApi+"/getMobileOrdered/"+id+"/"+page,
+        params:{
+          action:'get'
+        }
+      });
+      return(request.then(handleSuccess,handleError));
+    }
+
 
     function getStoryWithID(id){
       var request=$http({

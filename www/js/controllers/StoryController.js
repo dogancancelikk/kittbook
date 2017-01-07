@@ -23,15 +23,17 @@ angular.module('starter')
 })
 
 
-.controller('StoryController',function($state,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
-  $ionicLoading.show({
-  content: 'Loading',
-  animation: 'fade-in',
-  showBackdrop: true,
-  maxWidth: 200,
-  showDelay: 0
-});
+.controller('StoryController',function($state,$ionicHistory,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
+    $ionicLoading.show({
+	  content: 'Loading',
+	  animation: 'fade-in',
+	  showBackdrop: true,
+	  maxWidth: 200,
+	  showDelay: 0
+	});
+    console.log($ionicHistory.backView());
     $scope.$parent.clearFabs();
+
     $timeout(function() {
         $scope.$parent.hideHeader();
     }, 0);
@@ -44,8 +46,9 @@ angular.module('starter')
 	$scope.categories=[];
 	$scope.orderProperty = "createDate";
 
-	StoryService.getStory().then(function(data){
-		$scope.stories=data;
+	StoryService.getStoryWithPagination(1,0).then(function(data){
+		$scope.stories = {};
+		$scope.stories=data.newStories;
 		console.log($scope.stories);
     	$ionicLoading.hide();
 	},function(err){
@@ -53,9 +56,27 @@ angular.module('starter')
 	});
 
 
-  $scope.reportSlideChanged = function(slideNum) {
-    setFilterProperty(slideNum);
-  }
+    $scope.reportSlideChanged = function(slideNum) {
+     setFilterProperty(slideNum);
+    }
+
+  	$scope.getNewStories = function(){
+  		StoryService.getStoryWithPagination(1,0).then(function(newStories){
+  			$scope.stories={};
+  			$scope.stories=newStories.newStories;
+  			$ionicTabsDelegate.select(0,false);
+  		})
+  	}
+
+  	$scope.getMostRated = function(){
+  	
+  		StoryService.getStoryWithPagination(2,0).then(function(mostRatedStories){
+  			$scope.stories = {};
+  			$scope.stories = mostRatedStories.mostRatedStories;
+  			$ionicTabsDelegate.select(1,false);
+  			
+  		});
+  	}
 
 	CategoryService.getCategories().then(function(data){
 			$scope.categories=data;

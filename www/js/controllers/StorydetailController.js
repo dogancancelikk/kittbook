@@ -2,8 +2,10 @@
 angular.module('starter')
 .controller('StorydetailController', function($rootScope,$scope,$stateParams,
     StoryService,$ionicModal,$timeout,ionicMaterialMotion,ionicMaterialInk,$state,AuthService,ChapterService,
-    $ionicSlideBoxDelegate,$ionicScrollDelegate, LibraryService, $ionicLoading,$mdToast) {
-
+    $ionicSlideBoxDelegate,$ionicScrollDelegate, LibraryService, $ionicLoading,$mdToast,$ionicHistory) {
+ 
+  var backView = $ionicHistory.backView();
+      console.log($ionicHistory.viewHistory().views);
       $ionicLoading.show({
       content: 'Loading',
       animation: 'fade-in',
@@ -89,8 +91,8 @@ angular.module('starter')
 
     $scope.addToLibrary = function() {
       LibraryService.addStoryToLibrary(libraryid, $scope.storyid).then(function(data) {
+        console.log(data);
         $ionicLoading.show();
-          $state.go("app.storydetail",{storyid:$scope.storyid},{inherit:false});
           $scope.alreadyHave = true;
           $mdToast.show({
               controller: 'toastController',

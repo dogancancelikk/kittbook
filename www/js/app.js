@@ -209,7 +209,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     .state('app.home', {
         url: '/home',
         views: {
-            'storyContent': {
+            'menuContent': {
                 templateUrl: 'templates/home.html',
                 controller: 'StoryController'
             }
@@ -237,7 +237,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
       .state('app.storywithcategories', {
         url: '/storywithcategories/:categoryid',
         views: {
-            'storyContent': {
+            'menuContent  ': {
                 templateUrl: 'templates/storywithcategories.html',
                 controller: 'StoryWithCategories'
             }
@@ -251,7 +251,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     .state('app.storydetail', {
         url: '/storydetail/:storyid',
         views: {
-            'storyContent': {
+            'menuContent': {
                 templateUrl: 'templates/storydetail.html',
                 controller: 'StorydetailController'
             },
@@ -324,7 +324,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     .state('app.categories', {
         url: '/categories',
         views: {
-            'storyContent': {
+            'menuContent': {
                 templateUrl: 'templates/categories.html',
                 controller: 'CategoriesController'
             },
@@ -478,7 +478,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     .state('app.chapterdetail',{
         url:'/chapterdetail/:chapterid',
         views:{
-            'storyContent':{
+            'menuContent':{
                 templateUrl:'templates/chapterdetail.html',
                 controller:'ChapterDetailController'
             },

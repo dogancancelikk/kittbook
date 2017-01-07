@@ -3,7 +3,7 @@ angular
 .module('starter')
 .controller('ProfileController',function(ionicMaterialInk,$ionicTabsDelegate,$timeout,$scope,$state,$stateParams,
   $rootScope,UserService,ionicMaterialMotion,RelationshipService,$ionicModal,PostService,$ionicLoading){
-
+ 
     $ionicLoading.show({
     content: 'Loading',
     animation: 'fade-in',
@@ -35,7 +35,7 @@ angular
    ionicMaterialInk.displayEffect();
    //End
    $ionicTabsDelegate.selectedIndex() == 0
-
+   $scope.user = {};
    $scope.isOwnProfile=false;
    $scope.isFollowed=false;
    var currentUser=$rootScope.globals.currentUser;
@@ -70,14 +70,26 @@ angular
 		},function(err){
 			console.log(err);
 		});
+    
+    RelationshipService.getFollowedUsers(getUserId()).then(function(followedUsers){
+     $scope.followedUsers=followedUsers;
+    },function(err){
+     console.log(err);
+    });
+
+    PostService.getUserPosts(getUserId()).then(function(data){
+      $scope.posts=data;
+      console.log(data);
+      $ionicLoading.hide();
+    },function(err){
+      console.log(err);
+    });
+
    },function(err){
    	console.log(err);
    });
-  RelationshipService.getFollowedUsers(getUserId()).then(function(followedUsers){
-   $scope.followedUsers=followedUsers;
-  },function(err){
-   console.log(err);
-  })
+
+ 
 
  	console.log($scope.followers);
   $scope.follow = function() {
@@ -129,13 +141,6 @@ angular
 
   };
 	$scope.posts=[];
-	PostService.getUserPosts(getUserId()).then(function(data){
-		$scope.posts=data;
-    console.log(data);
-    $ionicLoading.hide();
-	},function(err){
-		console.log(err);
-	})
 
 		$ionicModal.fromTemplateUrl('templates/postmodal.html', {
 			scope: $scope,

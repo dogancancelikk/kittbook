@@ -1,5 +1,5 @@
 <ion-view view-title="Profil" ng-cloak>
-  <ion-content ng-class="{expanded:$scope.isExpanded}" ng-cloak>
+  <ion-content ng-class="{expanded:$scope.isExpanded}">
     <div class="hero slide-up static" style="background-image: url('img/profile-bg.jpg');">
       <div class="content">
         <div class="avatar" style="background-image: url('{{user.image}}');"></div>
@@ -27,7 +27,7 @@
 
                     <div class="row header">
                         <div class="col-20">
-                            <img src="{{user.image}}" class="user-img"/>
+                            <img ng-src="{{user.image}}" class="user-img"/>
                         </div>
                         <div class="col-75">
                            <span class="name">
