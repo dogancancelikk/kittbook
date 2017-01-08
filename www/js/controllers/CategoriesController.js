@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('starter')
-.controller('CategoriesController',function($scope,CategoryService,$state,$ionicLoading,$ionicSlideBoxDelegate,$timeout,ionicMaterialInk,$rootScope,ionicMaterialMotion){
+.controller('CategoriesController',function($ImageCacheFactory,$scope,CategoryService,$state,$ionicLoading,$ionicSlideBoxDelegate,$timeout,ionicMaterialInk,$rootScope,ionicMaterialMotion){
+  $scope.categories={};
   $ionicLoading.show({
   content: 'Loading',
   animation: 'fade-in',
@@ -9,6 +10,16 @@ angular.module('starter')
   maxWidth: 200,
   showDelay: 0
 });
+
+  $scope.$parent.showHeader();
+  $scope.$parent.clearFabs();
+  $scope.isExpanded = false;
+  $scope.$parent.setExpanded(false);
+  $scope.$parent.setHeaderFab(false);
+  ionicMaterialInk.displayEffect();
+  $timeout(function() {
+    ionicMaterialMotion.blinds();
+  }, 400);  
 
   $scope.setCategory=function(id){
     console.log($scope.filterProperty);
@@ -20,23 +31,17 @@ angular.module('starter')
     $rootScope.filterProperty = "";
     $rootScope.filterProperty=id;
   }
-  $scope.categories=[];
+  
     CategoryService.getCategories().then(function(data){
-
-      $scope.$parent.showHeader();
-      $scope.$parent.clearFabs();
-      $scope.isExpanded = false;
-      $scope.$parent.setExpanded(false);
-      $scope.$parent.setHeaderFab(false);
-      
-      ionicMaterialInk.displayEffect();
-       $timeout(function() {
-         ionicMaterialMotion.blinds();
-      }, 400);
-
         $scope.categories=data;
         $ionicSlideBoxDelegate.update();
-        $ionicLoading.hide();
+        var images = [];
+          for(var i=0; i<data.length;i++){
+          images.push(data[i].image);
+          }
+        $ImageCacheFactory.Cache(images).then(function(){
+          $ionicLoading.hide();
+        });
       },function(Err){
         console.log(Err);
       });

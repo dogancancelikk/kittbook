@@ -4,60 +4,27 @@
 </div>
 
 <ion-view view-title="Hikaye Yarat">
- <md-toolbar class="bar-subheader md-tall md-primary toolbar-medium">
-        <div>
-            <h1>Image Picker</h1>
-
-            <h2>Device Image Gallery</h2>
-        </div>
-        <a class="md-button md-accent md-fab fab-toolbar-medium"
-           ng-click="showListBottomSheet($event)"
-           aria-label="showListBottomSheet">
-            <i class="fa fa-picture-o"></i>
-        </a>
-    </md-toolbar> <!--end toolbar section-->
-
+<div class="drop-box" ng-click="deneme()">
+  <i class="icon ion-images" aria-hidden="true"></i>  Hikayeye Foto Ekle
+</div>
  <ion-content ng-class="{expanded:isExpanded}" id="image-picker-content">
+  
+  <div class="list">
+      <label class="item item-input item-floating-label">
+      <span class="input-label">Hikayenizin başlığını giriniz</span>
+      <input type="text" placeholder="Hikayenizin başlığını giriniz">
+    </label>
+  </div>
 
-   <md-list>
-            <md-card ng-repeat="image in imageList">
-                <img ng-src="{{image}}" class="md-card-image" alt="image{{$index+1}}">
-                <md-card-content>
-                    <h2 class="md-title">Image {{$index+1}}</h2>
-                </md-card-content>
-            </md-card>
-        </md-list>  <!--end list section-->
-
-
+    <br>
+<!-- 
    <trix-editor ng-if="true" ng-model-options="{ updateOn: 'blur' }" spellcheck="false" class="trix-content" ng-model="data.tinymceModel"
    angular-trix trix-initialize="trixInitialize(e, editor);" trix-change="trixChange(e, editor);" trix-selection-change="trixSelectionChange(e, editor);"
    trix-focus="trixFocus(e, editor);" trix-blur="trixBlur(e, editor);" trix-file-accept="trixFileAccept(e, editor);"
-   trix-attachment-add="trixAttachmentAdd(e, editor);" trix-attachment-remove="trixAttachmentRemove(e, editor);" placeholder="Write something.."></trix-editor>
-   {{data.tinymceModel}}
-    </ion-content><!--end image picker section-->
-
-    <!--angular template section-->
-    <script type="text/ng-template" id="image-picker-actions-template">
-        <md-bottom-sheet class="md-list md-has-header">
-            <h1 class="md-bottom-sheet-header">Image Picker Actions</h1>
-            <!--list section-->
-            <md-list>
-                <md-list-item>
-                    <a class="md-default-theme md-bottom-sheet-list-item"
-                       ng-click="selectImage(1)">
-                        <i class="ion-image"></i>
-                        <span>Single Select</span>
-                    </a>
-                </md-list-item>
-
-                <md-list-item>
-                    <a class="md-default-theme md-bottom-sheet-list-item"
-                       ng-click="selectImage(9999)">
-                        <i class="ion-images"></i>
-                        <span>Multiple Select</span>
-                    </a>
-                </md-list-item>
-            </md-list><!--end list section-->
-        </md-bottom-sheet>
-    </script><!--end angular template section-->
+   trix-attachment-add="trixAttachmentAdd(e, editor);" trix-attachment-remove="trixAttachmentRemove(e, editor);" placeholder="Hikayene açıklama yaz..."></trix-editor> -->
+      <textarea placeholder="Description*"  name="description"></textarea>
+    </ion-content>
+<div class="bar bar-footer bar-positive" ng-click="deneme() ">
+  <div class="title">Hikayeyi Ekleyin</div>
+</div>
 </ion-view>

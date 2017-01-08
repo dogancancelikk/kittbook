@@ -6,7 +6,6 @@ angular
     $timeout(function() {
         $scope.$parent.hideHeader();
     }, 0);
-    ionicMaterialInk.displayEffect();
   $scope.data = {};
   
   //login (AuthService servisi kullanılıyor(services.js))
@@ -21,4 +20,8 @@ angular
       alert('hata var');
     });
   };
+
+  $scope.facebookLogin = function() {
+
+    }
 });

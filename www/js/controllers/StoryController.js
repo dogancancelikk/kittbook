@@ -23,7 +23,7 @@ angular.module('starter')
 })
 
 
-.controller('StoryController',function($state,$ionicHistory,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
+.controller('StoryController',function($state,$ionicScrollDelegate,$ionicHistory,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
     $ionicLoading.show({
 	  content: 'Loading',
 	  animation: 'fade-in',
@@ -33,6 +33,9 @@ angular.module('starter')
 	});
     console.log($ionicHistory.backView());
     $scope.$parent.clearFabs();
+
+    var count = 0;
+    $scope.latestStory = true;
 
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -47,7 +50,6 @@ angular.module('starter')
 	$scope.orderProperty = "createDate";
 
 	StoryService.getStoryWithPagination(1,0).then(function(data){
-		$scope.stories = {};
 		$scope.stories=data.newStories;
 		console.log($scope.stories);
     	$ionicLoading.hide();
@@ -55,27 +57,104 @@ angular.module('starter')
 		console.log(err);
 	});
 
+	$scope.doRefresh = function(){
+		if($ionicTabsDelegate.selectedIndex() === 0){		
+			StoryService.getStoryWithPagination(1,0).then(function(data){
+				
+				$scope.stories=data.newStories;
+				console.log($scope.stories);
+				$scope.$broadcast('scroll.refreshComplete');
+			},function(err){
+				console.log(err);
+			});
+		}else if($ionicTabsDelegate.selectedIndex() === 1){
+			StoryService.getStoryWithPagination(2,0).then(function(data){
+				
+				$scope.stories=data.mostRatedStories;
+				$scope.$broadcast('scroll.refreshComplete');
+			},function(err){
+				console.log(err);
+			});
+		}
+	}	
+	$scope.loadMoreStories = function(){
+		console.log("girdi");
+		debugger;
+		count = count + 1; 
+		if($ionicTabsDelegate.selectedIndex() === 0){
+			StoryService.getStoryWithPagination(1,count).then(function(data){
+				if(data.newStories.length >= 0){
+					angular.forEach(data.newStories, function(newStory){
+						$scope.stories.push(newStory);
+					});	
+					$scope.$broadcast('scroll.infiniteScrollComplete');		
+				}else{
+					$scope.latestStory = false;
+					$scope.$apply(function(){						
+					    $scope.$broadcast('scroll.infiniteScrollComplete');
+					});
+				}	
+			},function(err){
+				console.log(err);
+			});		
+		}else if($ionicTabsDelegate.selectedIndex() === 1){
+			StoryService.getStoryWithPagination(2,count).then(function(data){
+				if(data.mostRatedStories.length >= 0){
+					angular.forEach(data.mostRatedStories, function(newStory){
+						$scope.stories.push(newStory);
+					});	
+					$scope.$broadcast('scroll.infiniteScrollComplete');		
+				}else{
+					$scope.latestStory = false;
+					$scope.$apply(function(){
+					    $scope.$broadcast('scroll.infiniteScrollComplete');
+					});
+				}	
+			},function(err){
+				console.log(err);
+			});	
+		}
+	}
 
     $scope.reportSlideChanged = function(slideNum) {
      setFilterProperty(slideNum);
     }
 
   	$scope.getNewStories = function(){
+  		
+  		$ionicScrollDelegate.scrollTop();
+		$ionicLoading.show({
+		  content: 'Loading',
+		  animation: 'fade-in',
+		  showBackdrop: true,
+		  maxWidth: 200,
+		  showDelay: 0
+		});
   		StoryService.getStoryWithPagination(1,0).then(function(newStories){
-  			$scope.stories={};
+  			$scope.stories=[];
   			$scope.stories=newStories.newStories;
+  			$ionicLoading.hide();
   			$ionicTabsDelegate.select(0,false);
   		})
   	}
 
   	$scope.getMostRated = function(){
-  	
-  		StoryService.getStoryWithPagination(2,0).then(function(mostRatedStories){
-  			$scope.stories = {};
-  			$scope.stories = mostRatedStories.mostRatedStories;
-  			$ionicTabsDelegate.select(1,false);
-  			
-  		});
+  		
+  		$ionicScrollDelegate.scrollTop();
+		$ionicLoading.show({
+		  content: 'Loading',
+		  animation: 'fade-in',
+		  showBackdrop: true,
+		  maxWidth: 200,
+		  showDelay: 0
+		});
+		StoryService.getStoryWithPagination(2,0).then(function(mostRatedStories){
+			$scope.stories = [];
+			$scope.stories = mostRatedStories.mostRatedStories;
+			$ionicLoading.hide();
+			$ionicTabsDelegate.select(1,false);
+			
+		});
   	}
 
 	CategoryService.getCategories().then(function(data){

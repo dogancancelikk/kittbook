@@ -47,10 +47,13 @@ angular
 
   }
 })
-  .controller('UserEventController', function($scope, ManageActivityService, UserEventService,$ionicModal, $rootScope,$q,$timeout,$ionicTabsDelegate) {
-    $timeout(function() {
-        $scope.$parent.hideHeader();
-    }, 0);
+  .controller('UserEventController', function($scope,ionicMaterialInk, ManageActivityService, UserEventService,$ionicModal, $rootScope,$q,$timeout,$ionicTabsDelegate) {
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
+    ionicMaterialInk.displayEffect();
 
   $timeout( function() {
     $ionicTabsDelegate .select(0, false);

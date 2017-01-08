@@ -28,36 +28,36 @@
 <!--   First Card -->
    <div class="list card ">
 
-      <div class="item item-divider item-positive">
-        Hakkında
+      <div class="item item-divider">
+        <p style="color:#417D9A;">Hakkında</p>
       </div>
 
       <div class="item item-text-wrap" >
-        <span ng-bind-html="story.description| limitHtml: descriptionLimit" ></span><a ng-if="ifLimitto" ng-click="increaseDescription()">(Devamı ...)</a>
+        <span ng-bind-html="story.description| limitHtml: descriptionLimit" ></span><a ng-if="ifLimitto" ng-click="increaseDescription()">...</a>
         <div class="content padding-top">
-          <a href="#" class="subdued"><i class="icon assertive icon-small ion-ios-star"></i> {{story.storyrate}} </a>
-          <a href="#" class="subdued"><i class="icon assertive icon-small ion-ios-eye"></i> {{story.readcount}} </a>
-          <a href="#" class="subdued"><i class="icon assertive icon-small ion-chatbubbles"></i> {{story.readcount}} </a>
+          <a href="#" class="subdued"><i class="icon icon-small ion-ios-star" style="color:#417D9A;"></i> {{story.storyrate}} </a>
+          <a href="#" class="subdued"><i class="icon icon-small ion-ios-eye" style="color:#417D9A;"></i> {{story.readcount}} </a>
+          <a href="#" class="subdued"><i class="icon icon-small ion-chatbubbles" style="color:#417D9A;"></i> {{story.readcount}} </a>
         </div>
       </div>
 
-      <a class="item item-icon-left item-button-right item-icon-small balanced" href="#" ng-if="alreadyHave && !isOwnStory">
-        <i class="icon ion-checkmark-round" ng-click="deleteStoryFromLibrary()"><span style="font-size:small">Kitaplığınızda Ekli</span> </i>
+      <a class="item item-icon-left item-button-right item-icon-small balanced" ng-if="alreadyHave && !isOwnStory">
+        <i class="icon ion-android-add" ng-click="deleteStoryFromLibrary()"><span style="font-size:small;font-family: Georgia;">Kitaplığınızda Ekli</span> </i>
 
         <button class="button button-clear" ng-if="!chapters.length==0" ui-sref="app.chapterdetail({chapterid:chapters[0].id})">
-          <i class="icon ion-ios-skipforward"></i>
+          <i class="icon ion-ios-skipforward" "></i>
         </button>
       </a>
 
-      <a class="item item-icon-left item-button-right item-icon-small assertive" href="#" ng-if="!alreadyHave && !isOwnStory" >
-        <i class="icon ion-bookmark" ng-click="addToLibrary()"> <span style="font-size:small;">Kitaplığa Ekle</span> </i>
+      <a class="item item-icon-left item-button-right item-icon-small" ng-if="!alreadyHave && !isOwnStory" >
+        <i class="icon ion-bookmark" ng-click="addToLibrary()"  style="color:#a3a29f; font-family: Georgia;"> <span style="font-size:small;">Kitaplığa Ekle</span> </i>
 
-        <button class="button button-clear" ng-if="!chapters.length==0" ui-sref="app.chapterdetail({chapterid:chapters[0].id})">
-          <i class="icon ion-ios-skipforward"></i>
+        <button class="button button-clear " ng-if="!chapters.length==0" ui-sref="app.chapterdetail({chapterid:chapters[0].id})">
+          <i class="icon ion-ios-skipforward" style="color:#417D9A;"></i>
         </button>
       </a>
-       <a class="item item-icon-left item-button-right item-icon-small assertive" href="#" ng-if="isOwnStory" >
-        <i class="icon ion-bookmark"> <span style="font-size:small;">Senin Hikayen</span> </i>
+       <a class="item item-icon-left item-button-right item-icon-small" href="#" ng-if="isOwnStory" >
+        <i class="icon ion-bookmark" style="color:#a3a29f;> <span style="font-size:small;">Senin Hikayen</span> </i>
 
         <button class="button button-clear" ng-if="!chapters.length==0" ui-sref="app.chapterdetail({chapterid:chapters[0].id})">
           <i class="icon ion-ios-skipforward"></i>
@@ -68,8 +68,8 @@
 <!--       End -->
 
    <div class="list card" >
-      <div class="item item-divider item-positive" style="bold">
-        Bölümler
+      <div class="item item-divider">
+        <p style="color:#417D9A;">Bölümler</p>
       </div>
 
     <div class="item item-text-wrap" ng-if="chapters.length==0">
@@ -81,9 +81,15 @@
       <!-- <div class="item item-text-wrap">
         {{chapter.name}}
       </div> -->
-       <a class="item item-text-wrap" ui-sref="app.chapterdetail({chapterid:chapter.id})">
+     <!--   <a class="item item-text-wrap" ui-sref="app.chapterdetail({chapterid:chapter.id})">
           {{chapter.name}}
-        </a>
+        </a> -->
+
+        <ion-list>
+          <ion-item ui-sref="app.chapterdetail({chapterid:chapter.id})">
+            {{chapter.name}}
+          </ion-item>
+        </ion-list>
     </div>
     </div>
 

@@ -1,9 +1,6 @@
-<div class="bar bar-header bar-positive">
-  <div class="h1 title">Etkinlikler</div>
-  <button class="button button-clear icon ion-android-search" ui-sref="app.search"></button>
-</div>
+
 <ion-view view-title="Etkinlikler">
-  <ion-tabs class="tabs-striped tabs-background-positive tabs-color-light tabs-top">
+  <ion-tabs class="tabs-striped tabs-positive tabs-color-light tabs-top">
 
     <ion-tab title="Başlayan Etkinlikler"   ng-click="setEvents(2)">
     </ion-tab>
@@ -17,7 +14,7 @@
       <div class="list card" ng-repeat="event in activeEvent|eventFilter:filterProperty | eventTypeFilter:eventFilterProperty | orderBy: orderProperty : true">
 
         <div class="item item-avatar">
-          <img src="{{event.image}}">
+          <img ng-src="{{event.image}}">
           <h2>  {{event.name}} - ({{event.type}})</h2>
           <p>{{event.createDate}}</p>
         </div>

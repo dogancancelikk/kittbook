@@ -1,13 +1,20 @@
-<div class="bar bar-header bar-positive item-input-inset">
+<!-- <div class="bar bar-header bar-positive item-input-inset">
   <label class="item-input-wrapper">
     <i class="icon ion-ios-search placeholder-icon"></i>
     <input type="search" placeholder="Search" ng-model="search" >
   </label>
+</div> -->
+<ion-view view-title="Arama">
+<div class="bar bar-subheader 
+  item-input-inset bar-light">
+  <label class="item-input-wrapper">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="search" ng-model="search" placeholder="Kişi,hikaye ara...">
+  </label>
 </div>
-<ion-view title="Arama">
-  <ion-content class="padding-top">
-    <!-- Kişiler  -->
-     <div class="list padding-top" ng-if="searchResults.users.length > 0">
+  <ion-content class="has-subheader">
+    
+<!--      <div class="list padding-top" ng-if="searchResults.users.length > 0">
       <div class="item item-divider item-positive">
         Kişiler
        </div>
@@ -17,7 +24,7 @@
       </a>
     </div>
 
-    <!-- Hikayeler -->
+   
       <div class="list" ng-if="searchResults.stories.length > 0">
         <div class="item item-divider item-positive">
         Hikayeler
@@ -28,7 +35,7 @@
         </a>
       </div>
 
-        <!-- Bölümler -->
+        
       <div class="list">
        <div class="item item-divider item-positive" ng-if="searchResults.chapters.length > 0">
         Bölümler
@@ -37,8 +44,45 @@
         <a class="item" ui-sref="app.chapterdetail({chapterid:chapter.id})" ng-repeat="chapter in searchResults.chapters">
           {{chapter.name}}
         </a>
-      </div>
+      </div> -->
 
+    <ion-list> 
+    <div ng-if="searchResults.users.length >0" class="item item-divider item-divider-calm">
+     Kullanıcılar
+    </div>   
+    <ion-item ng-if="searchResults.users.length >0" ng-class="{'star': item.star}"  ng-repeat='user in searchResults.users | filter: search'
+    class="item-thumbnail-left item-icon-right item-text-wrap">
 
+      <img ui-sref="app.profile({userid:user.id})" ng-src="{{user.image}}"
+        alt="{{ user.name }} Photo">
+      <h2>{{user.name}} {{user.surname}} </h2>
+      <h3>{{user.userName}}</h3>
+      <p>{{user.about | limitTo: 100}}
+      {{ user.about.length > 150 ? '&hellip;' : '' }}</p>
+    </ion-item>
+
+    <div ng-if="searchResults.stories.length >0" class="item item-divider item-divider-calm">
+     Hikayeler
+    </div> 
+    <ion-item ng-if="searchResults.stories.length >0" ng-class="{'star': item.star}"  ng-repeat='story in searchResults.stories | filter: search'
+    class="item-thumbnail-left item-icon-right item-text-wrap">
+      <img ui-sref="app.storydetail({storyid:story.id})" ng-src="{{story.image}}"
+        alt="{{ story.name }} Photo">
+      <h2>{{story.name}}</h2>
+      <h3>{{story.createdate | amCalendar}}</h3>
+      <p ng-bind-html='story.description |limitTo:150'>{{ story.description.length > 150 ? '&hellip;' : '' }}</p>
+    </ion-item>
+    
+   </ion-list>
+   <p style="
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    color:#417D9A;" ng-if="nullSearchResult">Sonuç bulunamadı</p>
   </ion-content>
 </ion-view>

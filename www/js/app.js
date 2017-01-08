@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionMdInput','timer',
-    'angularMoment','ngCookies','ionic-modal-select','ChatModule','ngMessages','ngCordova','angularTrix','ngSanitize','ngMaterial'])
+    'angularMoment','ngCookies','ionic-modal-select','ChatModule','ngMessages','ngCordova','angularTrix','ngSanitize','ngMaterial','ionic.ion.imageCacheFactory'])
 
 
     .controller('toastController', function ($scope, displayOption) {
@@ -290,17 +290,17 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'NewStoryController'
             },
             'fabContent': {
-                template: '<button id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap" ng-click="nextSlide()" ><i class="icon ion-ios-skipforward-outline"></i></button>',
-                controller: function ($timeout,$ionicSlideBoxDelegate,$scope) {
-                    $timeout(function () {
-                        document.getElementById('fab-activity').classList.toggle('on');
+                // template: '<button id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap" ng-click="nextSlide()" ><i class="icon ion-ios-skipforward-outline"></i></button>',
+                // controller: function ($timeout,$ionicSlideBoxDelegate,$scope) {
+                //     $timeout(function () {
+                //         document.getElementById('fab-activity').classList.toggle('on');
 
-                    }, 200);
+                //     }, 200);
 //                       $scope.nextSlide = function() {
 //                             $ionicSlideBoxDelegate.next();
 //                             console.log($scope.data);
 //                           };
-                }
+//                }
             }
         }
     })

@@ -96,7 +96,6 @@ angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
     }
 
     $scope.$watch('input.message', function(newValue, oldValue) {
-      console.log('input.message $watch, newValue ' + newValue);
       if (!newValue) newValue = '';
       localStorage['userMessage-' + _toUser] = newValue;
     });

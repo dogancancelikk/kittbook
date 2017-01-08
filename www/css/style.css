@@ -443,8 +443,7 @@ at the bottom as the textarea resizes */
 .footer-btn-wrap {
   position: relative;
   height: 100%;
-  width: 50px;
-  top: 7px;
+  width: 10%;  
 }
 
 .footer-btn {
@@ -480,7 +479,10 @@ img.profile-pic.right {
 
 .message-detail {
   white-space: nowrap;
-  font-size: 14px;
+    font-family: Georgia;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.2;
 }
 
 .bar.item-input-inset .item-input-wrapper input {
@@ -526,14 +528,14 @@ img.profile-pic.right {
 }
 
 .chat-bubble.right {
-  background-color: #158ffe;
+  background-color: #417D9A;
   color: #fff;
   float: right;
   margin-right: 55px;
 }
 
 .chat-bubble.right:before {
-  background-color: #158ffe;
+  background-color: #417D9A;
   right: 10px;
   -webkit-transform: rotate(118deg) skew(-5deg);
 }
@@ -608,7 +610,21 @@ a.autolinker {
   -ms-flex-align: center;
   align-items: center;
 }
-
+.drop-box {
+  max-width: 100%;
+  
+  border-width: 2px;
+  margin-bottom: 20px;
+  margin-top:46px;
+  color: #ccc;
+  border-style: dashed;
+  border-color: #ccc;
+  line-height: 110px;
+  text-align: center;
+  display: block;
+  margin-right: auto;
+  margin-left: auto
+}
 .loader .ion-loading-c {
   font-size: 64px;
 }
@@ -617,3 +633,58 @@ a.autolinker {
   margin-top: 164px;
   background-color: #f6f6f6;
   padding: 20px; }
+
+.splash {
+  background: url(../img/skyline.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.branding {
+  width: 50%;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.tagline {
+  font-size: 1.4rem;
+}
+
+.branding p {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.item-divider {
+  background-color: #417D9A;
+}
+
+.bar-positive, .tabs-positive>.tabs {
+  background-color: #417D9A !important;
+  border-color:  #417D9A;
+}
+
+.item-thumbnail-left img {
+  border-radius: 10px;
+}
+
+.item h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #417D9A;
+}
+
+.dayhighlight {
+  background-color: #9EC6DE;
+  border-top: 20px solid #417D9A;
+}
+
+.dayhighlight h2 {
+  color: #417D9A;
+  font-size: 2rem;
+  font-weight: 200;
+}
