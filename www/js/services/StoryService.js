@@ -8,11 +8,48 @@ angular.module('starter')
       addStory:addStory,
       getStoryWithID:getStoryWithID,
       storyRate:storyRate,
-      getStoryWithPagination:getStoryWithPagination
+      getStoryWithPagination:getStoryWithPagination,
+      publishStory:publishStory,
+      withdrawStory:withdrawStory,
+      readStory:readStory,
+      updateStory:updateStory,
+      getComments:getComments,
+      addComment:addComment
     })
 
+    function readStory( storyId, userId ) {
+        var request = $http({
+            method: "post",
+            url: domainConstant.storyApi + "/read",
+            headers: {"Content-Type":"application/json"},
+            data: {
+                storyID: storyId,
+                userID: userId
+            }
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
 
-    function addStory(name,ownerID,description,isCollective){
+    function addComment( userId, storyId, commentText ) {
+        var request = $http({
+            method: "put",
+            url: domainConstant.storyApi + "/comment",
+            headers: {"Content-Type":"application/json"},
+            params: {
+                action: "add"
+            },
+            data: {
+                id: 0,
+                userID: userId,
+                parentID: storyId,
+                text: commentText,
+                typeID: 1
+            }
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
+
+    function addStory(story){
       var request=$http({
         method:'POST',
         url:domainConstant.storyApi+'/create',
@@ -22,18 +59,37 @@ angular.module('starter')
         },
         data: {
           id:0,
-          name:name,
-          ownerID:ownerID,
-          image:"https://hd.unsplash.com/photo-1471890701797-59336a877de4",
-          description:description,
-          categoryID:1,
-          isCollective:isCollective
-
+          name:story.title,
+          ownerID:story.ownerID,
+          tags:story.tags,
+          categoryID:story.category,
+          description:story.description,
+          isCollective:0,
+          isPublished:0
         }
       });
       return (request.then(handleSuccess,handleError));
     }
-      function storyRate(storyID,userID,rate){
+
+    function updateStory(story) {
+        var request = $http({
+            method: "put",
+            url: domainConstant.storyApi + "/update",
+            headers: {"Content-Type":"application/json"},
+            data: JSON.stringify(story)
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
+
+    function getComments(storyId) {
+        var request = $http({
+            method: "get",
+            url: domainConstant.storyApi + "/getcomments/" + storyId
+        });
+        return( request.then( handleSuccess, handleError ) );
+    }
+
+    function storyRate(storyID,userID,rate){
       var request=$http({
         method:'POST',
         url:domainConstant.storyApi+'/rate',
@@ -44,7 +100,7 @@ angular.module('starter')
         data: {
            storyID: storyID,
            userID: userID,
-           rate: rate          
+           rate: rate
         }
       });
       return (request.then(handleSuccess,handleError));
@@ -94,6 +150,30 @@ angular.module('starter')
         }
       });
       return (request.then(handleSuccess,handleError));
+    }
+
+    function publishStory( storyId ) {
+      var request = $http({
+          method: "put",
+          url: domainConstant.storyApi + "/publish/" + storyId,
+          headers: {"Content-Type":"application/json"},
+          data: {
+              id: storyId
+          }
+      });
+      return( request.then( handleSuccess, handleError ) );
+    }
+
+    function withdrawStory( storyId ) {
+      var request = $http({
+          method: "put",
+          url: domainConstant.storyApi + "/unpublish/" + storyId,
+          headers: {"Content-Type":"application/json"},
+          data: {
+              id: storyId
+          }
+      });
+      return( request.then( handleSuccess, handleError ) );
     }
 
     function handleSuccess(response){

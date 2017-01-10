@@ -256,12 +256,24 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'StorydetailController'
             },
             'fabContent': {
-                template: '<button id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-ios-paper-outline"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-activity').classList.toggle('on');
-                    }, 200);
-                }
+                // template: '<button id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-ios-paper-outline"></i></button>',
+                // controller: function ($timeout) {
+                //     $timeout(function () {
+                //         document.getElementById('fab-activity').classList.toggle('on');
+                //     }, 200);
+                // }
+            }
+        }
+    })
+    .state('app.managestory', {
+        url: '/managestory/:storyid',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/manageStory.html',
+                controller: 'ManageStoryController'
+            },
+            'fabContent': {
+
             }
         }
     })
@@ -304,6 +316,28 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             }
         }
     })
+    .state('app.editstory', {
+         url: '/editstory/:storyid',
+         views: {
+             'menuContent': {
+                 templateUrl: 'templates/editStory.html',
+                 controller: 'EditStoryController'
+             },
+             'fabContent': {
+                 // template: '<button id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap" ng-click="nextSlide()" ><i class="icon ion-ios-skipforward-outline"></i></button>',
+                 // controller: function ($timeout,$ionicSlideBoxDelegate,$scope) {
+                 //     $timeout(function () {
+                 //         document.getElementById('fab-activity').classList.toggle('on');
+
+                 //     }, 200);
+ //                       $scope.nextSlide = function() {
+ //                             $ionicSlideBoxDelegate.next();
+ //                             console.log($scope.data);
+ //                           };
+ //                }
+             }
+         }
+     })
       .state('app.newchapter', {
         url: '/newchapter/:storyid',
         views: {
@@ -312,12 +346,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'NewChapterController'
             },
             'fabContent': {
-                template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-ios-paper-outline"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-activity').classList.toggle('on');
-                    }, 200);
-                }
             }
         }
     })
@@ -570,5 +598,5 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/login');
+    $urlRouterProvider.otherwise('/app/home');
 });

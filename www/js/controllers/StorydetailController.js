@@ -3,7 +3,7 @@ angular.module('starter')
 .controller('StorydetailController', function($rootScope,$scope,$stateParams,
     StoryService,$ionicModal,$timeout,ionicMaterialMotion,ionicMaterialInk,$state,AuthService,ChapterService,
     $ionicSlideBoxDelegate,$ionicScrollDelegate, LibraryService, $ionicLoading,$mdToast,$ionicHistory) {
- 
+
   var backView = $ionicHistory.backView();
       console.log($ionicHistory.viewHistory().views);
       $ionicLoading.show({
@@ -28,19 +28,13 @@ angular.module('starter')
         });
     }, 300);
 
-
-
     $timeout(function() {
         ionicMaterialMotion.fadeSlideInRight({
             startVelocity: 3000
         });
     }, 700);
 
-    // Set Ink
     ionicMaterialInk.displayEffect();
-    //End
-
-  //Parallax Theme
 
   $ionicSlideBoxDelegate.update();
   $scope.onUserDetailContentScroll = onUserDetailContentScroll
@@ -61,6 +55,7 @@ angular.module('starter')
     $scope.isOwnStory = false;
     $scope.ifLimitto =true;
     $scope.descriptionLimit=260;
+    $scope.comments = [];
 
     $scope.increaseDescription = function(){
       $scope.descriptionLimit = 3000;
@@ -89,6 +84,11 @@ angular.module('starter')
     })
   }
 
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
     $scope.addToLibrary = function() {
       LibraryService.addStoryToLibrary(libraryid, $scope.storyid).then(function(data) {
         console.log(data);
@@ -110,8 +110,16 @@ angular.module('starter')
         console.log(err);
       });
     }
+    StoryService.readStory($stateParams.storyid, userid);
 
     StoryService.getStoryWithID($stateParams.storyid).then(function(data){
+      console.log(data);
+      StoryService.getComments(data.id).then(function(data){
+        console.log(data);
+        if(data){
+          $scope.comments = data;
+        }
+      })
       $scope.story=data;
       $scope.storyid=data.id;
       if($rootScope.globals.currentUser.id == data.ownerID){
@@ -144,18 +152,23 @@ angular.module('starter')
         $scope.chapters.push({
           name:chapter.name,
           text:chapter.text,
-          image:chapter.image,
           id:chapter.id
         })
       });
-
     });
-
 
     $ionicModal.fromTemplateUrl('templates/modal.html', {
       scope: $scope
     }).then(function(modal) {
       $scope.modal = modal;
+      $scope.comment={};
+      $scope.sendComment = function(comment){
+        console.log(comment);
+        StoryService.addComment(userid,$scope.storyid,comment.message).then(function(data){
+          console.log(data);
+          $scope.comments.push(data);
+        })
+      }
     });
 
     $scope.createChapter=function(chapterName){

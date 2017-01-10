@@ -23,6 +23,8 @@ angular
 	//end
   var chapterid=$stateParams.chapterid;
 	var _userid=$rootScope.globals.currentUser.id;
+	
+	ChapterService.readChapter(chapterid, _userid);
 
   $scope.goOtherChapter = function(chapter){
     var chapterNumber = chapter.chapterNumber+1;
@@ -76,7 +78,6 @@ angular
       myPopup.then(function(res) {
 				StoryService.storyRate($scope.chapter.storyID,_userid,res).then(function(data){
 						console.log(data);
-
 					},function(err){
 						console.log(err);
 					})

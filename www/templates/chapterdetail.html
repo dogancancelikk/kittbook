@@ -5,7 +5,7 @@
 
         <div class="hero slide-up " style="background-image: url('{{chapter.image}}');">
            <div class="content">
-               <button class="button button-large button flat waves-effect waves-button waves-light icon ion-heart pull-right text-white" ng-click="showPopup()"></button>
+<!--                <button class="button button-large button flat waves-effect waves-button waves-light icon ion-heart pull-right text-white" ng-click="showPopup()"></button> -->
                <button class="button button-large button flat waves-effect waves-button waves-light icon ion-ios-compose pull-right text-white"></button>
            </div>
         </div>
@@ -13,7 +13,8 @@
       <div class="mid-bar dark-bg z1 padding">
       <h3>{{chapter.storyName}} {{chapter.chapterNumber}}. Bölüm </h3>
 
-      <p><i class="icon assertive icon-small ion-ios-star"></i>{{chapter.rate}}</p>
+      <p><i class="icon assertive icon-small ion-eye"></i>{{chapter.readCount}}</p>
+
       </div>
       <div class="content double-padding">
         <h4 class="positive">{{chapter.name}}</h4>

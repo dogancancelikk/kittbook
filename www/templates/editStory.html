@@ -12,7 +12,7 @@
   <div class="list">
        <md-input-container class="md-block" flex-gt-sm="">
       <label>Hikayenizin başlığını giriniz</label>
-      <input type="text" ng-model="story.title">
+      <input type="text" ng-model="story.name">
     </md-input-container>
 
 <!--
@@ -24,12 +24,12 @@
      <md-chips placeholder="Etiket Ekleyin" ng-model="story.tags" readonly="false" md-removable="story.removable"></md-chips>
    </div>
    <br><br>
-    <md-select placeholder="Kategori Ekleyin" ng-model="story.category">
-      <md-option><em>Seçiniz</em></md-option>
-      <md-option ng-repeat="category in categories" ng-value="category.id">
-        {{category.name}}
-      </md-option>
-    </md-select>
+   <md-select placeholder="Kategori Ekleyin" ng-model="story.categoryID">
+     <md-option><em>Seçiniz</em></md-option>
+     <md-option ng-repeat="category in categories" ng-value="category.id">
+       {{category.name}}
+     </md-option>
+   </md-select>
     <br> <br>
     <md-input-container>
        <textarea ng-model="story.description" rows="2" cols="600"  maxlength="2000" placeholder="Hikayeniz hakkında bir şeyler yazın"></textarea>
@@ -39,7 +39,7 @@
     </md-input-container>
      </div>
   </ion-content>
-     <div class="bar bar-footer bar-positive" ng-click="createStory(story) ">
-      <div class="title">Hikayeyi Kaydet</div>
+     <div class="bar bar-footer bar-positive" ng-click="updateStory(story) ">
+      <div class="title">Değişiklikleri Kaydet</div>
      </div>
 </ion-view>

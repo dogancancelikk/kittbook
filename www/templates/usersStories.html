@@ -1,5 +1,5 @@
 <ion-view view-title="Kullanıcı Hikayeleri">
-    <ion-content ng-class="{expanded:isExpanded}" >
+    <ion-content ng-class="{expanded:isExpanded}" style="background-color: #eee !important" >
 <!--       <div class="list item-image">
         <a href="#/{{item.id}}"
             class="item item-thumbnail-left padding" ng-repeat="userstory in userStories">
@@ -8,17 +8,19 @@
           <h4>{{userstory.description}}</h4>
         </a>
       </div>-->
-
+      <br>
       <div class="list">
 
         <a ng-repeat="userstory in userStories"
-           ng-href="#/app/storydetail/{{userstory.id}}"
+           ng-href="#/app/managestory/{{userstory.id}}"
            class="item item-thumbnail-left">
 
           <img ng-src="{{ userstory.image }}">
           <h2>{{ userstory.name }}</h2>
+          <p class="sub-title" style="color:#417D9A;">{{ userstory.createdate|amCalendar }}</p >
            <br>
-          <h4 ng-bind-html="userstory.description"></h4>
+          <p class="sub-title" ng-if="userstory.isPublished === 1" style="color:#283;">Yayında</p >
+          <p class="sub-title" ng-if="userstory.isPublished !== 1" style="color:#b22;">Yayında Değil</p >
           <br>
           <br>
 

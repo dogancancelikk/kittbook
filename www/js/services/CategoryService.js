@@ -2,13 +2,24 @@
 angular.module('starter')
 .service('CategoryService',function($http,domainConstant,$q){
   return({
-    getCategories:getCategories
+    getCategories:getCategories,
+    getOneCategory:getOneCategory
   });
-  
+
   function getCategories() {
       var request = $http({
           method: "get",
           url: domainConstant.categoryApi + "/get",
+          params: {
+              action: "get"
+          }
+      });
+      return( request.then( handleSuccess, handleError ) );
+  }
+  function getOneCategory(id) {
+      var request = $http({
+          method: "get",
+          url: domainConstant.categoryApi + "/get/"+id,
           params: {
               action: "get"
           }
@@ -25,6 +36,6 @@ angular.module('starter')
               return( $q.reject( "An unknown error occurred." ) );
             }
   }
-  
-  
+
+
 });

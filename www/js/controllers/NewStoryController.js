@@ -3,14 +3,16 @@
 angular
 .module("starter")
 
-.controller('NewStoryController',function($scope,StoryService,ionicMaterialInk,$state,$ionicSlideBoxDelegate,$timeout,$ionicLoading,$mdBottomSheet,CategoryService){
+.controller('NewStoryController',function($scope,$ionicHistory,$rootScope,StoryService,ionicMaterialInk,$state,$ionicSlideBoxDelegate,$timeout,$ionicLoading,$mdBottomSheet,CategoryService){
 	$scope.$parent.clearFabs();
 	$timeout(function() {
 			 $scope.$parent.hideHeader();
 	 }, 0);
 	ionicMaterialInk.displayEffect();
-  	$scope.data = {};
-
+	$scope.story = {};
+ 	$scope.story.description = '';
+ 	$scope.story.tags = [];
+ 	$scope.story.ownerID=$rootScope.globals.currentUser.id;
 	$ionicLoading.show({
 		content: 'Loading',
 		animation: 'fade-in',
@@ -26,11 +28,11 @@ angular
 	};
 	$scope.setContent = function() {
     $scope.tinymceModel = 'Time: ' + (new Date());
-  };
+ 	 };
 
 	CategoryService.getCategories().then(function(data){
+		console.log(data);
 		$scope.categories=data;
-		$ionicSlideBoxDelegate.update();
 		$ionicLoading.hide();
 	},function(Err){
 		console.log(Err);
@@ -46,13 +48,22 @@ angular
 // 		};
 
 
-  $scope.createStory=function(data){
-  	StoryService.addStory(data.name,3,data.description,0).then(function(data){
-
-  		$state.go('app.storydetail',{storyid:data.id});
+  $scope.createStory=function(story){
+	$ionicLoading.show({
+		content: 'Loading',
+		animation: 'fade-in',
+		showBackdrop: true,
+		maxWidth: 200,
+		showDelay: 0
+	});
+  	StoryService.addStory(story).then(function(data){
+		$ionicHistory.nextViewOptions({
+	      disableBack: true
+	    });
+		$state.go('app.managestory',{storyid:data.id});
   	},function(err){
   		console.log("Hata var" + err);
-  	})
+  	});
   }
 
 

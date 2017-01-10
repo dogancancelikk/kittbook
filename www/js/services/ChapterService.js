@@ -5,7 +5,9 @@ angular.module('starter')
     getStoryChapter:getStoryChapter,
     addStoryChapter:addStoryChapter,
     getChapter:getChapter,
-    getChapterWithChapterNumber:getChapterWithChapterNumber
+    getChapterWithChapterNumber:getChapterWithChapterNumber,
+    readChapter:readChapter,
+    addChapter:addChapter
   });
 
   function getChapterWithChapterNumber(chapterNumber,storyID){
@@ -18,7 +20,15 @@ angular.module('starter')
     });
     return(request.then(handleSuccess,handleError));
   }
-
+  function addChapter(chapter) {
+    var request = $http({
+        method: "post",
+        url: domainConstant.chapterApi + "/create",
+        headers: {"Content-Type":"application/json"},
+        data: JSON.stringify(chapter)
+    });
+    return( request.then( handleSuccess, handleError ) );
+}
   function addStoryChapter(name,storyID, userID, text,chapterNumber) {
 
       var request = $http({
@@ -52,7 +62,18 @@ angular.module('starter')
     });
     return(request.then(handleSuccess,handleError));
   }
-
+  function readChapter( chapterId, userId ) {
+      var request = $http({
+          method: "post",
+          url: domainConstant.chapterApi + "/read",
+          headers: {"Content-Type":"application/json"},
+          data: {
+              chapterID: chapterId,
+              userID: userId
+          }
+      });
+      return( request.then( handleSuccess, handleError ) );
+  }
 
   function getChapter(chapterId){
     var request=$http({

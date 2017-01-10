@@ -25,6 +25,7 @@ angular.module('starter')
   var userid=$stateParams.userid
   $scope.userStories=[];
   StoryService.getUserStory(userid).then(function(data){
+    console.log(data);
     $scope.userStories=data;
   },function(err){
     console.log(err);
