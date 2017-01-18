@@ -4,8 +4,8 @@ angular.module('starter')
     StoryService,$ionicModal,$timeout,ionicMaterialMotion,ionicMaterialInk,$state,AuthService,ChapterService,
     $ionicSlideBoxDelegate,$ionicScrollDelegate, LibraryService, $ionicLoading,$mdToast,$ionicHistory) {
 
-  var backView = $ionicHistory.backView();
-      console.log($ionicHistory.viewHistory().views);
+  var backView = $ionicHistory.backTitle();
+      console.log(backView);
       $ionicLoading.show({
       content: 'Loading',
       animation: 'fade-in',

@@ -1,6 +1,8 @@
 angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
 .controller('ChatController',function($scope, $rootScope, $state, $stateParams, MockService,UserService,$ionicActionSheet,
-    $ionicPopup, $ionicScrollDelegate, $timeout, $interval,ChatService,$ionicLoading) {
+    $ionicPopup, $ionicScrollDelegate, $timeout, $interval,ChatService,$ionicLoading,$ionicHistory) {
+      var backView = $ionicHistory.backTitle();
+          console.log(backView);
       $ionicLoading.show({
       content: 'Loading',
       animation: 'fade-in',

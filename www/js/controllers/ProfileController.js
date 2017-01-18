@@ -2,8 +2,8 @@
 angular
 .module('starter')
 .controller('ProfileController',function(ionicMaterialInk,$ionicTabsDelegate,$timeout,$scope,$state,$stateParams,
-  $rootScope,UserService,ionicMaterialMotion,RelationshipService,$ionicModal,PostService,$ionicLoading){
- 
+  $rootScope,UserService,ionicMaterialMotion,RelationshipService,$ionicModal,PostService,$ionicLoading,$ionicHistory){
+
     $ionicLoading.show({
     content: 'Loading',
     animation: 'fade-in',
@@ -11,6 +11,8 @@ angular
     maxWidth: 200,
     showDelay: 0
   });
+  var backView = $ionicHistory.backTitle();
+      console.log(backView);
 		//begin
    $scope.$parent.showHeader();
    $scope.$parent.clearFabs();
@@ -70,7 +72,7 @@ angular
 		},function(err){
 			console.log(err);
 		});
-    
+
     RelationshipService.getFollowedUsers(getUserId()).then(function(followedUsers){
      $scope.followedUsers=followedUsers;
     },function(err){
@@ -89,7 +91,7 @@ angular
    	console.log(err);
    });
 
- 
+
 
  	console.log($scope.followers);
   $scope.follow = function() {
@@ -104,7 +106,7 @@ angular
 
         $scope.isFollowed = true;
         $ionicLoading.hide();
-     
+
     },function(err) {
       alert('hata var hata');
     })
@@ -134,7 +136,7 @@ angular
     RelationshipService.unfollow(_userid, $scope.lastUserID).then(function(data) {
        $scope.isFollowed = false;
       console.log('işlem tamam');
-      
+
     },function(err) {
       alert('hata var');
     })
