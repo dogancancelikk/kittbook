@@ -2,16 +2,15 @@
   angular
   .module('starter')
   .controller('EventApplyController',function($scope,$stateParams,UserEventService,$rootScope,$ionicPopup,$state){
-
-      $scope.data = {};
+      $scope.event = {};
       var _userid=$rootScope.globals.currentUser.id;
 
-    $scope.applyEvent=function(data){
-
-      var activityID=$stateParams.eventid;
-      UserEventService.createApplyEvent(activityID,data.text,data.title,data.about,_userid).then(function(eventdata){
-
-
+    $scope.applyEvent = function(){
+      debugger;
+      $scope.event.userID = _userid;
+      $scope.event.activityID=$stateParams.eventid;
+      UserEventService.sendTextEvent(event).then(function(eventdata){
+        console.log(eventdata);
         var alertPopup=$ionicPopup.alert({
          title: 'Başvuru',
          template: 'Başvurunuz başarı ile gerçekleştirildi'
@@ -20,7 +19,6 @@
           $state.go('app.userevent',{});
           console.log(res);
         });
-
       },function(err){
         console.log(err);
       });

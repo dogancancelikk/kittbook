@@ -11,7 +11,7 @@
     </ion-tab>
   </ion-tabs>
     <ion-content ng-class="{expanded:isExpanded}" class="has-subheader">
-      <div class="list card" ng-repeat="event in activeEvent|eventFilter:filterProperty | eventTypeFilter:eventFilterProperty | orderBy: orderProperty : true">
+      <div ui-sref="app.usereventdetail({id:event.id})"class="list card" ng-repeat="event in activeEvent|eventFilter:filterProperty | eventTypeFilter:eventFilterProperty | orderBy: orderProperty : true">
 
         <div class="item item-avatar">
           <img ng-src="{{event.image}}">
@@ -20,16 +20,17 @@
         </div>
 
         <div class="item item-body">
-        <div class="item"> {{event.about}}</div>
+        <div class="item" ng-bind-html="event.about"> </div>
           <p class="item item-icon-left item-button-right assertive">
             <i class="icon ion-ios-stopwatch-outline"></i>
-            {{event.text1}}
+          {{event.text1}}
              <timer countdown="event.decideToTime" max-time-unit="'hour'" language="tr" interval="1000">
                  {{yearUnit}} </timer> {{event.text2}}
-           
-          <a class="button button-clear button-small button-positive" ng-if="event.removeApply" ng-href="#/app/eventapply/{{event.id}}">Başvur</a>
-            <a class="button button-clear button-small button-positive" ng-if="event.writerEventApplyButton" ng-click="applyForWriterEvent(event.id)">Başvur.</a>
-          </p>
+                 <!-- <p>
+                   <a class="button button-clear button-block button-positive" ng-if="event.removeApply" ng-href="#/app/eventapply/{{event.id}}">Başvur</a>
+                   <a class="button button-clear button-block button-positive" ng-if="event.writerEventApplyButton" ng-click="applyForWriterEvent(event.id)">Başvur.</a>
+                </p> -->
+           </p>
         </div>
       </div>
     </ion-content>
@@ -44,7 +45,7 @@
         <ion-radio ng-repeat="item in radioEventType"
                    ng-value="item.value"
                    ng-model="data.choice"
-                   ng-change="typeChanged(item)">                   
+                   ng-change="typeChanged(item)">
           {{ item.name }}
         </ion-radio>
         </ion-list>
@@ -52,4 +53,3 @@
       </ion-modal-view>
     </script>
 </ion-view>
-

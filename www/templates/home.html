@@ -25,7 +25,7 @@
     </ion-tab>
   </ion-tabs>
 
-  <ion-content ng-class="{expanded:isExpanded}" class="has-subheader"> 
+  <ion-content ng-class="{expanded:isExpanded}" class="has-subheader">
   <ion-refresher on-refresh="doRefresh()">
   </ion-refresher>
 <!--      <div class="list card" ng-repeat="story in stories | categoryFilter: filterProperty |orderBy: orderProperty : false">
@@ -51,8 +51,8 @@
 
     </div> -->
     <div class="list card" class="item-thumbnail-left item-icon-right
-      item-text-wrap" ng-repeat="story in stories | categoryFilter: filterProperty |orderBy: orderProperty : false track by $index">
-      <ion-item>       
+      item-text-wrap" ng-repeat="story in stories">
+      <ion-item>
       <div class="item item-avatar">
         <img ui-sref="app.profile({userid:story.ownerID})" ng-src="{{story.userImage}}">
         <h2 style="font-family: Georgia;">  {{story.name}}</h2>
@@ -66,7 +66,7 @@
         </p>
         <p>
           <a class="subdued"><i class="icon assertive icon-small ion-ios-star"></i> {{story.storyrate}} </a>
-         
+
           <a class="subdued"><i class="icon assertive icon-small ion-ios-eye"></i> {{story.readcount}} </a>
         </p>
       </div>
@@ -76,7 +76,7 @@
         <i class="icon ion-star"></i>
       </ion-option-button>
       </ion-item>
-    </div> 
+    </div>
       <ion-infinite-scroll
         on-infinite="loadMoreStories()">
       </ion-infinite-scroll>

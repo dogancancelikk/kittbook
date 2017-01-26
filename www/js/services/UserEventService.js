@@ -4,32 +4,22 @@ angular
 .module('starter')
 .service('UserEventService',function($http,$q,domainConstant){
   return({
-    createApplyEvent:createApplyEvent,
+    sendTextEvent:sendTextEvent,
     getAppliedByEvent:getAppliedByEvent,
     createApplyWriterEvent:createApplyWriterEvent,
     applyCount:applyCount
   })
 
-  function createApplyEvent(activityID,text,title,about,userID){
-    var request=$http({
-            method:'POST',
-            url:domainConstant.applyeventApi+'/create',
-            headers: {"Content-Type":"application/json"},
-            params:{
-              action:'add'
-            },
-            data: {
-             id:0,
-             activityID:activityID,
-              text:text,
-              title:title,
-              about:about,
-              userID:userID,
-              status:1
+  function sendTextEvent(event) {
+      event.id = 0;
+      var request = $http({
+          method: "post",
+          url: domainConstant.applyeventApi + "/create",
+          headers: {"Content-Type":"application/json"},
+          data: JSON.stringify(event)
 
-            }
-    });
-       return (request.then(handleSuccess,handleError));
+      });
+      return(request.then(handleSuccess, handleError));
   }
   function createApplyWriterEvent(eventID,userID){
     var request=$http({
@@ -59,7 +49,7 @@ angular
     });
     return(request.then(handleSuccess,handleError));
   }
-  
+
   function applyCount(activityid){
     var request=$http({
       method:"GET",
@@ -69,9 +59,9 @@ angular
       }
     });
     return(request.then(handleSuccess,handleError));
-  }   
+  }
 
-  
+
    function handleSuccess(response){
           return (response.data);
     }

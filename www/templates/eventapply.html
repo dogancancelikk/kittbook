@@ -1,22 +1,25 @@
-<ion-view view-title="Yazını Gönder">
-    <ion-content style="background: url(img/bookapp.jpg) center; background-size: cover;">
+<ion-view view-title="Etkinliğe Başvur">
+<div class="drop-box" ng-click="deneme()">
+  <i class="icon ion-images" aria-hidden="true"></i>  Etkinlik yazına foto ekle
+</div>
+ <ion-content ng-class="{expanded:isExpanded}" id="image-picker-content">
 
-   <div class="hero no-header flat">
-      <div class="content">
+  <div class="list">
+       <md-input-container class="md-block" flex-gt-sm="">
+      <label>Yazınızın başlığını giriniz</label>
+      <input type="text" ng-model="event.title">
+    </md-input-container>
 
-        <h3>Başvuru Yap</h3>
-      </div>
-    </div>
-    <div class="list">
-      <ion-md-input placeholder="Yazının Başlığı" highlight-color="balanced" type="text" ng-model="data.title"></ion-md-input>
-      <ion-md-input placeholder="Yazının  içeriği" highlight-color="balanced" type="textarea" ng-model="data.text"></ion-md-input>
-      <ion-md-input placeholder="Yazı Hakkında" highlight-color="balanced" type="text" ng-model="data.about"></ion-md-input>
 
-    </div>
+   <trix-editor ng-if="true" ng-model-options="{ updateOn: 'blur' }" spellcheck="false" class="trix-content" ng-model="event.text"
+   angular-trix trix-initialize="trixInitialize(e, editor);" trix-change="trixChange(e, editor);" trix-selection-change="trixSelectionChange(e, editor);"
+   trix-focus="trixFocus(e, editor);" trix-blur="trixBlur(e, editor);" trix-file-accept="trixFileAccept(e, editor);"
+   trix-attachment-add="trixAttachmentAdd(e, editor);" trix-attachment-remove="trixAttachmentRemove(e, editor);" placeholder="Hikayene açıklama yaz..."></trix-editor>
 
-    <div class="padding">
-      <button class="button button-full button-assertive ink" ng-click="applyEvent(data)">Yazıyı Gonder</button>
-    </div>
 
-    </ion-content>
+     </div>
+  </ion-content>
+     <a class="bar bar-footer bar-positive" ng-click="applyEvent() ">
+      <div class="title">Başvur</div>
+    </a>
 </ion-view>

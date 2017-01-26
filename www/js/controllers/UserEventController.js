@@ -90,6 +90,7 @@ angular
       ManageActivityService.getActivity().then(function(events) {
         console.log(events);
           angular.forEach(events, function(event) {
+            console.log(event);
             if (event.isActive == 1) {
               var decideToTime;
               var sendStoryButton = true;

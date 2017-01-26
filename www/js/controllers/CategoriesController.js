@@ -19,19 +19,19 @@ angular.module('starter')
   ionicMaterialInk.displayEffect();
   $timeout(function() {
     ionicMaterialMotion.blinds();
-  }, 400);  
+  }, 400);
 
   $scope.setCategory=function(id){
     console.log($scope.filterProperty);
     $rootScope.activeCategory=id-1;
     setFilterProperty(id);
-    $state.go('app.storywithcategories');
+    $state.go('app.storywithcategories',{categoryid:id});
   }
   function setFilterProperty(id){
     $rootScope.filterProperty = "";
     $rootScope.filterProperty=id;
   }
-  
+
     CategoryService.getCategories().then(function(data){
         $scope.categories=data;
         $ionicSlideBoxDelegate.update();
@@ -39,8 +39,9 @@ angular.module('starter')
           for(var i=0; i<data.length;i++){
           images.push(data[i].image);
           }
+            $ionicLoading.hide();
         $ImageCacheFactory.Cache(images).then(function(){
-          $ionicLoading.hide();
+          console.log("Fotolar cachelendi");
         });
       },function(Err){
         console.log(Err);

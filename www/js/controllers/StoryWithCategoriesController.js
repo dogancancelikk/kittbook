@@ -23,7 +23,11 @@ angular.module('starter')
 })
 
 
-.controller('StoryWithCategories',function($mdBottomSheet, $mdToast, $mdDialog,$state,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
+.controller('StoryWithCategoriesController',function($mdBottomSheet, $mdToast, $mdDialog,$state,$ionicSlideBoxDelegate,
+  $scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion,
+  StoryService,UserService,$rootScope,$ionicTabsDelegate){
+    debugger;
+
   $ionicLoading.show({
   content: 'Loading',
   animation: 'fade-in',
@@ -31,6 +35,7 @@ angular.module('starter')
   maxWidth: 200,
   showDelay: 0
 });
+
        $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -70,26 +75,4 @@ angular.module('starter')
 			console.log(Err);
 		});
 
-	$scope.setCategory=function(id){
-		console.log($scope.filtersProperty);
-		$scope.activeCategory=id-1;
-		setFilterProperty(id);
-		$state.go('app.storywithcategories');
-	}
-
-	function setFilterProperty(id){
-		$scope.filtersProperty = "";
-		$scope.filtersProperty=id;
-	}
-
-	$scope.setOrderProperty=function(id){
-		console.log(id);
-		if(id =='createDate'){
-			$ionicTabsDelegate.select(0,false);
-		}else if(id == 'storyrate'){
-			$ionicTabsDelegate.$getByHandle('myTabs').select(1,false);
-		}
-		$scope.filtersProperty = "";
-		$scope.orderProperty = id;
-	}
 });

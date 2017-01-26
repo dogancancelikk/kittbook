@@ -239,7 +239,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
         views: {
             'menuContent  ': {
                 templateUrl: 'templates/storywithcategories.html',
-                controller: 'StoryWithCategories'
+                controller: 'StoryWithCategoriesController'
             }
 
 //             },
@@ -420,12 +420,12 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'EventApplyController'
             },
             'fabContent': {
-                template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-friends').classList.toggle('on');
-                    }, 900);
-                }
+                // template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
+                // controller: function ($timeout) {
+                //     $timeout(function () {
+                //         document.getElementById('fab-friends').classList.toggle('on');
+                //     }, 900);
+                // }
             }
         }
     })
@@ -454,21 +454,44 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'UserEventController'
             },
             'fabContent': {
-                template: '<button onclick="disableFab()" id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin" ui-sref="app.home"><i class="icon ion-ios-home"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-friends').classList.toggle('on');
-                    }, 900);
-                    var button = document.getElementById('fab-friends')
-                    button.addEventListener('click',hideshow,true);
-
-                    function hideshow() {
-                        this.style.display = 'none'
-                    }
-              }
+              //   template: '<button onclick="disableFab()" id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin" ui-sref="app.home"><i class="icon ion-ios-home"></i></button>',
+              //   controller: function ($timeout) {
+              //       $timeout(function () {
+              //           document.getElementById('fab-friends').classList.toggle('on');
+              //       }, 900);
+              //       var button = document.getElementById('fab-friends')
+              //       button.addEventListener('click',hideshow,true);
+              //
+              //       function hideshow() {
+              //           this.style.display = 'none'
+              //       }
+              // }
             }
         }
     })
+    .state('app.usereventdetail', {
+    url: '/usereventdetail/:id',
+    views: {
+        'menuContent': {
+            templateUrl: 'templates/usereventdetail.html',
+            controller: 'UserEventDetailController'
+        },
+        'fabContent': {
+          //   template: '<button onclick="disableFab()" id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin" ui-sref="app.home"><i class="icon ion-ios-home"></i></button>',
+          //   controller: function ($timeout) {
+          //       $timeout(function () {
+          //           document.getElementById('fab-friends').classList.toggle('on');
+          //       }, 900);
+          //       var button = document.getElementById('fab-friends')
+          //       button.addEventListener('click',hideshow,true);
+          //
+          //       function hideshow() {
+          //           this.style.display = 'none'
+          //       }
+          // }
+        }
+    }
+})
       .state('app.activeEvents', {
         url: '/activeevents',
         views: {
