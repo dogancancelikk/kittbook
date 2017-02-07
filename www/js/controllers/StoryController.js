@@ -23,9 +23,8 @@ angular.module('starter')
 })
 
 
-.controller('StoryController',function($state,$ImageCacheFactory,$ionicScrollDelegate,$ionicHistory,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
-  var backView = $ionicHistory.backTitle();
-      console.log(backView);
+.controller('StoryController',function($state,$ImageCacheFactory,$ionicNavBarDelegate,$ionicScrollDelegate,$ionicHistory,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
+
     $ionicLoading.show({
 	  content: 'Loading',
 	  animation: 'fade-in',
@@ -33,19 +32,24 @@ angular.module('starter')
 	  maxWidth: 200,
 	  showDelay: 0
 	});
-    console.log($ionicHistory.currentHistoryId());
+
+  $scope.$on('$ionicView.enter', function(e) {
+    $ionicNavBarDelegate.showBar(true);
+});
+
     $scope.$parent.clearFabs();
 
     var count = 0;
     $scope.latestStory = true;
 
-    $timeout(function() {
-        $scope.$parent.hideHeader();
-    }, 0);
+    // $timeout(function() {
+    //     $scope.$parent.hideHeader();
+    // }, 0);
+    $scope.$parent.hideHeader();
 	  ionicMaterialInk.displayEffect();
-	   $timeout(function() {
-       ionicMaterialMotion.blinds();
-    }, 400);
+	  //  $timeout(function() {
+    //    ionicMaterialMotion.blinds();
+    // }, 400);
 	var images = [];
 	$scope.stories=[];
 	$scope.categories=[];

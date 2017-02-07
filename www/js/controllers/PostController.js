@@ -7,8 +7,4 @@ angular.module('starter')
   PostService.getUserPosts(1).then(function(posts){
     $scope.posts=posts;
   })
-  
-  
-	
-
 });

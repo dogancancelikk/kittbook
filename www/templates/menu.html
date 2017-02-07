@@ -10,7 +10,6 @@
         </ion-nav-bar>
         <ion-nav-view name="fabContent"></ion-nav-view>
         <ion-nav-view name="menuContent" ng-class="{expanded: isExpanded}" ></ion-nav-view>
-        <ion-nav-view name="storyContent" ng-class="{expanded: isExpanded}" ></ion-nav-view>
 
     </ion-side-menu-content>
     <ion-side-menu side="left">
@@ -25,25 +24,25 @@
       </ion-header-bar>
         <ion-content class="stable-bg has-expanded-header">
           <ion-list>
-                <ion-item nav-clear menu-close ui-sref="app.profile">
+                <!-- <ion-item nav-clear menu-close ui-sref="app.profile">
                     Profil
-                </ion-item>
+                </ion-item> -->
                 <ion-item nav-clear menu-close ui-sref="app.allchats">
                     Mesajlar
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.home">
-                    Hikayelerim
+                    Yazılar
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.library">
+                <!-- <ion-item nav-clear menu-close ui-sref="app.library">
                     Kitaplığım
-                </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.collectivebook">
+                </ion-item> -->
+                <!-- <ion-item nav-clear menu-close ui-sref="app.collectivebook">
                     Kolektif Kitaplar
-                </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.home">
+                </ion-item> -->
+                <ion-item nav-clear menu-close ui-sref="app.home" ng-if="false">
                     Ayarlar
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.userevent">
+                <!-- <ion-item nav-clear menu-close ui-sref="app.userevent">
                     Etkinlikler-0
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.manageactivity">
@@ -54,7 +53,7 @@
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.newannouncement">
                     Etkinlik oluştur-0
-                </ion-item>
+                </ion-item> -->
                 <ion-item nav-clear menu-close ng-click="logout()">
                     Çıkış Yap
                 </ion-item>

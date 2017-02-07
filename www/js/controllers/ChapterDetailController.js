@@ -9,6 +9,7 @@ angular
 	$scope.$parent.setHeaderFab(false);
 	ionicMaterialInk.displayEffect();
 	ionicMaterialMotion.ripple();
+  $scope.otherchapter = false;
      $timeout(function() {
      ionicMaterialMotion.slideUp({
        selector: '.slide-up'
@@ -40,9 +41,11 @@ angular
 
   ChapterService.getChapter(chapterid).then(function(data){
 		$scope.chapter=data;
+    isThereAnotherChapter($scope.chapter.chapterNumber+1, $scope.chapter.storyID);
     console.log(data);
 		var storyid = data.storyID;
 		StoryService.getStoryWithID(storyid).then(function(storyData){
+      
 			$scope.storyname=storyData.name;
 		},function(err){
 			console.log(err);
@@ -51,7 +54,17 @@ angular
   },function(err){
     console.log(err);
   });
-
+  function isThereAnotherChapter(chapternumber,storyid){
+    
+    ChapterService.getChapterWithChapterNumber(chapternumber, storyid).then(function(chapterData){
+      
+        if(chapterData === null || chapterData === ""){
+          $scope.otherchapter = false;
+        }else{
+          $scope.otherchapter = true;
+        }
+    });
+  }
 	$scope.showPopup = function() {
       $scope.data = {}
 

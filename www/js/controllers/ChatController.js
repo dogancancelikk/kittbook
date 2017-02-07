@@ -33,11 +33,6 @@ angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
       },function(err){
         console.log(err);
       })
-    // mock acquiring data via $stateParams
-
-
-    // this could be on $rootScope rather than in $stateParams
-
 
     $scope.input = {
       message: localStorage['userMessage-' + _toUser] || ''
@@ -103,6 +98,13 @@ angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
     });
 
     $scope.sendMessage = function(sendMessageForm) {
+      $ionicLoading.show({
+      content: 'Loading',
+      animation: 'fade-in',
+      showBackdrop: true,
+      maxWidth: 200,
+      showDelay: 0
+    });
       var message = {
         toId: $scope.toUser._id,
         text: $scope.input.message
@@ -121,10 +123,11 @@ angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
      	 message.sender = $scope.user._id;
        message.pic = $scope.user.pic;
 			 $scope.messages.push(message);
-			  $timeout(function() {
+  		  $timeout(function() {
         keepKeyboardOpen();
         viewScroll.scrollBottom(true);
-      }, 0);
+          $ionicLoading.hide();
+        }, 0);
 
       },function(err){
 			console.log(err);
@@ -176,7 +179,7 @@ angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
     // this prob seems weird here but I have reasons for this in my app, secret!
     $scope.viewProfile = function(msg) {
       if (msg.sender === $scope.user._id) {
-$state.go('app.profile')
+          $state.go('app.profile')
 			} else {
         // go to other users profile
 				$state.go('app.profile', {userid:_toUser});

@@ -34,9 +34,9 @@ angular
    }, 700);
 
      // Set Ink
-   ionicMaterialInk.displayEffect();
+
    //End
-   $ionicTabsDelegate.selectedIndex() == 0
+   $ionicTabsDelegate.selectedIndex() == 3;
    $scope.user = {};
    $scope.isOwnProfile=false;
    $scope.isFollowed=false;
@@ -79,13 +79,7 @@ angular
      console.log(err);
     });
 
-    PostService.getUserPosts(getUserId()).then(function(data){
-      $scope.posts=data;
-      console.log(data);
-      $ionicLoading.hide();
-    },function(err){
-      console.log(err);
-    });
+
 
    },function(err){
    	console.log(err);

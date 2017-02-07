@@ -105,7 +105,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
     // Turn off caching for demo simplicity's sake
-    $ionicConfigProvider.views.maxCache(0);
+    $ionicConfigProvider.views.maxCache(5);
     $ionicConfigProvider.backButton.previousTitleText(false);
 
     /*
@@ -452,22 +452,26 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/userEvent.html',
                 controller: 'UserEventController'
-            },
-            'fabContent': {
-              //   template: '<button onclick="disableFab()" id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin" ui-sref="app.home"><i class="icon ion-ios-home"></i></button>',
-              //   controller: function ($timeout) {
-              //       $timeout(function () {
-              //           document.getElementById('fab-friends').classList.toggle('on');
-              //       }, 900);
-              //       var button = document.getElementById('fab-friends')
-              //       button.addEventListener('click',hideshow,true);
-              //
-              //       function hideshow() {
-              //           this.style.display = 'none'
-              //       }
-              // }
             }
         }
+    })
+    .state('app.userposts', {
+      url: '/userposts/:userid',
+      views: {
+          'menuContent': {
+              templateUrl: 'templates/userposts.html',
+              controller: 'UserPostsController'
+          }
+      }
+    })
+    .state('app.otheruserstories', {
+      url: '/otheruserstories/:userid',
+      views: {
+          'menuContent': {
+              templateUrl: 'templates/otheruserstories.html',
+              controller: 'OtherUserStoriesController'
+          }
+      }
     })
     .state('app.usereventdetail', {
     url: '/usereventdetail/:id',

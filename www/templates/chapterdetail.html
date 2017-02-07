@@ -22,7 +22,7 @@
         <div ng-bind-html='chapter.text'></div>
         </p> -->
         <div ng-bind-html='chapter.text'></div>
-        <h3 class="outline padding balanced inline img-rounded">
+        <h3 class="outline padding balanced inline img-rounded" ng-if="otherchapter">
           <a ng-click="goOtherChapter(chapter)">
             {{chapter.chapterNumber+1}}.Bölüme Git
           </a>

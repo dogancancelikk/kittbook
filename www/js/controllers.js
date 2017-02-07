@@ -1,6 +1,12 @@
 /* global angular, document, window */
 'use strict';
 
+window.globalSocialConnectVariable = {
+  oAuth:{
+    facebook:'1793002480912477'
+  }
+}
+
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope,USER_DATA,$ionicModal, $ionicPopover,
@@ -8,7 +14,7 @@ angular.module('starter.controllers', [])
     //Authentication operations
     //Yetkisiz girişlerin yakalandığı yer
 //     $scope._userid=$rootScope.globals.currentUser.id;
-   
+
     $scope.$on(AUTH_EVENTS.notAuthorized, function (event) {
       alert('Yetkisiz giriş');
     });
@@ -19,6 +25,7 @@ angular.module('starter.controllers', [])
       $state.go('app.login', {}, {reload: true});
       alert('session kapanır');
     });
+
 
     $scope.authenticated=AUTH_EVENTS.notAuthenticated;
     $scope.logout = function () {
@@ -35,7 +42,7 @@ angular.module('starter.controllers', [])
     $scope.isExpanded = false;
     $scope.hasHeaderFabLeft = false;
     $scope.hasHeaderFabRight = false;
-    
+
 
     var navIcons = document.getElementsByClassName('ion-navicon');
     for (var i = 0; i < navIcons.length; i++) {

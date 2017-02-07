@@ -1,7 +1,7 @@
 'use strict';
 angular.module('starter')
 .controller('AllChatsController',function($scope,ChatService,$timeout,ionicMaterialInk,ionicMaterialMotion,$rootScope,$ionicLoading){
-
+  
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
   $scope.isExpanded = false;

@@ -16,11 +16,11 @@
         <div class="item item-avatar">
           <img ng-src="{{event.image}}">
           <h2>  {{event.name}} - ({{event.type}})</h2>
-          <p>{{event.createDate}}</p>
+          <p>{{event.createDate | amCalendar}}</p>
         </div>
 
         <div class="item item-body">
-        <div class="item" ng-bind-html="event.about"> </div>
+        <!-- <div class="item" ng-bind-html="event.about"> </div> -->
           <p class="item item-icon-left item-button-right assertive">
             <i class="icon ion-ios-stopwatch-outline"></i>
           {{event.text1}}

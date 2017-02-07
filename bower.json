@@ -17,6 +17,7 @@
     "angular-material": "^1.1.1",
     "angular-trix": "^1.0.2",
     "angular-sanitize": "^1.6.0",
-    "ngCordova": "^0.1.27-alpha"
+    "ngCordova": "^0.1.27-alpha",
+    "ng-cordova-oauth": "^0.3.0"
   }
 }

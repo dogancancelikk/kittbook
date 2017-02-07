@@ -4,8 +4,8 @@ angular.module('starter')
     StoryService,$ionicModal,$timeout,ionicMaterialMotion,ionicMaterialInk,$state,AuthService,ChapterService,
     $ionicSlideBoxDelegate,$ionicScrollDelegate, LibraryService, $ionicLoading,$mdToast,$ionicHistory) {
 
-  var backView = $ionicHistory.backTitle();
-      console.log(backView);
+  // var backView = $ionicHistory.backTitle();
+  //     console.log(backView);
       $ionicLoading.show({
       content: 'Loading',
       animation: 'fade-in',
@@ -22,17 +22,17 @@ angular.module('starter')
     $scope.$parent.setHeaderFab(false);
 
     // Set Motion
-    $timeout(function() {
-        ionicMaterialMotion.slideUp({
-            selector: '.slide-up'
-        });
-    }, 300);
-
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideInRight({
-            startVelocity: 3000
-        });
-    }, 700);
+    // $timeout(function() {
+    //     ionicMaterialMotion.slideUp({
+    //         selector: '.slide-up'
+    //     });
+    // }, 300);
+    //
+    // $timeout(function() {
+    //     ionicMaterialMotion.fadeSlideInRight({
+    //         startVelocity: 3000
+    //     });
+    // }, 700);
 
     ionicMaterialInk.displayEffect();
 
@@ -53,13 +53,21 @@ angular.module('starter')
    console.log(libraryid);
     $scope.alreadyHave=false;
     $scope.isOwnStory = false;
-    $scope.ifLimitto =true;
+    $scope.ifLimitto =false;
     $scope.descriptionLimit=260;
     $scope.comments = [];
 
     $scope.increaseDescription = function(){
       $scope.descriptionLimit = 3000;
         $scope.ifLimitto =false;
+    }
+
+    function checkDescriptionCharCount(description){
+        if(description.length >= 260){
+          $scope.ifLimitto = true;
+        }else{
+          $scope.ifLimitto = false;
+        }
     }
 
   $scope.deleteStoryFromLibrary = function(){
@@ -113,14 +121,14 @@ angular.module('starter')
     StoryService.readStory($stateParams.storyid, userid);
 
     StoryService.getStoryWithID($stateParams.storyid).then(function(data){
-      console.log(data);
-      StoryService.getComments(data.id).then(function(data){
-        console.log(data);
+     StoryService.getComments(data.id).then(function(data){
+
         if(data){
           $scope.comments = data;
         }
       })
       $scope.story=data;
+      checkDescriptionCharCount(data.description);
       $scope.storyid=data.id;
       if($rootScope.globals.currentUser.id == data.ownerID){
         $scope.isOwnStory = true;

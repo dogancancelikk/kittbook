@@ -3,7 +3,7 @@
 angular
 .module("starter")
 
-.controller('NewStoryController',function($scope,$ionicHistory,$rootScope,StoryService,ionicMaterialInk,$state,$ionicSlideBoxDelegate,$timeout,$ionicLoading,$mdBottomSheet,CategoryService){
+.controller('NewStoryController',function($scope,$ionicHistory,$rootScope,StoryService,ionicMaterialInk,$state,$ionicSlideBoxDelegate,$timeout,$ionicLoading,$mdBottomSheet,$cordovaFile,CategoryService){
 	$scope.$parent.clearFabs();
 	$timeout(function() {
 			 $scope.$parent.hideHeader();
@@ -21,7 +21,7 @@ angular
 		showDelay: 0
 	});
 	$scope.deneme = function(){
-		console.log("tıklandı");
+
 	}
 	$scope.getContent = function(data) {
 	console.log('Editor content:',data.tinymceModel);

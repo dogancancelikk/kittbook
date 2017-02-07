@@ -1,6 +1,6 @@
 <ion-view view-title="Profil" ng-cloak>
-  <ion-content ng-class="{expanded:$scope.isExpanded}">
-    <div class="hero slide-up static" style="background-image: url('img/profile-bg.jpg');">
+  <ion-content ng-class="{expanded:$scope.isExpanded}" style="background-color: #eee !important">
+    <div class="hero static" style="background-image: url('img/profile-bg.jpg');">
       <div class="content">
         <div class="avatar" style="background-image: url('{{user.image}}');"></div>
         <h3><a class="light"> {{user.name}} {{user.surname}} </a></h3>
@@ -11,68 +11,117 @@
     </div>
     <div class="tabs tabs-dark tabs-icon-top static">
       <a ui-sref=app.followers({userid:lastUserID}) class="tab-item active">
-        <i class="icon ion-arrow-graph-up-right"></i> Takip edenler {{followers.length}}
+        <i class="icon ion-arrow-graph-up-right"></i> Takipçi {{followers.length}}
       </a>
       <a ui-sref="app.followedusers({userid:lastUserID})" class="tab-item">
-        <i class="icon ion-android-people"></i> Takip edilenler {{followedUsers.length}}
+        <i class="icon ion-android-people"></i> Takip Edilen {{followedUsers.length}}
       </a>
-      <a ui-sref="app.about({userid:lastUserID})" class="tab-item">
-        <i class="icon ion-images"></i> Hakkında
+
+    </div>
+
+    <!-- <div class="list">
+      <div ng-repeat="post in posts">
+          <div id="news-feed-content">
+              <div class="news-item">
+                  <div class="row header">
+                      <div class="col-20">
+                          <img ng-src="{{user.image}}" class="user-img"/>
+                      </div>
+                      <div class="col-75">
+                         <span class="name">
+                            {{user.name}} {{user.surname}}
+                         </span>
+                          <br/>
+                         <span class="datetime">
+                             {{post.postDate | amCalendar}}
+                         </span>
+                      </div>
+                      <div class="col-5" ng-if="isOwnProfile" >
+                        <i class="icon icon-assertive ion-android-cancel" ng-click="deletePost(post)"></i>
+                      </div>
+                  </div>
+                  <div class="row detail">
+                      <div class="col">
+                        <p class="content" ng-bind-html='post.text'></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div> -->
+<!--
+    <ion-list>
+      <ion-item>
+        Gönderiler
+      </ion-item>
+      <ion-item>
+        Yazılar
+      </ion-item>
+      <ion-item>
+        Hareketler
+      </ion-item>
+      <ion-item>
+        Takip Edenler
+      </ion-item>
+      <ion-item>
+        Takip Edilenler
+      </ion-item>
+      <ion-item>
+        Hakkında
+      </ion-item>
+      <ion-item>
+        Profili Düzenle
+      </ion-item>
+    </ion-list> -->
+    <br>
+    <div class="list" style="margin-left:25px;">
+      <a ui-sref="app.userposts({userid:lastUserID})" class="item">
+        Gönderiler
+      </a>
+      <a ui-sref="app.usersstories({userid:lastUserID})" ng-if="isOwnProfile" class="item">
+        Çalışmalarım
+      </a>
+      <a ui-sref="app.library({userid:lastUserID})" class="item">
+        Kitaplık
+      </a>
+      <a ui-sref="app.otheruserstories({userid:lastUserID})" ng-if="!isOwnProfile" class="item">
+        Yazılar
+      </a>
+      <!-- <a ui-sref="app.followers({userid:lastUserID})" class="item">
+        Takipçi
+      </a>
+      <a ui-sref="app.followedusers({userid:lastUserID})"  class="item">
+        Takip Edilen
+      </a> -->
+      <a ng-if="true" ui-sref="app.about({userid:lastUserID})" class="item">
+        Hakkında
+      </a>
+      <a ng-if="false" class="item">
+        Profili Düzenle
+      </a>
+      <a ui-sref="app.chat({chatid:lastUserID})" ng-if="!isOwnProfile" class="item">
+        Mesaj At
       </a>
     </div>
-    <br>
-        <div ng-repeat="post in posts">
-            <div id="news-feed-content">
-                <div class="news-item">
-
-                    <div class="row header">
-                        <div class="col-20">
-                            <img ng-src="{{user.image}}" class="user-img"/>
-                        </div>
-                        <div class="col-75">
-                           <span class="name">
-                              {{user.name}} {{user.surname}}
-                           </span>
-                            <br/>
-                           <span class="datetime">
-                               {{post.postDate | amCalendar}}
-                           </span>
-                        </div>
-                        <div class="col-5" ng-if="isOwnProfile" >
-                          <i class="icon ion-android-cancel" ng-click="deletePost(post)"></i>
-                        </div>
-                    </div>
-                    <div class="row detail">
-                        <div class="col">
-                          <p class="content" ng-bind-html='post.text'></p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
   </ion-content>
-  <ion-tabs class="tabs-striped tabs-outline tabs-icon-top">
-  <ion-tab ng-if="isOwnProfile" title="Profil" icon-on="ion-ios-clock" ui-sref="app.profile" icon-off="ion-ios-clock-outline">
-      <!-- Tab 2 content -->
-    </ion-tab>
+  <ion-tabs class="tabs-striped tabs-positive tabs-icon-top" ng-if="isOwnProfile">
     <ion-tab title="Ana Sayfa" icon-on="ion-ios-home" href="#/app/home" icon-off="ion-ios-home-outline">
       <!-- Tab 1 content -->
     </ion-tab>
-    <ion-tab ng-if="isOwnProfile" title="Çalışmalarım" icon-on="ion-edit" icon-off="ion-edit" ui-sref="app.usersstories({userid:lastUserID})">
-      <!-- Tab 1 content -->
-    </ion-tab>
-
-    <ion-tab ng-if="isOwnProfile" title="İleti Yaz" icon-on="ion-ios-clock" ng-click="modal.show()" icon-off="ion-ios-clock-outline">
+    <ion-tab title="İleti Yaz" icon-on="ion-ios-clock" ng-click="modal.show()" icon-off="ion-ios-clock-outline">
       <!-- Tab 2 content -->
     </ion-tab>
-
-    <ion-tab ng-if="!isOwnProfile" title="Kitaplık" icon-on="ion-ios-gear" href="#/app/profile/" icon-off="ion-ios-gear-outline">
-      <!-- Tab 3 content -->
+    <ion-tab title="Profil" icon-on="ion-ios-person" ui-sref="app.profile" icon-off="ion-ios-person-outline">
     </ion-tab>
-    <ion-tab ng-if="!isOwnProfile" title="Hikayeler" icon-on="ion-edit" ui-sref="app.usersstories({userid:lastUserID})" icon-off="ion-edit">
-      <!-- Tab 3 content -->
-    </ion-tab>
+  </ion-tabs>
 
+
+
+  <ion-tabs class="tabs-striped tabs-positive tabs-icon-top" ng-if="!isOwnProfile">
+    <ion-tab title="Ana Sayfa" icon-on="ion-ios-home" href="#/app/home" icon-off="ion-ios-home-outline">
+      <!-- Tab 1 content -->
+    </ion-tab>
+    <ion-tab title="Profil" icon-on="ion-ios-person" ui-sref="app.profile" icon-off="ion-ios-person-outline">
+    </ion-tab>
   </ion-tabs>
 </ion-view>

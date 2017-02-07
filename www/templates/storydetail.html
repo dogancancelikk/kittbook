@@ -34,11 +34,12 @@
       </div>
 
       <div class="item item-text-wrap item-button-right" >
-        <span ng-bind-html="story.description| limitHtml: descriptionLimit" ></span><a ng-if="ifLimitto" ng-click="increaseDescription()">...</a>
+        <span ng-bind-html="story.description| limitHtml: descriptionLimit" ></span>
+        <a ng-if="ifLimitto" ng-click="increaseDescription()" style="color:#9fa6a8">    Devamını okuyun</a>
         <div class="content padding-top">
           <a href="#" class="subdued"><i class="icon icon-small ion-ios-star" style="color:#417D9A;"></i> {{story.storyrate}} </a>
           <a href="#" class="subdued"><i class="icon icon-small ion-ios-eye" style="color:#417D9A;"></i> {{story.readcount}} </a>
-          <a ng-click="modal.show()" class="subdued"><i class="icon icon-small ion-chatbubbles" style="color:#417D9A;"></i> {{story.commentCount}} </a>
+          <a ng-click="modal.show()" class="subdued"><i class="icon icon-small ion-chatbubbles" style="color:#417D9A;"></i> {{story.commentCount}} Yorum Yap </a>
         </div>
 
       </div>

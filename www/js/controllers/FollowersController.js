@@ -17,11 +17,7 @@ angular
     $scope.$parent.clearFabs();
 	  $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
-	  ionicMaterialInk.displayEffect();
-	   $timeout(function() {
-       ionicMaterialMotion.blinds();
-    }, 400);
-
+	
 	var userid=$stateParams.userid;
 	$scope.followers=[];
 	getFollowers();
@@ -30,7 +26,7 @@ angular
 	function getFollowers(){
 		RelationshipService.getFollowers(userid).then(function(followers){
 			$scope.followers=followers;
-			
+
       $ionicLoading.hide();
 
 	// 		ionicMaterialInk.displayEffect();

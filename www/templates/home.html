@@ -2,19 +2,24 @@
             <ion-nav-back-button class="no-text">
             </ion-nav-back-button>
         </ion-nav-bar> -->
-<ion-header-bar align-title="center" class="bar-positive">
+<!-- <ion-header-bar align-title="center" class="bar-positive" ng-if=true>
 <div class="buttons"><button class="button button-icon button-clear ion-android-more-vertical" menu-toggle="left"></button></div>
   <h1 class="title">kittbook</h1>
  <div class="buttons">  <button class="button button-clear icon ion-android-search" ui-sref="app.search"></button></div>
 
-</ion-header-bar>
+</ion-header-bar> -->
 <!-- <div class="bar bar-header bar-positive">
 
   <div class="h1 title">kittbook</div>
   <button class="button button-clear icon ion-android-search" ui-sref="app.search"></button>
 </div> -->
 <ion-view>
+  <ion-header-bar align-title="center" class="bar-positive">
+  <div class="buttons"><button class="button button-icon button-clear ion-android-more-vertical" menu-toggle="left"></button></div>
+    <h1 class="title">kittbook</h1>
+   <div class="buttons">  <button class="button button-clear icon ion-android-search" ui-sref="app.search"></button></div>
 
+  </ion-header-bar>
   <ion-tabs class="tabs-striped tabs-positive tabs-color-light tabs-top" delegate-handle="myTabs">
 
     <ion-tab title="En Yeniler" ng-click="getNewStories()">
@@ -87,7 +92,7 @@
 
     </ion-tab>
 
-    <ion-tab title="Etkinlikler" icon-on="ion-ios-clock" ui-sref="app.userevent" icon-off="ion-ios-clock-outline">
+    <ion-tab title="Etkinlikler" icon-on="ion-film-marker" ui-sref="app.userevent" icon-off="ion-film-marker">
       <!-- Tab 2 content -->
     </ion-tab>
     <ion-tab title="Yaz" icon-on="ion-edit" icon-off="ion-edit" href="#/app/newstory">
@@ -96,7 +101,7 @@
     <ion-tab title="Kollektif Kitaplar" icon-on="ion-ios-clock" ui-sref="app.collectivebook" icon-off="ion-ios-clock-outline">
       <!-- Tab 2 content -->
     </ion-tab>
-    <ion-tab title="Profil" icon-on="ion-ios-gear" ui-sref="app.profile" icon-off="ion-ios-gear-outline">
+    <ion-tab title="Profil" icon-on="ion-ios-person" ui-sref="app.profile" icon-off="ion-ios-person-outline">
     </ion-tab>
   </ion-tabs>
 </ion-view>
