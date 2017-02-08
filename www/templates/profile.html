@@ -4,9 +4,9 @@
       <div class="content">
         <div class="avatar" style="background-image: url('{{user.image}}');"></div>
         <h3><a class="light"> {{user.name}} {{user.surname}} </a></h3>
-        <a ng-if="!isOwnProfile && !isFollowed" ng-click="follow()" class="button button-outline icon-left ion-person-add button-balanced">Takip Et</a>
-        <a ng-if="!isOwnProfile && isFollowed" ng-click="unfollow()" class="button button-outline icon-left ion-person-add button-balanced">Takibi Bırak</a>
-        <a href="#" ng-if="isOwnProfile" class="button button-outline icon-left ion-person-add button-balanced">Profili Düzenle</a>
+        <a ng-if="ifUnFollowedUser" ng-click="follow()" class="button button-outline icon-left ion-person-add button-balanced">Takip Et</a>
+        <a ng-if="ifFollowedUser" ng-click="unfollow()" class="button button-outline icon-left ion-person-add button-balanced">Takibi Bırak</a>
+        <a href="#" ng-if="ifNeedEditProfile" class="button button-outline icon-left ion-person-add button-balanced">Profili Düzenle</a>
       </div>
     </div>
     <div class="tabs tabs-dark tabs-icon-top static">

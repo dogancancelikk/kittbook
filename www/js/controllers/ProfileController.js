@@ -19,7 +19,7 @@ angular
    $scope.isExpanded = false;
    $scope.$parent.setExpanded(false);
    $scope.$parent.setHeaderFab(false);
-
+	
    // Set Motion
    $timeout(function() {
      ionicMaterialMotion.slideUp({
@@ -36,6 +36,10 @@ angular
      // Set Ink
 
    //End
+	 $scope.ifFollowedUser = false;
+	$scope.ifUnFollowedUser = false;
+	$scope.ifNeedEditProfile = false;
+	
    $ionicTabsDelegate.selectedIndex() == 3;
    $scope.user = {};
    $scope.isOwnProfile=false;
@@ -51,6 +55,16 @@ angular
    		return $stateParams.userid;
    	}
    }
+	 
+	 function checkProfileStatus(){
+		if($scope.isOwnProfile === false && $scope.isFollowed === true){
+			 $scope.ifFollowedUser = true;
+		 }else if($scope.isOwnProfile === false && $scope.isFollowed === false){
+			 $scope.ifUnFollowedUser = true;
+		 }else if($scope.isOwnProfile){
+			 $scope.ifNeedEditProfile = true;
+		 }
+	 }
 
 	 $scope.lastUserID=getUserId();
    $scope.followers=[];
@@ -68,6 +82,8 @@ angular
             break;
           }
         }
+
+				checkProfileStatus();
         $ionicLoading.hide();
 		},function(err){
 			console.log(err);
