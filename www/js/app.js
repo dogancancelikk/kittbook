@@ -220,6 +220,20 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 //            }
         }
     })
+        .state('app.storywithcategories', {
+        url: '/storywithcategories/:categoryid',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/storywithcategories.html',
+                controller: 'StoryWithCategoriesController'
+            }
+
+//             },
+//            'tabContent':{
+//              template:'<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light"><div class="tabs"><a class="tab-item active" href="#"><i class="icon ion-home"></i>Test</a><a class="tab-item" href="#"><i class="icon ion-star"></i>Favorites</a><a class="tab-item" href="#"><i class="icon ion-gear-a"></i>Settings</a></div></div>'
+//            }
+        }
+    })
         .state('app.search', {
         url: '/search',
         views: {
@@ -234,20 +248,15 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 //            }
         }
     })
-      .state('app.storywithcategories', {
-        url: '/storywithcategories/:categoryid',
-        views: {
-            'menuContent  ': {
-                templateUrl: 'templates/storywithcategories.html',
-                controller: 'StoryWithCategoriesController'
-            }
-
-//             },
-//            'tabContent':{
-//              template:'<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light"><div class="tabs"><a class="tab-item active" href="#"><i class="icon ion-home"></i>Test</a><a class="tab-item" href="#"><i class="icon ion-star"></i>Favorites</a><a class="tab-item" href="#"><i class="icon ion-gear-a"></i>Settings</a></div></div>'
-//            }
-        }
-    })
+//     .state('app.storywithcategories', {
+//         url: '/storywithcategories/:categoryid',
+//         views: {
+//             'menuContent  ': {
+//                 templateUrl: 'templates/storywithcategories.html',
+//                 controller: 'StoryWithCategoriesController'
+//             }
+//         }
+//     })
     .state('app.storydetail', {
         url: '/storydetail/:storyid',
         views: {

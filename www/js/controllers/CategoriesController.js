@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('starter')
 .controller('CategoriesController',function($ImageCacheFactory,$scope,CategoryService,$state,$ionicLoading,$ionicSlideBoxDelegate,$timeout,ionicMaterialInk,$rootScope,ionicMaterialMotion){
   $scope.categories={};

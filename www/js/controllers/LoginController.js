@@ -1,7 +1,7 @@
 'use strict';
 angular
 .module('starter')
-.controller('LoginController',function($rootScope,$scope, $timeout,$cordovaOauth, $stateParams, ionicMaterialInk,AuthService,$state,$ionicHistory,$http){
+.controller('LoginController',function($rootScope,$scope, $timeout, $stateParams, ionicMaterialInk,AuthService,$state,$ionicHistory,$http){
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -21,12 +21,6 @@ angular
     });
   };
 
-  $scope.facebookLogin = function(){
-    $cordovaOauth.facebook(window.globalSocialConnectVariable.oAuth.facebook,["email"]).then(function(result){
-      console.log(result);
-    },function(err){
-      console.log(err);
-    })
-  }
+
 
 });

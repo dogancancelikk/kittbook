@@ -15,7 +15,8 @@ angular.module('starter')
       updateStory:updateStory,
       getComments:getComments,
       addComment:addComment,
-      getUserPublishedStory:getUserPublishedStory
+      getUserPublishedStory:getUserPublishedStory,
+      getStoryWithCategories:getStoryWithCategories
     })
 
     function readStory( storyId, userId ) {
@@ -111,6 +112,16 @@ angular.module('starter')
       var request=$http({
         method:'GET',
         url:domainConstant.storyApi+"/getAllWithDetails",
+        params:{
+          action:'get'
+        }
+      });
+      return(request.then(handleSuccess,handleError));
+    }
+   function getStoryWithCategories(id){
+     var request=$http({
+        method:'GET',
+        url:domainConstant.storyApi+"/getcategoric/"+id,
         params:{
           action:'get'
         }
