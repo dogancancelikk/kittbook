@@ -161,12 +161,12 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
           controller: 'AnnouncementController'
           },
         'fabContent': {
-            template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-            controller: function ($timeout) {
-              $timeout(function () {
-                document.getElementById('fab-activity').classList.toggle('on');
-              }, 200);
-            }
+//             template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
+//             controller: function ($timeout) {
+//               $timeout(function () {
+//                 document.getElementById('fab-activity').classList.toggle('on');
+//               }, 200);
+//             }
           }
       }
     })
@@ -178,12 +178,12 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                controller: 'NewCollectiveBookController'
            },
            'fabContent': {
-               template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-               controller: function ($timeout) {
-                   $timeout(function () {
-                       document.getElementById('fab-activity').classList.toggle('on');
-                   }, 200);
-               }
+//                template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
+//                controller: function ($timeout) {
+//                    $timeout(function () {
+//                        document.getElementById('fab-activity').classList.toggle('on');
+//                    }, 200);
+//                }
            }
        }
    })
@@ -195,12 +195,12 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'ActivityController'
             },
             'fabContent': {
-                template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-activity').classList.toggle('on');
-                    }, 200);
-                }
+//                 template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
+//                 controller: function ($timeout) {
+//                     $timeout(function () {
+//                         document.getElementById('fab-activity').classList.toggle('on');
+//                     }, 200);
+//                 }
             }
         }
     })
@@ -304,23 +304,31 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     })
     .state('app.library', {
         url: '/library/:userid',
+        cache:false,
         views: {
             'menuContent': {
                 templateUrl: 'templates/library.html',
                 controller: 'LibraryController'
             },
             'fabContent': {
-                template: '<button id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-ios-paper-outline"></i></button>',
-                controller: function ($timeout) {
+                template: '<button id="fab-library" ui-sref="app.home" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-ios-paper-outline"></i></button>',
+                controller: function ($timeout,$state) {
                     $timeout(function () {
-                        document.getElementById('fab-activity').classList.toggle('on');
+                        document.getElementById('fab-library').classList.toggle('on');                                 
                     }, 200);
+                    var button = document.getElementById('fab-library')
+                    button.addEventListener('click',hideshow,true);
+                    function hideshow() {
+                        this.style.display = 'none'
+                    }                  
+
                 }
             }
         }
     })
    .state('app.newstory', {
         url: '/newstory',
+        cache:false,
         views: {
             'menuContent': {
                 templateUrl: 'templates/newstory.html',
@@ -394,12 +402,12 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'FollowersController'
             },
             'fabContent': {
-                template: '<button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-friends').classList.toggle('on');
-                    }, 900);
-                }
+//                 template: '<button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
+//                 controller: function ($timeout) {
+//                     $timeout(function () {
+//                         document.getElementById('fab-friends').classList.toggle('on');
+//                     }, 900);
+//                 }
             }
         }
     })
@@ -411,12 +419,12 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'FollowedUsersController'
             },
             'fabContent': {
-                template: '<button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-friends').classList.toggle('on');
-                    }, 900);
-                }
+//                 template: '<button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
+//                 controller: function ($timeout) {
+//                     $timeout(function () {
+//                         document.getElementById('fab-friends').classList.toggle('on');
+//                     }, 900);
+//                 }
             }
         }
     })
@@ -428,12 +436,12 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'EventDetailController'
             },
             'fabContent': {
-                template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-friends').classList.toggle('on');
-                    }, 900);
-                }
+//                 template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
+//                 controller: function ($timeout) {
+//                     $timeout(function () {
+//                         document.getElementById('fab-friends').classList.toggle('on');
+//                     }, 900);
+//                 }
             }
         }
     })
@@ -462,12 +470,12 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'AppliedEventController'
             },
             'fabContent': {
-                template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-friends').classList.toggle('on');
-                    }, 900);
-                }
+//                 template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
+//                 controller: function ($timeout) {
+//                     $timeout(function () {
+//                         document.getElementById('fab-friends').classList.toggle('on');
+//                     }, 900);
+//                 }
             }
         }
     })
@@ -529,12 +537,12 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'ManageActivityController'
             },
             'fabContent': {
-                template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-friends').classList.toggle('on');
-                    }, 900);
-                }
+//                 template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
+//                 controller: function ($timeout) {
+//                     $timeout(function () {
+//                         document.getElementById('fab-friends').classList.toggle('on');
+//                     }, 900);
+//                 }
             }
         }
     })
@@ -546,12 +554,12 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'ManageActivityController'
             },
             'fabContent': {
-                template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
-                        document.getElementById('fab-friends').classList.toggle('on');
-                    }, 900);
-                }
+//                 template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
+//                 controller: function ($timeout) {
+//                     $timeout(function () {
+//                         document.getElementById('fab-friends').classList.toggle('on');
+//                     }, 900);
+//                 }
             }
         }
     })
