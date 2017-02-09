@@ -55,42 +55,85 @@ angular.module('starter')
 
     window.localStorage.removeItem(LOCAL_TOKEN_KEY);
   }
+
+  function login(username,password) {
+      var request = $http({
+          method: 'post',
+          url: domainConstant.userApi + '/authenticate',
+          headers: {"Content-Type":"application/json"},
+          data: { userName: username, password: password}
+      });
+      return( request.then( handleSuccess, handleError ) );
+  }
+
+  function handleError( response ) {
+    if ( ! angular.isObject( response.data ) || ! response.data.message ) {
+        return( $q.reject( response ) );
+      }
+        return( $q.reject( response.data.message ) );
+  }
+  
+  function handleSuccess( response ) {
+    var loginDegeri= {};
+    var user = response.data.user;
+    username=user.userName;
+    nameSurname=user.name +" "+ user.surname;
+    loginDegeri.kullaniciAdi=user.name;
+    loginDegeri.sifre=user.password;
+    loginDegeri.idDegeri=user.id;
+    $rootScope.globals={
+      currentUser:{
+        id:user.id,
+        name:user.name,
+        surname:user.surname,
+        username:user.userName,
+        image:user.image,
+        libraryid:user.libraryID
+      }
+    }
+
+    $cookieStore.put('globals', $rootScope.globals);
+    //Token Based Authentication a göre kullanıcının id si token a eklenecek
+    storeUserCredentials(loginDegeri.idDegeri+'.yourServerToken');
+
+  }
+
   // Giriş yapılmak istenen değerin veritabanında varlığı sorgulanıyor ve Token yüklenmesi sağlanıyor.
-  var login = function(name, pw) {
-  return $q(function(resolve, reject) {
-      var loginDegeri= {};
-
-       $http.get(domainConstant.userApi+"/get").success(function(kullanicilar){
-
-            angular.forEach(kullanicilar,function(kullanici){
-              if(kullanici.userName==name && kullanici.password==pw){
-                username=kullanici.userName;
-                nameSurname=kullanici.name +" "+ kullanici.surname;
-                loginDegeri.kullaniciAdi=kullanici.name;
-                loginDegeri.sifre=kullanici.password;
-                loginDegeri.idDegeri=kullanici.id;
-                $rootScope.globals={
-                  currentUser:{
-                    id:kullanici.id,
-                    name:kullanici.name,
-                    surname:kullanici.surname,
-                    username:kullanici.userName,
-                    image:kullanici.image,
-                    libraryid:kullanici.libraryID
-                  }
-                }
-
-                $cookieStore.put('globals', $rootScope.globals);
-                //Token Based Authentication a göre kullanıcının id si token a eklenecek
-                storeUserCredentials(loginDegeri.idDegeri+'.yourServerToken');
-                resolve('Login Success');
-              }
-            },function(err){
-              reject('Login Failed');
-            });
-        });
-    });
-  };
+  // var login = function(name, pw) {
+  // return $q(function(resolve, reject) {
+  //     var loginDegeri= {};
+  //
+  //      $http.get(domainConstant.userApi+"/get").success(function(kullanicilar){
+  //
+  //           angular.forEach(kullanicilar,function(kullanici){
+  //             if(kullanici.userName==name && kullanici.password==pw){
+  //               username=kullanici.userName;
+  //               nameSurname=kullanici.name +" "+ kullanici.surname;
+  //               loginDegeri.kullaniciAdi=kullanici.name;
+  //               loginDegeri.sifre=kullanici.password;
+  //               loginDegeri.idDegeri=kullanici.id;
+  //               $rootScope.globals={
+  //                 currentUser:{
+  //                   id:kullanici.id,
+  //                   name:kullanici.name,
+  //                   surname:kullanici.surname,
+  //                   username:kullanici.userName,
+  //                   image:kullanici.image,
+  //                   libraryid:kullanici.libraryID
+  //                 }
+  //               }
+  //
+  //               $cookieStore.put('globals', $rootScope.globals);
+  //               //Token Based Authentication a göre kullanıcının id si token a eklenecek
+  //               storeUserCredentials(loginDegeri.idDegeri+'.yourServerToken');
+  //               resolve('Login Success');
+  //             }
+  //           },function(err){
+  //             reject('Login Failed');
+  //           });
+  //       });
+  //   });
+  // };
   //Çıkış yap butonuna basıldığında bu fonksiyon çağrılır ve token yok edilir.
   var logout = function() {
     destroyUserCredentials();
@@ -104,7 +147,6 @@ angular.module('starter')
   // };
 
   loadUserCredentials();
-
   return {
     kullaniciIdDegeri:function(){return kullaniciIdDegeri;},
     login: login,
