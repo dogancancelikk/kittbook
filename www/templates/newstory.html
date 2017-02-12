@@ -4,12 +4,13 @@
 </div>
 
 <ion-view view-title="Hikaye Yarat">
-<div class="drop-box" ng-click="addImageToStory()">
+<div class="drop-box" ng-click="addImageToStory()" ng-style="{'background-image':'url('+newimage+')'}">>
   <i class="icon ion-images" aria-hidden="true"></i>  Hikayeye Foto Ekle
 </div>
  <ion-content ng-class="{expanded:isExpanded}" id="image-picker-content">
 
   <div class="list">
+    <button type="button" ng-click="photoAdd()" name="button">Foto ekle be gardaşom</button>
        <md-input-container class="md-block" flex-gt-sm="">
       <label>Hikayenizin başlığını giriniz</label>
       <input type="text" ng-model="story.title">

@@ -46,25 +46,32 @@ angular
 // 				height:2800,
 // 				fullscreen_new_window : true
 // 		};
+$scope.newimage = "";
+
+$scope.photoAdd = function(){
+	debugger;
+	$scope.newimage = "https://static.pexels.com/photos/46710/pexels-photo-46710.jpeg";
+}
+
 
 $ionicPlatform.ready(function(){
 	$scope.addImageToStory = function(){
 		// Image picker will load images according to these settings
-			var options = {
-			maximumImagesCount: 1, // Max number of selected images, I'm using only one for this example
-			width: 800,
-			height: 800,
-			quality: 80            // Higher is better
-			};
+		debugger;
+		var options = {
+	   maximumImagesCount: 1,
+	   width: 800,
+	   height: 800,
+	   quality: 80
+	  };
 
-			$cordovaImagePicker.getPictures(options).then(function (results) {
-							// Loop through acquired images
-			for (var i = 0; i < results.length; i++) {
-					console.log('Image URI: ' + results[i]);   // Print image URI
-			}
-			}, function(error) {
-			console.log('Error: ' + JSON.stringify(error));    // In case of error
-			});
+	  $cordovaImagePicker.getPictures(options)
+	    .then(function (results) {
+				$scope.newimage = results;
+
+	    }, function(error) {
+	      // error getting photos
+	    });
 	}
 });
 

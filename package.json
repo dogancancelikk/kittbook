@@ -15,12 +15,34 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "cordova-plugin-device",
-    "cordova-plugin-console",
+    "cordova-plugin-compat",
+    "ionic-plugin-keyboard",
     "cordova-plugin-whitelist",
-    "cordova-plugin-splashscreen",
-    "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard"
+    {
+      "locator": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git",
+      "id": "cordova-plugin-inappbrowser"
+    },
+    {
+      "locator": "https://github.com/hazemhagrass/phonegap-base64",
+      "id": "com-badrit-base64"
+    },
+    "cordova-plugin-device",
+    "cordova-plugin-camera",
+    "cordova-plugin-crosswalk-webview",
+    {
+      "locator": "https://github.com/wymsee/cordova-imagePicker.git",
+      "id": "cordova-plugin-image-picker"
+    },
+    {
+      "locator": "https://github.com/b-alidra/-cordova-imagePickerEx.git",
+      "id": "com.synconset.ImagePickerExt"
+    }
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    {
+      "platform": "android",
+      "version": "",
+      "locator": "android"
+    }
+  ]
 }
