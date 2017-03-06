@@ -1,24 +1,21 @@
 /* global angular, document, window */
 'use strict';
 
-window.globalSocialConnectVariable = {
-  oAuth:{
-    facebook:'1793002480912477'
-  }
-}
-
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope,USER_DATA,$ionicModal, $ionicPopover,
-    $timeout,AuthService,AUTH_EVENTS,$state,$rootScope,$ionicHistory) {
+.controller('AppCtrl', function($scope,USER_DATA,$ionicModal, $ionicPopover,$ionicViewSwitcher,
+    $timeout,AuthService,AUTH_EVENTS,$state,$rootScope,$ionicHistory,$ionicPlatform,$window,$mdDialog, $mdBottomSheet, $mdMenu, $mdSelect,$mdUtil, $mdSidenav) {
     //Authentication operations
     //Yetkisiz girişlerin yakalandığı yer
 //     $scope._userid=$rootScope.globals.currentUser.id;
-
     $scope.$on(AUTH_EVENTS.notAuthorized, function (event) {
       alert('Yetkisiz giriş');
     });
+        var globals = {};
+    globals = window.localStorage.getItem("itemsArray");
+    $rootScope.globals.currentUser = globals;
 
+    console.log($rootScope.globals.currentUser);
     //notAuthenticated değerinin uygulamanın içerisinde yakalandığı yer
     $scope.$on(AUTH_EVENTS.notAuthenticated, function (event) {
       AuthService.logout();
@@ -26,6 +23,21 @@ angular.module('starter.controllers', [])
       alert('session kapanır');
     });
 
+    $scope.navigateTo = function (stateName,objectData) {
+    if ($ionicHistory.currentStateName() != stateName) {
+        $ionicHistory.nextViewOptions({
+            disableAnimate: false,
+            disableBack: true
+        });
+
+        //Next view animate will display in back direction
+        $ionicViewSwitcher.nextDirection('back');
+
+        $state.go(stateName, {
+            isAnimated: objectData,
+        });
+    }
+}; // End of navigateTo.
 
     $scope.authenticated=AUTH_EVENTS.notAuthenticated;
     $scope.logout = function () {
@@ -43,6 +55,80 @@ angular.module('starter.controllers', [])
     $scope.hasHeaderFabLeft = false;
     $scope.hasHeaderFabRight = false;
 
+    $ionicPlatform.registerBackButtonAction(function(){
+      debugger;
+      // if($ionicHistory.currentView().stateName ==="app.home"){
+      //   $window.location.reload();
+      // }
+
+      // var counter = 0;
+      //
+      // if($ionicHistory.currentView.stateName === "app.home"){
+      //   if(counter === 0){
+      //     $window.location.reload();
+      //   }
+      //   counter ++;
+      // }
+
+      if($mdSidenav("left").isOpen()){
+    //If side navigation is open it will close and then return
+          $mdSidenav('left').close();
+      }
+      else if(jQuery('[id^=dialog]').length > 0 ){
+          //If popup dialog is open it will close and then return
+          $mdDialog.cancel();
+      }
+      else if(jQuery('md-menu-content').length > 0 ){
+          //If md-menu is open it will close and then return
+          $mdMenu.hide();
+      }
+      else{
+            if($ionicHistory.backView() == null && $ionicHistory.currentView().stateName === 'app.home'){
+
+                //Check is popup dialog is not open.
+                if(jQuery('[id^=dialog]').length == 0 ) {
+
+                    // mdDialog for show $mdDialog to ask for
+                    // Confirmation to close the application.
+                    var confirmPopup = $ionicPopup.confirm({
+                      title: 'Onaylama',
+                      template: 'Uygulamayı kapatmak istiyor musunuz?'
+                    });
+
+                    confirmPopup.then(function(res) {
+                      if(res) {
+                          ionic.Platform.exitApp();
+                      } else {
+                        $state.go('app.home');
+                      }
+                    });
+                    // $mdDialog.show({
+                    //     controller: 'DialogController',
+                    //     templateUrl: 'confirm-dialog.html',
+                    //     targetEvent: null,
+                    //     locals: {
+                    //         displayOption: {
+                    //             title: "Onaylama",
+                    //             content: "Uygulamayı kapatmak istiyor musunuz?",
+                    //             ok: "Evet",
+                    //             cancel: "Hayır"
+                    //         }
+                    //     }
+                    // }).then(function () {
+                    //
+                    //     ionic.Platform.exitApp();
+                    // }, function () {
+                    // });
+                }
+            }else if($ionicHistory.backView() == null && $ionicHistory.currentView.stateName !== 'app.home'){
+              $state.go('app.home');
+            }
+            else{
+                //Go to the view of lasted state.
+                $ionicHistory.goBack();
+            }
+        }
+    },100);
 
     var navIcons = document.getElementsByClassName('ion-navicon');
     for (var i = 0; i < navIcons.length; i++) {
@@ -50,6 +136,37 @@ angular.module('starter.controllers', [])
             this.classList.toggle('active');
         });
     }
+
+    $ionicPlatform.registerBackButtonAction(function(){
+      if($ionicHistory.backView() == null ){
+
+              $mdDialog.show({
+                  controller: 'DialogController',
+                  templateUrl: 'confirm-dialog.html',
+                  targetEvent: null,
+                  locals: {
+                      displayOption: {
+                          title: "Confirmation",
+                          content: "Do you want to close the application?",
+                          ok: "Confirm",
+                          cancel: "Cancel"
+                      }
+                  }
+              }).then(function () {
+                  //If user tap Confirm at the popup dialog.
+                  //Application will close.
+                  ionic.Platform.exitApp();
+              }, function () {
+                  // For cancel button actions.
+              }); //End mdDialog
+      }
+      else{
+          //Go to the view of lasted state.
+          $ionicHistory.goBack();
+      }
+    })
+
+
 
     ////////////////////////////////////////
     // Layout Methods

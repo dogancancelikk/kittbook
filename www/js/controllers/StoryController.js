@@ -23,7 +23,7 @@ angular.module('starter')
 })
 
 
-.controller('StoryController',function($state,$ImageCacheFactory,$ionicNavBarDelegate,$ionicScrollDelegate,$ionicHistory,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
+.controller('StoryController',function($state,$ImageCacheFactory,$mdUtil,$mdSidenav,$ionicNavBarDelegate,$ionicScrollDelegate,$ionicHistory,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
 
     $ionicLoading.show({
 	  content: 'Loading',
@@ -36,6 +36,9 @@ angular.module('starter')
   $scope.$on('$ionicView.enter', function(e) {
     $ionicNavBarDelegate.showBar(true);
 });
+  // $ionicHistory.clearHistory();
+  // $ionicHistory.clearCache().then(function(){console.log("cache gitti");
+  // });
 
     $scope.$parent.clearFabs();
 
@@ -66,6 +69,18 @@ angular.module('starter')
 	},function(err){
 		console.log(err);
 	});
+
+  $scope.toggleLeft = buildToggler('left');
+
+  // buildToggler is for create menu toggle.
+  // Parameter :
+  // navID = id of navigation bar.
+  function buildToggler(navID) {
+      var debounceFn = $mdUtil.debounce(function () {
+          $mdSidenav(navID).toggle();
+      }, 0);
+      return debounceFn;
+  };
 
 	$scope.doRefresh = function(){
 		if($ionicTabsDelegate.selectedIndex() === 0){
@@ -149,13 +164,13 @@ angular.module('starter')
   	$scope.getNewStories = function(){
 
   		$ionicScrollDelegate.scrollTop();
-		$ionicLoading.show({
-		  content: 'Loading',
-		  animation: 'fade-in',
-		  showBackdrop: true,
-		  maxWidth: 200,
-		  showDelay: 0
-		});
+  		$ionicLoading.show({
+  		  content: 'Loading',
+  		  animation: 'fade-in',
+  		  showBackdrop: true,
+  		  maxWidth: 200,
+  		  showDelay: 0
+  		});
   		StoryService.getStoryWithPagination(1,0).then(function(newStories){
   			$scope.stories=[];
   			$scope.stories=newStories.newStories;
@@ -165,22 +180,21 @@ angular.module('starter')
   	}
 
   	$scope.getMostRated = function(){
-
   		$ionicScrollDelegate.scrollTop();
-		$ionicLoading.show({
-		  content: 'Loading',
-		  animation: 'fade-in',
-		  showBackdrop: true,
-		  maxWidth: 200,
-		  showDelay: 0
-		});
-		StoryService.getStoryWithPagination(2,0).then(function(mostRatedStories){
-			$scope.stories = [];
-			$scope.stories = mostRatedStories.mostRatedStories;
-			$ionicLoading.hide();
-			$ionicTabsDelegate.select(1,false);
+  		$ionicLoading.show({
+  		  content: 'Loading',
+  		  animation: 'fade-in',
+  		  showBackdrop: true,
+  		  maxWidth: 200,
+  		  showDelay: 0
+  		});
+  		StoryService.getStoryWithPagination(2,0).then(function(mostRatedStories){
+  			$scope.stories = [];
+  			$scope.stories = mostRatedStories.mostRatedStories;
+  			$ionicLoading.hide();
+  			$ionicTabsDelegate.select(1,false);
 
-		});
+  		});
   	}
 
 	CategoryService.getCategories().then(function(data){

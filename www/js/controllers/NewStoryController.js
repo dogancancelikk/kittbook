@@ -3,12 +3,16 @@
 angular
 .module("starter")
 
-.controller('NewStoryController',function($scope,$ionicPlatform,$ionicHistory,$cordovaImagePicker,$rootScope,StoryService,ionicMaterialInk,$state,$ionicSlideBoxDelegate,$timeout,$ionicLoading,$mdBottomSheet,$cordovaFile,CategoryService){
-	$scope.$parent.clearFabs();
-	$timeout(function() {
-			 $scope.$parent.hideHeader();
-	 }, 0);
+.controller('NewStoryController',function($scope,$ionicPlatform,$ionicHistory,$cordovaImagePicker,$rootScope,StoryService,Upload,
+	ionicMaterialInk,$jrCrop,$state,$ionicSlideBoxDelegate,$cordovaCamera,$timeout,$ionicLoading,$mdBottomSheet,$cordovaFile,$cordovaFileTransfer,CategoryService){
+
+	$scope.$parent.showHeader();
+  $scope.$parent.clearFabs();
+  $scope.isExpanded = false;
+  $scope.$parent.setExpanded(false);
+  $scope.$parent.setHeaderFab(false);
 	ionicMaterialInk.displayEffect();
+
 	$scope.story = {};
  	$scope.story.description = '';
  	$scope.story.tags = [];
@@ -20,6 +24,7 @@ angular
 		maxWidth: 200,
 		showDelay: 0
 	});
+	console.log(Upload.dataUrltoBlob("asdasdasd"));
 	$scope.deneme = function(){
 
 	}
@@ -52,31 +57,71 @@ $scope.photoAdd = function(){
 	debugger;
 	$scope.newimage = "https://static.pexels.com/photos/46710/pexels-photo-46710.jpeg";
 }
-
+$scope.newImage = "img/placeholder.png";
+$scope.tryAddImage = function(){
+	$scope.newImage ="";
+	$scope.newImage = "https://www.w3schools.com/css/img_fjords.jpg";
+}
 
 $ionicPlatform.ready(function(){
 	$scope.addImageToStory = function(){
-		// Image picker will load images according to these settings
-		debugger;
-		var options = {
-	   maximumImagesCount: 1,
-	   width: 800,
-	   height: 800,
-	   quality: 80
-	  };
+			var options2 = {
+				quality:100,
+				destinationType:Camera.DestinationType.FILE_URI,
+				sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+				allowEdit:true,
+				targetWidth:250,
+				targetHeight:340,
+				encodingType:Camera.EncodingType.JPEG,
+				correctOrientation: true,
+				popoverOptions:CameraPopoverOptions,
+				saveToPhotoAlbum:false
+			}
 
-	  $cordovaImagePicker.getPictures(options)
-	    .then(function (results) {
-				$scope.newimage = results;
+			$cordovaCamera.getPicture(options2).then(function(imageURI){
+				debugger;
+			 var options = new FileUploadOptions();
+				options.fileKey = "post";
+				options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+				options.mimeType = "image/jpeg";
+				options.chunkedMode = false;
+				console.log(options.fileName);
+				var params = new Object();
+				params.value1 = "test";
+				params.value2 = "param";
+				options.params = params;
+				options.chunkedMode = false;
 
-	    }, function(error) {
-	      // error getting photos
-	    });
+			 var ft = new FileTransfer();
+				ft.upload(imageURI, encodeURI("http://kittbook.com/api/upload"), function(result){
+				console.log(JSON.stringify(result));
+				}, function(error){
+				console.log(JSON.stringify(error));
+				}, options);
+			},function(err){
+				console.log("Is there some problems.");
+			});
 	}
 });
+function dataURLtoBlob(dataurl) {
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {type:mime});
+}
 
-
-
+	$scope.slideChanged = function(index) {
+		$scope.slideIndex = index;
+		console.log(index);
+	};
+	$scope.nextSlide = function() {
+	  $ionicSlideBoxDelegate.next();
+	};
+	$scope.tSlide = function() {
+		$ionicSlideBoxDelegate.previous();
+	};
   $scope.createStory=function(story){
 	$ionicLoading.show({
 		content: 'Loading',

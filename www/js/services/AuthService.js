@@ -8,12 +8,14 @@ angular.module('starter')
 .service('AuthService', function($q, $http,domainConstant,$cookieStore,$rootScope) {
 
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
+  var globals ={};
   var username = '';
   var isAuthenticated = false;
   var role = '';
   var authToken;
   var kullaniciIdDegeri;
   var nameSurname='';
+  var userCredentialsObject = {};
 
   function loadUserCredentials() {
     var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
@@ -24,7 +26,6 @@ angular.module('starter')
   //Token window.localStorage kullanılarak LOCAL_TOKEN_KEY e aktarıldı
   function storeUserCredentials(token) {
     window.localStorage.setItem(LOCAL_TOKEN_KEY, token);
-
     useCredentials(token);
   }
 
@@ -49,7 +50,7 @@ angular.module('starter')
     authToken = undefined;
     kullaniciIdDegeri = '';
     isAuthenticated = false;
-    $rootScope.globals = {};
+
     $cookieStore.remove('globals');
 
 
@@ -72,7 +73,7 @@ angular.module('starter')
       }
         return( $q.reject( response.data.message ) );
   }
-  
+
   function handleSuccess( response ) {
     var loginDegeri= {};
     var user = response.data.user;
@@ -81,7 +82,7 @@ angular.module('starter')
     loginDegeri.kullaniciAdi=user.name;
     loginDegeri.sifre=user.password;
     loginDegeri.idDegeri=user.id;
-    $rootScope.globals={
+      $rootScope.globals={
       currentUser:{
         id:user.id,
         name:user.name,
@@ -90,11 +91,15 @@ angular.module('starter')
         image:user.image,
         libraryid:user.libraryID
       }
-    }
+    };
+    // var oldItems = JSON.parse(localStorage.getItem('itemsArray')) || {};
+    // oldItems.push($rootScope.globals.currentUser);
+    // window.localStorage.setItem('itemsArray', JSON.stringify(oldItems));
 
     $cookieStore.put('globals', $rootScope.globals);
+    window.localStorage.setItem("USER_CREDENTIALS",$rootScope.globals.currentUser);
     //Token Based Authentication a göre kullanıcının id si token a eklenecek
-    storeUserCredentials(loginDegeri.idDegeri+'.yourServerToken');
+    storeUserCredentials(loginDegeri.idDegeri+'.yourServerToken',user);
 
   }
 

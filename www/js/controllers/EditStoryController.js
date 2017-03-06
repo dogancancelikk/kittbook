@@ -1,10 +1,12 @@
 angular.module('starter')
 .controller('EditStoryController',function($scope,$ionicLoading,StoryService,$state,ionicMaterialInk,$stateParams,$timeout,CategoryService){
-  $scope.$parent.clearFabs();
-  $timeout(function() {
-       $scope.$parent.hideHeader();
-   }, 0);
-  ionicMaterialInk.displayEffect();
+  $scope.$parent.showHeader();
+	$scope.$parent.clearFabs();
+	$scope.isExpanded = false;
+	$scope.$parent.setExpanded(false);
+	$scope.$parent.setHeaderFab(false);
+	ionicMaterialInk.displayEffect();
+  
   $scope.modifiedstory = {};
   $scope.modifiedstory.category = {};
   var storyid = $stateParams.storyid;

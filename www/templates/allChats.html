@@ -1,5 +1,9 @@
 
-<ion-view title="Mesajlar">
+<ion-view>
+  <ion-header-bar align-title="center" class="bar-positive">
+  <div class="buttons"><button class="button button-icon button-clear ion-android-more-vertical" menu-toggle="left" ng-click="toggleLeft()"></button></div>
+    <h1 class="title">Mesajlar</h1>
+  </ion-header-bar>
   <ion-content ng-class="{expanded:isExpanded}">
     <div class="list" class="animate-blinds">
       <a class="item item-avatar" ui-sref="app.chat({chatid:message.id})" ng-repeat="message in messages ">

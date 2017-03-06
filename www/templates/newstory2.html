@@ -1,0 +1,46 @@
+<div class="bar bar-header bar-positive flat">
+ <h1 class="title">Hikaye Yarat</h1>
+ <button class="button button-icon icon ion-plus-circled flat pull-right" ng-click="getContent(data)"></button>
+</div>
+
+<ion-view view-title="Hikaye Yarat">
+<div class="drop-box" ng-click="addImageToStory()" ng-style="{'background-image':'url('+newimage+')'}">>
+  <i class="icon ion-images" aria-hidden="true"></i>  Hikayeye Foto Ekle
+</div>
+ <ion-content ng-class="{expanded:isExpanded}" id="image-picker-content">
+
+  <div class="list">
+    <button type="button" ng-click="photoAdd()" name="button">Foto ekle be gardaşom</button>
+       <md-input-container class="md-block" flex-gt-sm="">
+      <label>Hikayenizin başlığını giriniz</label>
+      <input type="text" ng-model="story.title">
+    </md-input-container>
+
+<!--
+   <trix-editor ng-if="true" ng-model-options="{ updateOn: 'blur' }" spellcheck="false" class="trix-content" ng-model="data.tinymceModel"
+   angular-trix trix-initialize="trixInitialize(e, editor);" trix-change="trixChange(e, editor);" trix-selection-change="trixSelectionChange(e, editor);"
+   trix-focus="trixFocus(e, editor);" trix-blur="trixBlur(e, editor);" trix-file-accept="trixFileAccept(e, editor);"
+   trix-attachment-add="trixAttachmentAdd(e, editor);" trix-attachment-remove="trixAttachmentRemove(e, editor);" placeholder="Hikayene açıklama yaz..."></trix-editor> -->
+   <div class="chipsdemoBasicUsage">
+     <md-chips placeholder="Etiket Ekleyin" ng-model="story.tags" readonly="false" md-removable="story.removable"></md-chips>
+   </div>
+   <br><br>
+    <md-select placeholder="Kategori Ekleyin" ng-model="story.category">
+      <md-option><em>Seçiniz</em></md-option>
+      <md-option ng-repeat="category in categories" ng-value="category.id">
+        {{category.name}}
+      </md-option>
+    </md-select>
+    <br> <br>
+    <md-input-container>
+       <textarea ng-model="story.description" rows="2" cols="600"  maxlength="2000" placeholder="Hikayeniz hakkında bir şeyler yazın"></textarea>
+        <span class="item-note">
+             {{2000 - story.description.length}}
+            </span>
+    </md-input-container>
+     </div>
+  </ion-content>
+     <div class="bar bar-footer bar-positive" ng-click="createStory(story) ">
+      <div class="title">Hikayeyi Kaydet</div>
+     </div>
+</ion-view>

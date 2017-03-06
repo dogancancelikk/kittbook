@@ -3,17 +3,17 @@
     <ion-content ng-class="{expanded:isExpanded}" ng-cloak>
         <div class="content">
             <div ng-repeat="category in categories">
-                <div class="list condensed-space no-padding animate-blinds">
-                   
+                <div class="list condensed-space no-padding">
+
                         <div class="card dark-bg">
-                            <a class="item clear-bg item-bg-image waves-effect waves-button waves-light has-mask-reverse" 
+                            <a class="item clear-bg item-bg-image waves-effect waves-button waves-light has-mask-reverse"
                                ui-sref="app.storywithcategories({categoryid:category.id})" >
                                 <h2>{{category.name}}</h2>
                                 <p>{{category.description}}</p>
                                 <img  ng-style="{'background-image': 'url(' + category.image + ')', 'background-size' : '100% 100%', 'width':'100%', 'height':'100%'}">
                             </a>
                         </div>
-                   </div>          
+                   </div>
              </div>
         </div>
     </ion-content>

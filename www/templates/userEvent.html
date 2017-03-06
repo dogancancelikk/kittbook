@@ -1,6 +1,12 @@
 
 <ion-view view-title="Etkinlikler">
-  <ion-tabs class="tabs-striped tabs-positive tabs-color-light tabs-top">
+  <ion-header-bar align-title="center" class="bar-positive">
+  <div class="buttons"><button class="button button-icon button-clear ion-android-more-vertical" menu-toggle="left" ng-click="toggleLeft()"></button></div>
+    <h1 class="title">Etkinlikler</h1>
+   <div class="buttons">  <button class="button button-clear icon ion-android-search" ui-sref="app.search"></button></div>
+
+  </ion-header-bar>
+  <ion-tabs class="tabs-striped tabs-positive tabs-color-light tabs-top" delegate-handle="topTab">
 
     <ion-tab title="Başlayan Etkinlikler"   ng-click="setEvents(2)">
     </ion-tab>
@@ -34,6 +40,23 @@
         </div>
       </div>
     </ion-content>
+    <ion-tabs class="tabs-striped tabs-positive tabs-icon-top" delegate-handle="bottomTab">
+      <ion-tab title="Ana Sayfa" icon-on="ion-ios-home" href="#/app/home" icon-off="ion-ios-home-outline">
+
+      </ion-tab>
+
+      <ion-tab title="Etkinlikler" icon-on="ion-film-marker" ui-sref="app.userevent" icon-off="ion-film-marker">
+        <!-- Tab 2 content -->
+      </ion-tab>
+      <ion-tab title="Yaz" icon-on="ion-edit" icon-off="ion-edit" href="#/app/newstory">
+        <!-- Tab 1 content -->
+      </ion-tab>
+      <ion-tab title="Kollektif Kitaplar" icon-on="ion-ios-clock" ui-sref="app.collectivebook" icon-off="ion-ios-clock-outline">
+        <!-- Tab 2 content -->
+      </ion-tab>
+      <ion-tab title="Profil" icon-on="ion-ios-person" ui-sref="app.profile" icon-off="ion-ios-person-outline">
+      </ion-tab>
+    </ion-tabs>
 <script id="templates/modal.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-positive">

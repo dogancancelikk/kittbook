@@ -47,20 +47,34 @@ angular
 
   }
 })
-  .controller('UserEventController', function($scope,ionicMaterialInk, ManageActivityService, UserEventService,$ionicModal, $rootScope,$q,$timeout,$ionicTabsDelegate) {
-    $scope.$parent.showHeader();
+  .controller('UserEventController', function($scope,ionicMaterialInk, ManageActivityService, UserEventService,$ionicModal,$mdSidenav,$mdUtil,$rootScope,$q,$timeout,$ionicTabsDelegate) {
+    // $scope.$parent.showHeader();
+    // $scope.$parent.clearFabs();
+    // $scope.isExpanded = false;
+    // $scope.$parent.setExpanded(false);
+    // $scope.$parent.setHeaderFab(false);
     $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
+    $scope.$parent.hideHeader();
     ionicMaterialInk.displayEffect();
 
   $timeout( function() {
-    $ionicTabsDelegate .select(0, false);
+    $ionicTabsDelegate.$getByHandle("bottomTab").select(1,false);
     $scope.setEvents(2);
   },400);
   $scope.data ={
     choice:'A'
+  };
+
+  $scope.toggleLeft = buildToggler('left');
+
+  // buildToggler is for create menu toggle.
+  // Parameter :
+  // navID = id of navigation bar.
+  function buildToggler(navID) {
+      var debounceFn = $mdUtil.debounce(function () {
+          $mdSidenav(navID).toggle();
+      }, 0);
+      return debounceFn;
   };
 
   $scope.radioEventType = [
@@ -170,9 +184,9 @@ angular
 
     $scope.setEvents=function(id){
       if(id == 1){
-        $ionicTabsDelegate.select(1,true);
+        $ionicTabsDelegate.$getByHandle('topTab').select(1,true);
       }else if(id == 2){
-        $ionicTabsDelegate.select(0,true);
+        $ionicTabsDelegate.$getByHandle('topTab').select(0,true);
       }
   		console.log($rootScope.filterProperty);
   		setFilterProperty(id);

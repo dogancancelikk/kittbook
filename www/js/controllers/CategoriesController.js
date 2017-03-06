@@ -16,9 +16,7 @@ angular.module('starter')
   $scope.$parent.setExpanded(false);
   $scope.$parent.setHeaderFab(false);
   ionicMaterialInk.displayEffect();
-  $timeout(function() {
-    ionicMaterialMotion.blinds();
-  }, 400);
+
 
   $scope.setCategory=function(id){
     console.log($scope.filterProperty);

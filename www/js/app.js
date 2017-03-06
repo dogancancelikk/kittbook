@@ -4,8 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionMdInput','timer',
-    'angularMoment','ngCookies','ionic-modal-select','ChatModule','ngMessages','ngCordova','ngCordovaOauth','angularTrix','ngSanitize','ngMaterial','ionic.ion.imageCacheFactory'])
+angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionMdInput','timer','jrCrop',
+    'angularMoment','ngCookies','ionic-modal-select','ChatModule','ngMessages','ngFileUpload','ngOpenFB','ngCordova','ngCordovaOauth','angularTrix','ngSanitize','ngMaterial','ionic.ion.imageCacheFactory'])
 
 
     .controller('toastController', function ($scope, displayOption) {
@@ -31,6 +31,8 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     }
   }
 })
+
+.constant("FACEBOOK_APP_ID","1793002480912477")
 .run( function( $rootScope ) {
   // Load the facebook SDK asynchronously
   (function(){
@@ -47,6 +49,11 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
      firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
    }());
 })
+
+.run(function(ngFB,FACEBOOK_APP_ID){
+    ngFB.init({appId:FACEBOOK_APP_ID});
+})
+
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -61,12 +68,48 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     });
 })
 //http://www.w3schools.com/w3css/tryw3css_templates_social.htm#
- .run(function ($rootScope, $state, AuthService, $cookieStore,$http) {
+ .run(function ($rootScope, $state, AuthService, $cookieStore,$http,$ionicHistory,$window,$ionicNavBarDelegate) {
+
    $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
 
             $rootScope.authenticated = true;
         }
+      $rootScope.$on("$ionicView.beforeEnter", function(event, data){
+       // handle event
+
+      //  if(data.stateName === "app.home"){
+      //
+      //    $ionicHistory.removeBackView();
+      //    $ionicHistory.clearHistory();
+      //    $ionicHistory.clearCache();
+      //     console.log($ionicHistory);
+      //  }
+    });
+
+    $rootScope.$on("$ionicView.enter", function(event, data){
+       $ionicNavBarDelegate.showBar(true);
+      // debugger;
+      // if($ionicHistory.currentView().stateName === "app.home"){
+      //   if(stateControlCounter === 0){
+      //     $window.location.reload();
+      //   }
+      //   stateControlCounter ++;
+      // }
+      // debugger;
+      // if(data.stateName === 'app.home' && $ionicHistory.backView() !== null){
+      //   $window.location.reload();
+      // }
+    });
+
+    $rootScope.$on("$ionicView.afterEnter", function(event, data){
+       // handle event
+       if(data.stateName === "app.home"){
+         $ionicHistory.removeBackView();
+         $ionicHistory.clearHistory();
+         $ionicHistory.clearCache();
+       }
+    });
 
     $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
 
@@ -79,12 +122,32 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
       //   }
       // }
 
+      // console.log(event);
+      // console.log(next);
+      // console.log(fromState);
+      // console.log(fromState.name != "");
+
+      // if(fromState.name != "" && next.name === 'app.home'){
+      //   $window.location.reload();
+      // }
+
+
+
       if (!AuthService.isAuthenticated()) {
+        debugger;
         if (next.name !== 'app.login') {
           event.preventDefault();
           $state.go('app.login',{},{notify:false});
         }
       }
+      // else{
+      //   debugger;
+      //   if(next.name === 'app.login' || fromState.name === ""){
+      //     event.preventDefault();
+      //       $state.go('app.home');
+      //   }
+      //
+      // }
     });
   })
 
@@ -123,6 +186,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     // Turn off caching for demo simplicity's sake
     $ionicConfigProvider.views.maxCache(5);
     $ionicConfigProvider.backButton.previousTitleText(false);
+    $ionicConfigProvider.views.transition('none');
 
     /*
     // Turn off back button text
@@ -144,12 +208,18 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'CollectiveBookController'
             },
             'fabContent': {
-                // template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-                // controller: function ($timeout) {
-                //     $timeout(function () {
-                //         document.getElementById('fab-activity').classList.toggle('on');
-                //     }, 200);
-                // }
+                template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+                controller: function ($timeout,$scope,$state) {
+                    $scope.hideFab = true;
+                    $timeout(function () {
+                        document.getElementById('fab-activity').classList.toggle('on');
+                    }, 200);
+                    $scope.goHome = function(){
+                        $state.go('app.home');
+                        $scope.hideFab = false;
+
+                    }
+                }
             }
         }
     })
@@ -224,6 +294,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 
     .state('app.home', {
         url: '/home',
+        cache:false,
         views: {
             'menuContent': {
                 templateUrl: 'templates/home.html',
@@ -314,13 +385,13 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 template: '<button id="fab-library" ui-sref="app.home" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-ios-paper-outline"></i></button>',
                 controller: function ($timeout,$state) {
                     $timeout(function () {
-                        document.getElementById('fab-library').classList.toggle('on');                                 
+                        document.getElementById('fab-library').classList.toggle('on');
                     }, 200);
                     var button = document.getElementById('fab-library')
                     button.addEventListener('click',hideshow,true);
                     function hideshow() {
                         this.style.display = 'none'
-                    }                  
+                    }
 
                 }
             }
@@ -577,6 +648,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     })
     .state('app.allchats',{
         url:'/allchats',
+        cache:false,
         views:{
             'menuContent':{
                 templateUrl:'templates/allChats.html',
@@ -610,6 +682,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     })
     .state('app.profile', {
         url: '/profile/:userid',
+        cache:false,
         views: {
             'menuContent': {
                 templateUrl: 'templates/profile.html',
@@ -621,6 +694,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     })
       .state('app.usersstories', {
             url: '/usersstories/:userid',
+            cache:false,
             views: {
                 'menuContent': {
                     templateUrl: 'templates/usersStories.html',
@@ -648,6 +722,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
         })
     .state('app.about', {
             url: '/about/:userid',
+            cache:false,
             views: {
                 'menuContent': {
                     templateUrl: 'templates/about.html',
@@ -658,5 +733,8 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/login');
+    $urlRouterProvider.otherwise(function ($injector) {
+         var $state = $injector.get("$state");
+         $state.go("app.login");
+     });
 });

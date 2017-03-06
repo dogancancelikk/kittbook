@@ -2,11 +2,23 @@
 
 angular
 .module('starter')
-.controller('CollectiveBookController',function($scope, CollectiveBookService,$timeout,$ionicTabsDelegate){
+.controller('CollectiveBookController',function($scope, CollectiveBookService,$timeout,$ionicTabsDelegate,$mdUtil,$mdSidenav){
   $scope.$parent.clearFabs();
   $timeout(function() {
       $scope.$parent.hideHeader();
   }, 0);
+
+  $scope.toggleLeft = buildToggler('left');
+
+  // buildToggler is for create menu toggle.
+  // Parameter :
+  // navID = id of navigation bar.
+  function buildToggler(navID) {
+      var debounceFn = $mdUtil.debounce(function () {
+          $mdSidenav(navID).toggle();
+      }, 0);
+      return debounceFn;
+  };
 
     $scope.collectivebooks=[];
     $scope.orderProperty = "createdate";
