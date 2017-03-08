@@ -36,6 +36,7 @@ angular.module('starter')
           for(var i=0; i<data.length;i++){
           images.push(data[i].image);
           }
+          console.log($scope.categories);
             $ionicLoading.hide();
         $ImageCacheFactory.Cache(images).then(function(){
           console.log("Fotolar cachelendi");

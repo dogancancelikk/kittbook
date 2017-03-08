@@ -1,0 +1,30 @@
+
+<ion-view view-title="Hikaye Yarat">
+<div class="drop-box" ng-click="deneme()">
+  <i class="icon ion-images" aria-hidden="true"></i>  Hikayeye Foto Ekle
+</div>
+ <ion-content ng-class="{expanded:isExpanded}" id="image-picker-content">
+
+  <div class="list">
+       <md-input-container class="md-block" flex-gt-sm="">
+      <label>Kullanıcı Adınız</label>
+      <input type="text" ng-model="story.name">
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm="">
+   <label>İsim Soyisim</label>
+   <input type="text" ng-model="story.name">
+ </md-input-container>
+ <md-input-container class="md-block" flex-gt-sm="">
+<label>Doğum Tarihiniz</label>
+<input type="text" ng-model="story.name">
+</md-input-container>
+<md-input-container class="md-block" flex-gt-sm="">
+<label>Elektronik Posta Adresiniz</label>
+<input type="text" ng-model="story.name">
+</md-input-container>
+
+  </ion-content>
+     <div class="bar bar-footer bar-positive" ng-click="updateStory(story) ">
+      <div class="title">Değişiklikleri Kaydet</div>
+     </div>
+</ion-view>

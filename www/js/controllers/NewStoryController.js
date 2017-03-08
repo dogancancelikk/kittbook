@@ -24,7 +24,27 @@ angular
 		maxWidth: 200,
 		showDelay: 0
 	});
-	console.log(Upload.dataUrltoBlob("asdasdasd"));
+	console.log(base64toBlob("iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==","image/jpeg"));
+	function base64toBlob(base64Data, contentType) {
+    contentType = contentType || '';
+    var sliceSize = 1024;
+    var byteCharacters = window.atob(base64Data);
+    var bytesLength = byteCharacters.length;
+    var slicesCount = Math.ceil(bytesLength / sliceSize);
+    var byteArrays = new Array(slicesCount);
+
+    for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+        var begin = sliceIndex * sliceSize;
+        var end = Math.min(begin + sliceSize, bytesLength);
+
+        var bytes = new Array(end - begin);
+        for (var offset = begin, i = 0 ; offset < end; ++i, ++offset) {
+            bytes[i] = byteCharacters[offset].charCodeAt(0);
+        }
+        byteArrays[sliceIndex] = new Uint8Array(bytes);
+    }
+    return new Blob(byteArrays, { type: contentType });
+}
 	$scope.deneme = function(){
 
 	}
@@ -67,7 +87,7 @@ $ionicPlatform.ready(function(){
 	$scope.addImageToStory = function(){
 			var options2 = {
 				quality:100,
-				destinationType:Camera.DestinationType.FILE_URI,
+				destinationType:Camera.DestinationType.DATA_URL,
 				sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
 				allowEdit:true,
 				targetWidth:250,
@@ -93,7 +113,7 @@ $ionicPlatform.ready(function(){
 				options.chunkedMode = false;
 
 			 var ft = new FileTransfer();
-				ft.upload(imageURI, encodeURI("http://kittbook.com/api/upload"), function(result){
+				ft.upload(base64toBlob(imageURI,"image/jpeg"), encodeURI("http://kittbook.com/api/upload"), function(result){
 				console.log(JSON.stringify(result));
 				}, function(error){
 				console.log(JSON.stringify(error));

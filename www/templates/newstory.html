@@ -56,34 +56,46 @@
                 </div>
             </div> -->
         </ion-slide>
-        <ion-slide class="slide-08">
+        <ion-slide class="slide-08" pager="false">
             <div class="list">
-                <div class="item">
-                    Hikayenin Fotosu
-                </div>
-                <div class="item">
-                    Hikayenin Etiketleri
-                </div>
-                <div class="item">
-                    Hikayenin Kategorileri
-                </div>
-                <div class="item">
-                    Hikayenin Açıklaması
-                </div>
-                <div class="item">
-                    Yayınlamak istiyor musun?
-                </div>
-                <div class="item">
-                    Hikayende değiştirmek istediğin bir yer yoksa artık oluşturabilirsin.
-                </div>
-                <div class="item">
-                    NOT: Hikaye hikaye düzenle sayfasına yönlendirilecek ve yayınlanmamış haliyle gönderilecek isteyen oradan yayınla butonuna
-                    basıp yayınlayabilir.
-                </div>
+              <div class="item item-divider">
+                Hikayenizin Kapak Fotosu
+              </div>
+              <div class="item">
+              <img src="story.image" alt="">
+              </div>
+            <div class="item item-divider">
+              Hikayenizin Başlığı
             </div>
+            <div class="item">
+              {{story.title}}
+            </div>
+            <div class="item item-divider">
+              Hikayenizin Kategorisi
+            </div>
+            <div class="item">
+              {{story.category}}
+            </div>
+            <div class="item item-divider">
+              Hikayenizin Etiketleri
+            </div>
+            <div class="item" ng-repeat="tag in story.tags">
+              {{tag}}
+            </div>
+            <div class="item item-divider">
+              Hikayenizin Özeti
+            </div>
+            <div class="item">
+              {{story.description}}
+            </div>
+
+          </div>
         </ion-slide>
         <!--end slider section-->
     </ion-slide-box><!--end try app section-->
    </ion-content>
+   <div class="bar bar-footer bar-positive" ng-click="createStory(story) ">
+         <div class="title">Hikayeyi Kaydet</div>
+  </div>
 
 </ion-view>

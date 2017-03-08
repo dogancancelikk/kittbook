@@ -19,7 +19,7 @@ angular
    $scope.isExpanded = false;
    $scope.$parent.setExpanded(false);
    $scope.$parent.setHeaderFab(false);
-	
+
    // Set Motion
    $timeout(function() {
      ionicMaterialMotion.slideUp({
@@ -39,7 +39,7 @@ angular
 	 $scope.ifFollowedUser = false;
 	$scope.ifUnFollowedUser = false;
 	$scope.ifNeedEditProfile = false;
-	
+
    $ionicTabsDelegate.selectedIndex() == 3;
    $scope.user = {};
    $scope.isOwnProfile=false;
@@ -55,7 +55,16 @@ angular
    		return $stateParams.userid;
    	}
    }
-	 
+   PostService.getUserPosts(getUserId()).then(function(posts){
+      UserService.getUserDetail(getUserId()).then(function(user){
+        $scope.user = user;
+        $ionicLoading.hide();
+      })
+     $scope.posts=posts;
+     console.log(posts);
+   },function(err){
+     console.log(err);
+   });
 	 function checkProfileStatus(){
 		if($scope.isOwnProfile === false && $scope.isFollowed === true){
 			 $scope.ifFollowedUser = true;

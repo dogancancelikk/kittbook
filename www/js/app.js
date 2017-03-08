@@ -208,18 +208,18 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'CollectiveBookController'
             },
             'fabContent': {
-                template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
-                controller: function ($timeout,$scope,$state) {
-                    $scope.hideFab = true;
-                    $timeout(function () {
-                        document.getElementById('fab-activity').classList.toggle('on');
-                    }, 200);
-                    $scope.goHome = function(){
-                        $state.go('app.home');
-                        $scope.hideFab = false;
-
-                    }
-                }
+                // template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+                // controller: function ($timeout,$scope,$state) {
+                //     $scope.hideFab = true;
+                //     $timeout(function () {
+                //         document.getElementById('fab-activity').classList.toggle('on');
+                //     }, 200);
+                //     $scope.goHome = function(){
+                //         $state.go('app.home');
+                //         $scope.hideFab = false;
+                //
+                //     }
+                // }
             }
         }
     })
@@ -313,6 +313,20 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/storywithcategories.html',
                 controller: 'StoryWithCategoriesController'
+            },
+            'fabContent':{
+              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+              controller: function ($timeout,$scope,$state) {
+                  $scope.hideFab = true;
+                  $timeout(function () {
+                      document.getElementById('fab-activity').classList.toggle('on');
+                  }, 200);
+                  $scope.goHome = function(){
+                      $state.go('app.home');
+                      $scope.hideFab = false;
+
+                  }
+              }
             }
 
 //             },
@@ -327,6 +341,20 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/search.html',
                 controller: 'SearchController'
+            },
+            'fabContent':{
+              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+              controller: function ($timeout,$scope,$state) {
+                  $scope.hideFab = true;
+                  $timeout(function () {
+                      document.getElementById('fab-activity').classList.toggle('on');
+                  }, 200);
+                  $scope.goHome = function(){
+                      $state.go('app.home');
+                      $scope.hideFab = false;
+
+                  }
+              }
             }
 
 //             },
@@ -352,12 +380,18 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'StorydetailController'
             },
             'fabContent': {
-                // template: '<button id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-ios-paper-outline"></i></button>',
-                // controller: function ($timeout) {
-                //     $timeout(function () {
-                //         document.getElementById('fab-activity').classList.toggle('on');
-                //     }, 200);
-                // }
+                template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+                controller: function ($timeout,$scope,$state) {
+                    $scope.hideFab = true;
+                    $timeout(function () {
+                        document.getElementById('fab-activity').classList.toggle('on');
+                    }, 200);
+                    $scope.goHome = function(){
+                        $state.go('app.home');
+                        $scope.hideFab = false;
+
+                    }
+                }
             }
         }
     })
@@ -369,7 +403,18 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'ManageStoryController'
             },
             'fabContent': {
+              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+              controller: function ($timeout,$scope,$state) {
+                  $scope.hideFab = true;
+                  $timeout(function () {
+                      document.getElementById('fab-activity').classList.toggle('on');
+                  }, 200);
+                  $scope.goHome = function(){
+                      $state.go('app.home');
+                      $scope.hideFab = false;
 
+                  }
+              }
             }
         }
     })
@@ -406,17 +451,18 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'NewStoryController'
             },
             'fabContent': {
-                // template: '<button id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap" ng-click="nextSlide()" ><i class="icon ion-ios-skipforward-outline"></i></button>',
-                // controller: function ($timeout,$ionicSlideBoxDelegate,$scope) {
-                //     $timeout(function () {
-                //         document.getElementById('fab-activity').classList.toggle('on');
+              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+              controller: function ($timeout,$scope,$state) {
+                  $scope.hideFab = true;
+                  $timeout(function () {
+                      document.getElementById('fab-activity').classList.toggle('on');
+                  }, 200);
+                  $scope.goHome = function(){
+                      $state.go('app.home');
+                      $scope.hideFab = false;
 
-                //     }, 200);
-//                       $scope.nextSlide = function() {
-//                             $ionicSlideBoxDelegate.next();
-//                             console.log($scope.data);
-//                           };
-//                }
+                  }
+              }
             }
         }
     })
@@ -428,17 +474,18 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                  controller: 'EditStoryController'
              },
              'fabContent': {
-                 // template: '<button id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap" ng-click="nextSlide()" ><i class="icon ion-ios-skipforward-outline"></i></button>',
-                 // controller: function ($timeout,$ionicSlideBoxDelegate,$scope) {
-                 //     $timeout(function () {
-                 //         document.getElementById('fab-activity').classList.toggle('on');
+               template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+               controller: function ($timeout,$scope,$state) {
+                   $scope.hideFab = true;
+                   $timeout(function () {
+                       document.getElementById('fab-activity').classList.toggle('on');
+                   }, 200);
+                   $scope.goHome = function(){
+                       $state.go('app.home');
+                       $scope.hideFab = false;
 
-                 //     }, 200);
- //                       $scope.nextSlide = function() {
- //                             $ionicSlideBoxDelegate.next();
- //                             console.log($scope.data);
- //                           };
- //                }
+                   }
+               }
              }
          }
      })
@@ -461,6 +508,18 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'CategoriesController'
             },
             'fabContent': {
+              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+              controller: function ($timeout,$scope,$state) {
+                  $scope.hideFab = true;
+                  $timeout(function () {
+                      document.getElementById('fab-activity').classList.toggle('on');
+                  }, 200);
+                  $scope.goHome = function(){
+                      $state.go('app.home');
+                      $scope.hideFab = false;
+
+                  }
+              }
 
             }
         }

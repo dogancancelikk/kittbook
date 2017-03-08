@@ -80,8 +80,8 @@
       </ion-item>
     </ion-list> -->
     <br>
-    <div class="list" style="margin-left:25px;">
-      <a ui-sref="app.userposts({userid:lastUserID})" class="item">
+    <div class="list">
+      <!-- <a ui-sref="app.userposts({userid:lastUserID})" class="item">
         Gönderiler
       </a>
       <a ui-sref="app.usersstories({userid:lastUserID})" ng-if="isOwnProfile" class="item">
@@ -92,14 +92,43 @@
       </a>
       <a ui-sref="app.otheruserstories({userid:lastUserID})" ng-if="!isOwnProfile" class="item">
         Yazılar
-      </a>
+      </a> -->
+          <div ng-repeat="post in posts">
+            <div id="news-feed-content">
+                <div class="news-item">
+                    <div class="row header">
+                        <div class="col-20">
+                            <img ng-src="{{user.image}}" class="user-img"/>
+                        </div>
+                        <div class="col-75">
+                           <span class="name">
+                              {{user.name}} {{user.surname}}
+                           </span>
+                            <br/>
+                           <span class="datetime">
+                               {{post.postDate | amCalendar}}
+                           </span>
+                        </div>
+                        <div class="col-5" ng-if="isOwnProfile" >
+                          <i class="icon icon-assertive ion-android-cancel" ng-click="deletePost(post)"></i>
+                        </div>
+                    </div>
+                    <div class="row detail">
+                        <div class="col">
+                          <p class="content" ng-bind-html='post.text'></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
       <!-- <a ui-sref="app.followers({userid:lastUserID})" class="item">
         Takipçi
       </a>
       <a ui-sref="app.followedusers({userid:lastUserID})"  class="item">
         Takip Edilen
       </a> -->
-      <a ng-if="true" ui-sref="app.about({userid:lastUserID})" class="item">
+      <!-- <a ng-if="true" ui-sref="app.about({userid:lastUserID})" class="item">
         Hakkında
       </a>
       <a ng-if="false" class="item">
@@ -107,7 +136,7 @@
       </a>
       <a ui-sref="app.chat({chatid:lastUserID})" ng-if="!isOwnProfile" class="item">
         Mesaj At
-      </a>
+      </a> -->
     </div>
   </ion-content>
   <ion-tabs class="tabs-striped tabs-positive tabs-icon-top" ng-if="isOwnProfile">
@@ -116,14 +145,14 @@
     </ion-tab>
     <ion-tab title="Kitaplık" icon-on="ion-ios-book" ui-sref="app.library({userid:lastUserID})"  icon-off="ion-ios-book-outline">
       <!-- Tab 2 content -->
-    </ion-tab>    
+    </ion-tab>
     <ion-tab title="İleti Yaz" icon-on="ion-ios-clock" ng-click="modal.show()" icon-off="ion-ios-clock-outline">
       <!-- Tab 2 content -->
     </ion-tab>
     <ion-tab title="Çalışmalarım" icon-on="ion-ios-bookmarks" ui-sref="app.usersstories({userid:lastUserID})"  icon-off="ion-ios-bookmarks-outline">
       <!-- Tab 2 content -->
-    </ion-tab>    
-  
+    </ion-tab>
+
     <ion-tab title="Profil" icon-on="ion-ios-person" ui-sref="app.profile" icon-off="ion-ios-person-outline">
     </ion-tab>
   </ion-tabs>
