@@ -14,12 +14,11 @@ angular
   ionicMaterialInk.displayEffect();
   //end
 
-  var _userid=$rootScope.globals.currentUser.id;
+  var _userid=$rootScope.globals.id;
 
   $scope.data={};
   $scope.createCollectiveBook=function(data){
 
-    debugger;
     StoryService.addStory(data.name,_userid,data.about,1).then(function(data){
       console.log(data);
       var alertPopup=$ionicPopup.alert({

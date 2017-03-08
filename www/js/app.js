@@ -69,9 +69,9 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 })
 //http://www.w3schools.com/w3css/tryw3css_templates_social.htm#
  .run(function ($rootScope, $state, AuthService, $cookieStore,$http,$ionicHistory,$window,$ionicNavBarDelegate) {
-
-   $rootScope.globals = $cookieStore.get('globals') || {};
-        if ($rootScope.globals.currentUser) {
+   var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+   $rootScope.globals = currentUser || {};
+        if ($rootScope.globals) {
 
             $rootScope.authenticated = true;
         }
@@ -134,7 +134,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 
 
       if (!AuthService.isAuthenticated()) {
-        debugger;
         if (next.name !== 'app.login') {
           event.preventDefault();
           $state.go('app.login',{},{notify:false});
@@ -315,7 +314,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'StoryWithCategoriesController'
             },
             'fabContent':{
-              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
               controller: function ($timeout,$scope,$state) {
                   $scope.hideFab = true;
                   $timeout(function () {
@@ -343,7 +342,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'SearchController'
             },
             'fabContent':{
-              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
               controller: function ($timeout,$scope,$state) {
                   $scope.hideFab = true;
                   $timeout(function () {
@@ -380,7 +379,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'StorydetailController'
             },
             'fabContent': {
-                template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+                template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
                 controller: function ($timeout,$scope,$state) {
                     $scope.hideFab = true;
                     $timeout(function () {
@@ -403,7 +402,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'ManageStoryController'
             },
             'fabContent': {
-              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
               controller: function ($timeout,$scope,$state) {
                   $scope.hideFab = true;
                   $timeout(function () {
@@ -427,7 +426,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'LibraryController'
             },
             'fabContent': {
-                template: '<button id="fab-library" ui-sref="app.home" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-ios-paper-outline"></i></button>',
+                template: '<button id="fab-library" ui-sref="app.home" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-ios-paper-outline"></i></button>',
                 controller: function ($timeout,$state) {
                     $timeout(function () {
                         document.getElementById('fab-library').classList.toggle('on');
@@ -451,7 +450,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'NewStoryController'
             },
             'fabContent': {
-              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
               controller: function ($timeout,$scope,$state) {
                   $scope.hideFab = true;
                   $timeout(function () {
@@ -474,7 +473,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                  controller: 'EditStoryController'
              },
              'fabContent': {
-               template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+               template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
                controller: function ($timeout,$scope,$state) {
                    $scope.hideFab = true;
                    $timeout(function () {
@@ -508,7 +507,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'CategoriesController'
             },
             'fabContent': {
-              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
+              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
               controller: function ($timeout,$scope,$state) {
                   $scope.hideFab = true;
                   $timeout(function () {
@@ -746,8 +745,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/profile.html',
                 controller: 'ProfileController'
-            },
-            'fabContent': {
             }
         }
     })
@@ -758,6 +755,20 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 'menuContent': {
                     templateUrl: 'templates/usersStories.html',
                     controller: 'UserStoriesController'
+                },
+                'fabContent':{
+                  template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
+                  controller: function ($timeout,$scope,$state) {
+                      $scope.hideFab = true;
+                      $timeout(function () {
+                          document.getElementById('fab-activity').classList.toggle('on');
+                      }, 200);
+                      $scope.goHome = function(){
+                          $state.go('app.home');
+                          $scope.hideFab = false;
+
+                      }
+                  }
                 }
             }
         })

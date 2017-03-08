@@ -11,11 +11,6 @@ angular.module('starter.controllers', [])
     $scope.$on(AUTH_EVENTS.notAuthorized, function (event) {
       alert('Yetkisiz giriş');
     });
-        var globals = {};
-    globals = window.localStorage.getItem("itemsArray");
-    $rootScope.globals.currentUser = globals;
-
-    console.log($rootScope.globals.currentUser);
     //notAuthenticated değerinin uygulamanın içerisinde yakalandığı yer
     $scope.$on(AUTH_EVENTS.notAuthenticated, function (event) {
       AuthService.logout();
@@ -56,7 +51,6 @@ angular.module('starter.controllers', [])
     $scope.hasHeaderFabRight = false;
 
     $ionicPlatform.registerBackButtonAction(function(){
-      debugger;
       // if($ionicHistory.currentView().stateName ==="app.home"){
       //   $window.location.reload();
       // }

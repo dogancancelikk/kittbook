@@ -33,7 +33,7 @@ function buildToggler(navID) {
    $timeout(function() {
      ionicMaterialMotion.blinds();
   }, 400);
-  var _userid=$rootScope.globals.currentUser.id;
+  var _userid=$rootScope.globals.id;
   ChatService.getAllMessages(_userid).then(function(data){
     $scope.messages=data;
     $ionicLoading.hide();

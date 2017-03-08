@@ -44,8 +44,8 @@ angular
    $scope.user = {};
    $scope.isOwnProfile=false;
    $scope.isFollowed=false;
-   var currentUser=$rootScope.globals.currentUser;
-   var _userid = $rootScope.globals.currentUser.id;
+   var currentUser=$rootScope.globals;
+   var _userid = $rootScope.globals.id;
 
    var getUserId = function(){
    	if($stateParams.userid == ""){

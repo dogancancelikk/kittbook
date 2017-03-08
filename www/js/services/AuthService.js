@@ -16,6 +16,7 @@ angular.module('starter')
   var kullaniciIdDegeri;
   var nameSurname='';
   var userCredentialsObject = {};
+  var currentUser = {};
 
   function loadUserCredentials() {
     var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
@@ -51,9 +52,6 @@ angular.module('starter')
     kullaniciIdDegeri = '';
     isAuthenticated = false;
 
-    $cookieStore.remove('globals');
-
-
     window.localStorage.removeItem(LOCAL_TOKEN_KEY);
   }
 
@@ -82,8 +80,8 @@ angular.module('starter')
     loginDegeri.kullaniciAdi=user.name;
     loginDegeri.sifre=user.password;
     loginDegeri.idDegeri=user.id;
-      $rootScope.globals={
-      currentUser:{
+
+      currentUser={
         id:user.id,
         name:user.name,
         surname:user.surname,
@@ -91,13 +89,13 @@ angular.module('starter')
         image:user.image,
         libraryid:user.libraryID
       }
-    };
+
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
     // var oldItems = JSON.parse(localStorage.getItem('itemsArray')) || {};
     // oldItems.push($rootScope.globals.currentUser);
     // window.localStorage.setItem('itemsArray', JSON.stringify(oldItems));
 
-    $cookieStore.put('globals', $rootScope.globals);
-    window.localStorage.setItem("USER_CREDENTIALS",$rootScope.globals.currentUser);
+
     //Token Based Authentication a göre kullanıcının id si token a eklenecek
     storeUserCredentials(loginDegeri.idDegeri+'.yourServerToken',user);
 

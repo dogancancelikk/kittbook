@@ -48,8 +48,8 @@ angular.module('starter')
   //Parallax End
 
    $scope.storyid=$stateParams.storyid;
-   var userid=$rootScope.globals.currentUser.id;
-   var libraryid = $rootScope.globals.currentUser.libraryid;
+   var userid=$rootScope.globals.id;
+   var libraryid = $rootScope.globals.libraryid;
    console.log(libraryid);
     $scope.alreadyHave=false;
     $scope.isOwnStory = false;
@@ -130,7 +130,7 @@ angular.module('starter')
       $scope.story=data;
       checkDescriptionCharCount(data.description);
       $scope.storyid=data.id;
-      if($rootScope.globals.currentUser.id == data.ownerID){
+      if($rootScope.globals.id == data.ownerID){
         $scope.isOwnStory = true;
       }else{
         LibraryService.hasStory(libraryid,$scope.storyid).then(function(data){

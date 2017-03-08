@@ -8,13 +8,13 @@ angular
 	$scope.$parent.setExpanded(false);
 	$scope.$parent.setHeaderFab(false);
 	ionicMaterialInk.displayEffect();
-	ionicMaterialMotion.ripple();
+//	ionicMaterialMotion.ripple();
   $scope.otherchapter = false;
-     $timeout(function() {
-     ionicMaterialMotion.slideUp({
-       selector: '.slide-up'
-     });
-   }, 300);
+  //    $timeout(function() {
+  //    ionicMaterialMotion.slideUp({
+  //      selector: '.slide-up'
+  //    });
+  //  }, 300);
    var backView = $ionicHistory.backTitle();
        console.log(backView);
 // 	ionicMaterialMotion.pushDown({
@@ -25,7 +25,7 @@ angular
 // 	});
 	//end
   var chapterid=$stateParams.chapterid;
-	var _userid=$rootScope.globals.currentUser.id;
+	var _userid=$rootScope.globals.id;
 
 	ChapterService.readChapter(chapterid, _userid);
 
@@ -45,7 +45,7 @@ angular
     console.log(data);
 		var storyid = data.storyID;
 		StoryService.getStoryWithID(storyid).then(function(storyData){
-      
+
 			$scope.storyname=storyData.name;
 		},function(err){
 			console.log(err);
@@ -55,9 +55,9 @@ angular
     console.log(err);
   });
   function isThereAnotherChapter(chapternumber,storyid){
-    
+
     ChapterService.getChapterWithChapterNumber(chapternumber, storyid).then(function(chapterData){
-      
+
         if(chapterData === null || chapterData === ""){
           $scope.otherchapter = false;
         }else{

@@ -99,7 +99,7 @@ angular
   $scope.orderProperty = "createdate";
 
   $scope.activeEvent = [];
-  var _userid = $rootScope.globals.currentUser.id;
+  var _userid = $rootScope.globals.id;
 
       ManageActivityService.getActivity().then(function(events) {
         console.log(events);

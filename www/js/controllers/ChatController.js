@@ -12,7 +12,7 @@ angular.module('ChatModule', ['ionic', 'monospaced.elastic'])
     });
       var _userArray={};
       var _toUserArray={};
-      var _user = $rootScope.globals.currentUser.id;
+      var _user = $rootScope.globals.id;
       var _toUser= $stateParams.chatid;
     UserService.getUserDetail(_user).then(function(data){
         $scope.user = {
