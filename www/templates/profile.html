@@ -6,12 +6,12 @@
         <h3><a class="light"> {{user.name}} {{user.surname}} </a></h3>
         <a ng-if="ifUnFollowedUser" ng-click="follow()" class="button button-outline icon-left ion-person-add button-balanced">Takip Et</a>
         <a ng-if="ifFollowedUser" ng-click="unfollow()" class="button button-outline icon-left ion-person-add button-balanced">Takibi Bırak</a>
-        <a href="#" ng-if="ifNeedEditProfile" class="button button-outline icon-left ion-person-add button-balanced">Profili Düzenle</a>
+        <a ui-sref="app.editprofile({userid:lastUserID})" ng-if="ifNeedEditProfile" class="button button-outline icon-left ion-person-add button-balanced">Profili Düzenle</a>
       </div>
     </div>
     <div class="tabs tabs-dark tabs-icon-top static">
-      <a ui-sref="app.userposts({userid:lastUserID})" class="tab-item active">
-        <i class="icon ion-paper-airplane"></i> Gönderiler
+      <a ui-sref="app.activity({userid:lastUserID})" class="tab-item active">
+        <i class="icon ion-paper-airplane"></i> Hareketler
       </a>
       <a ui-sref=app.followers({userid:lastUserID}) class="tab-item active">
         <i class="icon ion-arrow-graph-up-right"></i> Takipçi {{followers.length}}

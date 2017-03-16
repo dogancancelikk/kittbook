@@ -163,7 +163,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
       chapterApi: resource + '/api/chapter',
       userApi:resource+'/api/user',
       relationshipApi: resource + '/api/relationship',
-      activityApi: resource+'/api/event',
+      activityApi: resource+'/api/activity',
       applyeventApi: resource+'/api/eventapply',
       collectivebookApi:resource+"/api/collectivebook/",
       postApi:resource+"/api/post/",
@@ -257,19 +257,25 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
        }
    })
     .state('app.activity', {
-        url: '/activity',
+        url: '/activity/:userid',
         views: {
             'menuContent': {
                 templateUrl: 'templates/activity.html',
                 controller: 'ActivityController'
             },
-            'fabContent': {
-//                 template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-//                 controller: function ($timeout) {
-//                     $timeout(function () {
-//                         document.getElementById('fab-activity').classList.toggle('on');
-//                     }, 200);
-//                 }
+            'fabContent':{
+              template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
+              controller: function ($timeout,$scope,$state) {
+                  $scope.hideFab = true;
+                  $timeout(function () {
+                      document.getElementById('fab-activity').classList.toggle('on');
+                  }, 200);
+                  $scope.goHome = function(){
+                      $state.go('app.home');
+                      $scope.hideFab = false;
+
+                  }
+              }
             }
         }
     })
@@ -745,6 +751,15 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/profile.html',
                 controller: 'ProfileController'
+            }
+        }
+    })
+    .state('app.editprofile', {
+        url: '/editprofile/:userid',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/editProfile.html',
+                controller: 'EditprofileController'
             }
         }
     })

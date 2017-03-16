@@ -30,9 +30,7 @@ function buildToggler(navID) {
     }, 0);
     return debounceFn;
 };
-   $timeout(function() {
-     ionicMaterialMotion.blinds();
-  }, 400);
+
   var _userid=$rootScope.globals.id;
   ChatService.getAllMessages(_userid).then(function(data){
     $scope.messages=data;

@@ -1,27 +1,44 @@
-
 <ion-view view-title="Hikaye Yarat">
 <div class="drop-box" ng-click="deneme()">
-  <i class="icon ion-images" aria-hidden="true"></i>  Hikayeye Foto Ekle
+  <i class="icon ion-images" aria-hidden="true"></i>  Profil Fotonu Değiştir
 </div>
- <ion-content ng-class="{expanded:isExpanded}" id="image-picker-content">
-
-  <div class="list">
-       <md-input-container class="md-block" flex-gt-sm="">
-      <label>Kullanıcı Adınız</label>
-      <input type="text" ng-model="story.name">
+ <ion-content ng-class="{expanded:isExpanded}" id="image-picker-content" style="background-color: inherit !important;">
+   <div class="list">
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Ad</span>
+    <input style="opacity: 0.5;" type="text" ng-model="user.name">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Soyadı</span>
+    <input style="opacity: 0.5;" type="text" ng-model="user.surname">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">E-Posta</span>
+    <input style="opacity: 0.5;" type="text" ng-model="user.email">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <!-- <md-datepicker ng-model="user.birthday" md-placeholder="Doğum gününüzü giriniz" md-open-on-focus></md-datepicker> -->
+    <span class="input-label">Doğum Tarihiniz</span>
+    <input style="opacity: 0.5;" type="text" ng-model="user.birthday">
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Cinsiyet
+    </div>
+    <select ng-model="user.gender" name="gender">
+      <option value="Erkek">Erkek</option>
+      <option value="Kadın">Kadın</option>
+    </select>
+  </label>
+  <label class="item item-input item-stacked-label">
+    <md-input-container style="border-bottom: 0px !important;">
+       <textarea ng-model="user.about" rows="2" cols="600"  maxlength="2000" placeholder="Hikayeniz hakkında bir şeyler yazın"></textarea>
+        <span class="item-note">
+             {{2000 - user.about.length}}
+            </span>
     </md-input-container>
-    <md-input-container class="md-block" flex-gt-sm="">
-   <label>İsim Soyisim</label>
-   <input type="text" ng-model="story.name">
- </md-input-container>
- <md-input-container class="md-block" flex-gt-sm="">
-<label>Doğum Tarihiniz</label>
-<input type="text" ng-model="story.name">
-</md-input-container>
-<md-input-container class="md-block" flex-gt-sm="">
-<label>Elektronik Posta Adresiniz</label>
-<input type="text" ng-model="story.name">
-</md-input-container>
+  </label>
+</div>
 
   </ion-content>
      <div class="bar bar-footer bar-positive" ng-click="updateStory(story) ">
