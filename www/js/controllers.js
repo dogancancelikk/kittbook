@@ -8,13 +8,14 @@ angular.module('starter.controllers', [])
     //Authentication operations
     //Yetkisiz girişlerin yakalandığı yer
 //     $scope._userid=$rootScope.globals.currentUser.id;
+  console.log($rootScope.globals);
     $scope.$on(AUTH_EVENTS.notAuthorized, function (event) {
       alert('Yetkisiz giriş');
     });
     //notAuthenticated değerinin uygulamanın içerisinde yakalandığı yer
     $scope.$on(AUTH_EVENTS.notAuthenticated, function (event) {
       AuthService.logout();
-      $state.go('app.login', {}, {reload: true});
+      $state.go('login', {}, {reload: true});
       alert('session kapanır');
     });
 
@@ -34,10 +35,10 @@ angular.module('starter.controllers', [])
     }
 }; // End of navigateTo.
 
-    $scope.authenticated=AUTH_EVENTS.notAuthenticated;
+    $rootScope.authenticated=AUTH_EVENTS.notAuthenticated;
     $scope.logout = function () {
       AuthService.logout();
-      $state.go('app.login');
+      $state.go('login');
     };
 
     $scope.goProfile = function(){

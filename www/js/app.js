@@ -69,11 +69,18 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 })
 //http://www.w3schools.com/w3css/tryw3css_templates_social.htm#
  .run(function ($rootScope, $state, AuthService, $cookieStore,$http,$ionicHistory,$window,$ionicNavBarDelegate) {
-   var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-   $rootScope.globals = currentUser || {};
-        if ($rootScope.globals) {
+  $rootScope.globals = {};
+   debugger;
+  var parseData = localStorage.getItem('globals') || {};
+  if(typeof parseData !== "string")
+    if(parseData != {})
+    $rootScope.globals=JSON.parse(parseData);
 
+        if ($rootScope.globals.currentUser) {
             $rootScope.authenticated = true;
+        }else {
+          AuthService.setIsAuthenticated(false);
+          $state.go('login',{ reload: true });
         }
       $rootScope.$on("$ionicView.beforeEnter", function(event, data){
        // handle event
@@ -113,48 +120,18 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 
     $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
 
-      // if ('data' in next && 'authorizedRoles' in next.data) {
-      //   var authorizedRoles = next.data.authorizedRoles;
-      //   if (!AuthService.isAuthorized(authorizedRoles)) {
-      //     event.preventDefault();
-      //     $state.go($state.current, {}, {reload: true});
-      //     $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-      //   }
-      // }
 
-      // console.log(event);
-      // console.log(next);
-      // console.log(fromState);
-      // console.log(fromState.name != "");
-
-      // if(fromState.name != "" && next.name === 'app.home'){
-      //   $window.location.reload();
-      // }
-
-
-
+      debugger;
       if (!AuthService.isAuthenticated()) {
-        if (next.name !== 'app.login') {
+        if (next.name !== 'login') {
           event.preventDefault();
-          $state.go('app.login',{},{notify:false});
+          $state.go('login',{},{notify:false},{ reload: true });
         }
       }
-      // else{
-      //   debugger;
-      //   if(next.name === 'app.login' || fromState.name === ""){
-      //     event.preventDefault();
-      //       $state.go('app.home');
-      //   }
-      //
-      // }
+
     });
   })
 
-  // .constant('USER_DATA',{
-  //   name:'',
-  //   username:'',
-  //   userid:''
-  // })
   .constant('domainConstant', (function () {
     var resource = 'http://kittbook.com';
     return {
@@ -205,20 +182,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/collectiveBook.html',
                 controller: 'CollectiveBookController'
-            },
-            'fabContent': {
-                // template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-android-home"></i></button>',
-                // controller: function ($timeout,$scope,$state) {
-                //     $scope.hideFab = true;
-                //     $timeout(function () {
-                //         document.getElementById('fab-activity').classList.toggle('on');
-                //     }, 200);
-                //     $scope.goHome = function(){
-                //         $state.go('app.home');
-                //         $scope.hideFab = false;
-                //
-                //     }
-                // }
             }
         }
     })
@@ -228,14 +191,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
         'menuContent': {
           templateUrl: 'templates/newannouncement.html',
           controller: 'AnnouncementController'
-          },
-        'fabContent': {
-//             template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-//             controller: function ($timeout) {
-//               $timeout(function () {
-//                 document.getElementById('fab-activity').classList.toggle('on');
-//               }, 200);
-//             }
           }
       }
     })
@@ -245,14 +200,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
            'menuContent': {
                templateUrl: 'templates/newcollectivebook.html',
                controller: 'NewCollectiveBookController'
-           },
-           'fabContent': {
-//                template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-//                controller: function ($timeout) {
-//                    $timeout(function () {
-//                        document.getElementById('fab-activity').classList.toggle('on');
-//                    }, 200);
-//                }
            }
        }
    })
@@ -285,14 +232,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/manageActivity.html',
                 controller: 'ManageActivityController'
-            },
-            'fabContent': {
-//                 template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-//                 controller: function ($timeout) {
-//                     $timeout(function () {
-//                         document.getElementById('fab-activity').classList.toggle('on');
-//                     }, 200);
-//                 }
             }
         }
     })
@@ -305,11 +244,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 templateUrl: 'templates/home.html',
                 controller: 'StoryController'
             }
-
-//             },
-//            'tabContent':{
-//              template:'<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light"><div class="tabs"><a class="tab-item active" href="#"><i class="icon ion-home"></i>Test</a><a class="tab-item" href="#"><i class="icon ion-star"></i>Favorites</a><a class="tab-item" href="#"><i class="icon ion-gear-a"></i>Settings</a></div></div>'
-//            }
         }
     })
         .state('app.storywithcategories', {
@@ -333,11 +267,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                   }
               }
             }
-
-//             },
-//            'tabContent':{
-//              template:'<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light"><div class="tabs"><a class="tab-item active" href="#"><i class="icon ion-home"></i>Test</a><a class="tab-item" href="#"><i class="icon ion-star"></i>Favorites</a><a class="tab-item" href="#"><i class="icon ion-gear-a"></i>Settings</a></div></div>'
-//            }
         }
     })
         .state('app.search', {
@@ -361,22 +290,8 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                   }
               }
             }
-
-//             },
-//            'tabContent':{
-//              template:'<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light"><div class="tabs"><a class="tab-item active" href="#"><i class="icon ion-home"></i>Test</a><a class="tab-item" href="#"><i class="icon ion-star"></i>Favorites</a><a class="tab-item" href="#"><i class="icon ion-gear-a"></i>Settings</a></div></div>'
-//            }
         }
     })
-//     .state('app.storywithcategories', {
-//         url: '/storywithcategories/:categoryid',
-//         views: {
-//             'menuContent  ': {
-//                 templateUrl: 'templates/storywithcategories.html',
-//                 controller: 'StoryWithCategoriesController'
-//             }
-//         }
-//     })
     .state('app.storydetail', {
         url: '/storydetail/:storyid',
         views: {
@@ -500,8 +415,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/newchapter.html',
                 controller: 'NewChapterController'
-            },
-            'fabContent': {
             }
         }
     })
@@ -535,14 +448,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/followers.html',
                 controller: 'FollowersController'
-            },
-            'fabContent': {
-//                 template: '<button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-//                 controller: function ($timeout) {
-//                     $timeout(function () {
-//                         document.getElementById('fab-friends').classList.toggle('on');
-//                     }, 900);
-//                 }
             }
         }
     })
@@ -552,14 +457,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/followedUsers.html',
                 controller: 'FollowedUsersController'
-            },
-            'fabContent': {
-//                 template: '<button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-//                 controller: function ($timeout) {
-//                     $timeout(function () {
-//                         document.getElementById('fab-friends').classList.toggle('on');
-//                     }, 900);
-//                 }
             }
         }
     })
@@ -569,14 +466,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/eventdetail.html',
                 controller: 'EventDetailController'
-            },
-            'fabContent': {
-//                 template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-//                 controller: function ($timeout) {
-//                     $timeout(function () {
-//                         document.getElementById('fab-friends').classList.toggle('on');
-//                     }, 900);
-//                 }
             }
         }
     })
@@ -586,14 +475,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/eventapply.html',
                 controller: 'EventApplyController'
-            },
-            'fabContent': {
-                // template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-                // controller: function ($timeout) {
-                //     $timeout(function () {
-                //         document.getElementById('fab-friends').classList.toggle('on');
-                //     }, 900);
-                // }
             }
         }
     })
@@ -603,14 +484,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/appliedEvent.html',
                 controller: 'AppliedEventController'
-            },
-            'fabContent': {
-//                 template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-//                 controller: function ($timeout) {
-//                     $timeout(function () {
-//                         document.getElementById('fab-friends').classList.toggle('on');
-//                     }, 900);
-//                 }
             }
         }
     })
@@ -647,20 +520,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
         'menuContent': {
             templateUrl: 'templates/usereventdetail.html',
             controller: 'UserEventDetailController'
-        },
-        'fabContent': {
-          //   template: '<button onclick="disableFab()" id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin" ui-sref="app.home"><i class="icon ion-ios-home"></i></button>',
-          //   controller: function ($timeout) {
-          //       $timeout(function () {
-          //           document.getElementById('fab-friends').classList.toggle('on');
-          //       }, 900);
-          //       var button = document.getElementById('fab-friends')
-          //       button.addEventListener('click',hideshow,true);
-          //
-          //       function hideshow() {
-          //           this.style.display = 'none'
-          //       }
-          // }
         }
     }
 })
@@ -670,14 +529,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/activeEvents.html',
                 controller: 'ManageActivityController'
-            },
-            'fabContent': {
-//                 template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-//                 controller: function ($timeout) {
-//                     $timeout(function () {
-//                         document.getElementById('fab-friends').classList.toggle('on');
-//                     }, 900);
-//                 }
             }
         }
     })
@@ -687,14 +538,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent': {
                 templateUrl: 'templates/passiveEvents.html',
                 controller: 'ManageActivityController'
-            },
-            'fabContent': {
-//                 template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-//                 controller: function ($timeout) {
-//                     $timeout(function () {
-//                         document.getElementById('fab-friends').classList.toggle('on');
-//                     }, 900);
-//                 }
             }
         }
     })
@@ -704,9 +547,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent':{
                 templateUrl:'templates/chapterdetail.html',
                 controller:'ChapterDetailController'
-            },
-            'fabContent': {
-                template: ''
             }
         }
     })
@@ -717,9 +557,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent':{
                 templateUrl:'templates/allChats.html',
                 controller:'AllChatsController'
-            },
-            'fabContent': {
-                template: ''
             }
         }
     })
@@ -729,20 +566,13 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             'menuContent':{
                 templateUrl:'templates/chat.html',
                 controller:'ChatController'
-            },
-            'fabContent': {
-                template: ''
             }
         }
     })
-    .state('app.login', {
+    .state('login', {
         url: '/login',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/login.html',
-                controller: 'LoginController'
-            }
-        }
+        templateUrl: 'templates/login.html',
+        controller: 'LoginController'
     })
     .state('app.profile', {
         url: '/profile/:userid',
@@ -820,6 +650,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise(function ($injector) {
          var $state = $injector.get("$state");
-         $state.go("app.login");
+         $state.go("app.home");
      });
 });

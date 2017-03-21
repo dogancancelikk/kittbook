@@ -1,6 +1,6 @@
 angular.module('starter')
 .controller('LibraryController',function(LibraryService,$scope,$rootScope,$stateParams){
-  var _userid = $rootScope.globals.id;
+  var _userid = $rootScope.globals.currentUser.id;
 
   var getUserId = function(){
    if($stateParams.userid == ""){

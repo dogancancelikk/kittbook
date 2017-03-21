@@ -1,6 +1,6 @@
 'use strict';
 angular.module('starter')
-.controller('AllChatsController',function($scope,ChatService,$mdSidenav,$timeout,ionicMaterialInk,$mdUtil,ionicMaterialMotion,$rootScope,$ionicLoading){
+.controller('AllChatsController',function($scope,ChatService,$mdSidenav,$timeout,$mdUtil,$rootScope,$ionicLoading){
 
   // $scope.$parent.showHeader();
   // $scope.$parent.clearFabs();
@@ -10,7 +10,6 @@ angular.module('starter')
   // ionicMaterialInk.displayEffect();
   $scope.$parent.clearFabs();
   $scope.$parent.hideHeader();
-  ionicMaterialInk.displayEffect();
 
   $ionicLoading.show({
   content: 'Loading',
@@ -31,7 +30,7 @@ function buildToggler(navID) {
     return debounceFn;
 };
 
-  var _userid=$rootScope.globals.id;
+  var _userid=$rootScope.globals.currentUser.id;
   ChatService.getAllMessages(_userid).then(function(data){
     $scope.messages=data;
     $ionicLoading.hide();

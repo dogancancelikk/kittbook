@@ -14,7 +14,7 @@ angular
   ionicMaterialInk.displayEffect();
   //end
 
-  var _userid=$rootScope.globals.id;
+  var _userid=$rootScope.globals.currentUser.id;
 
   $scope.data={};
   $scope.createCollectiveBook=function(data){

@@ -1,31 +1,16 @@
 'use strict';
 angular
 .module('starter')
-.controller('ChapterDetailController',function($scope,$rootScope,$ionicHistory,ChapterService,$stateParams,$state,ionicMaterialInk,ionicMaterialMotion,$timeout,$ionicPopup,StoryService){
+.controller('ChapterDetailController',function($scope,$rootScope,$ionicHistory,ChapterService,$stateParams,$state,ionicMaterialInk,$timeout,$ionicPopup,StoryService){
   $scope.$parent.showHeader();
 	$scope.$parent.clearFabs();
 	$scope.isExpanded = false;
 	$scope.$parent.setExpanded(false);
 	$scope.$parent.setHeaderFab(false);
-	ionicMaterialInk.displayEffect();
-//	ionicMaterialMotion.ripple();
   $scope.otherchapter = false;
-  //    $timeout(function() {
-  //    ionicMaterialMotion.slideUp({
-  //      selector: '.slide-up'
-  //    });
-  //  }, 300);
-   var backView = $ionicHistory.backTitle();
-       console.log(backView);
-// 	ionicMaterialMotion.pushDown({
-// 			selector: '.push-down'
-// 	});
-// 	ionicMaterialMotion.fadeSlideInRight({
-// 			selector: '.animate-fade-slide-in .item'
-// 	});
-	//end
+
   var chapterid=$stateParams.chapterid;
-	var _userid=$rootScope.globals.id;
+	var _userid=$rootScope.globals.currentUser.id;
 
 	ChapterService.readChapter(chapterid, _userid);
 

@@ -16,7 +16,7 @@ angular
 	$scope.story = {};
  	$scope.story.description = '';
  	$scope.story.tags = [];
- 	$scope.story.ownerID=$rootScope.globals.id;
+ 	$scope.story.ownerID=$rootScope.globals.currentUser.id;
 	$ionicLoading.show({
 		content: 'Loading',
 		animation: 'fade-in',

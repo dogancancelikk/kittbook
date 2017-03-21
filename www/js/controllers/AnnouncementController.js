@@ -2,7 +2,7 @@
 
 angular
 .module('starter')
-.controller('AnnouncementController',function($scope,ionicMaterialInk,ManageActivityService,$state,$timeout,CollectiveBookService){
+.controller('AnnouncementController',function($scope,ManageActivityService,$state,$timeout,CollectiveBookService){
     //Ionic Material pieces
 	//begin
 
@@ -11,9 +11,6 @@ angular
 	$scope.isExpanded = true;
 	$scope.$parent.setExpanded(true);
 	$scope.$parent.setHeaderFab(false);
-
-
-	ionicMaterialInk.displayEffect();
 
 	// ionicMaterialMotion.pushDown({
 	// 		selector: '.push-down'

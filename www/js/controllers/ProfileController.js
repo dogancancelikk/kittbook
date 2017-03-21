@@ -1,8 +1,8 @@
 'use strict';
 angular
 .module('starter')
-.controller('ProfileController',function(ionicMaterialInk,$ionicTabsDelegate,$timeout,$scope,$state,$stateParams,
-  $rootScope,UserService,ionicMaterialMotion,RelationshipService,$ionicModal,PostService,$ionicLoading,$ionicHistory){
+.controller('ProfileController',function($ionicTabsDelegate,$timeout,$scope,$state,$stateParams,
+  $rootScope,UserService,RelationshipService,$ionicModal,PostService,$ionicLoading,$ionicHistory){
 
     $ionicLoading.show({
     content: 'Loading',
@@ -20,22 +20,7 @@ angular
    $scope.$parent.setExpanded(false);
    $scope.$parent.setHeaderFab(false);
 
-   // Set Motion
-   $timeout(function() {
-     ionicMaterialMotion.slideUp({
-       selector: '.slide-up'
-     });
-   }, 300);
 
-   $timeout(function() {
-     ionicMaterialMotion.fadeSlideInRight({
-       startVelocity: 3000
-     });
-   }, 700);
-
-     // Set Ink
-
-   //End
 	 $scope.ifFollowedUser = false;
 	$scope.ifUnFollowedUser = false;
 	$scope.ifNeedEditProfile = false;
@@ -44,8 +29,8 @@ angular
    $scope.user = {};
    $scope.isOwnProfile=false;
    $scope.isFollowed=false;
-   var currentUser=$rootScope.globals;
-   var _userid = $rootScope.globals.id;
+   var currentUser=$rootScope.globals.currentUser;
+   var _userid = $rootScope.globals.currentUser.id;
 
    var getUserId = function(){
    	if($stateParams.userid == ""){

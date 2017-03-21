@@ -21,7 +21,7 @@ angular
   $scope.chapter = {};
   $scope.chapter.id = 0;
   $scope.chapter.storyID = storyid;
-  $scope.chapter.userID = $rootScope.globals.id;
+  $scope.chapter.userID = $rootScope.globals.currentUser.id;
   $scope.chapter.tags=[];
 
   StoryService.getStoryWithID(storyid).then(function(story){

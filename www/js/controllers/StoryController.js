@@ -23,7 +23,8 @@ angular.module('starter')
 })
 
 
-.controller('StoryController',function($state,$ImageCacheFactory,$mdUtil,$mdSidenav,$ionicNavBarDelegate,$ionicScrollDelegate,$ionicHistory,$ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, StoryService,UserService,$rootScope,$ionicTabsDelegate){
+.controller('StoryController',function($state,$ImageCacheFactory,$mdUtil,$mdSidenav,$ionicNavBarDelegate,$ionicScrollDelegate,$ionicHistory,
+  $ionicSlideBoxDelegate,$scope,CategoryService,USER_DATA,$ionicLoading, $stateParams, $timeout,StoryService,UserService,$rootScope,$ionicTabsDelegate){
 
     $ionicLoading.show({
 	  content: 'Loading',
@@ -49,7 +50,6 @@ angular.module('starter')
     //     $scope.$parent.hideHeader();
     // }, 0);
     $scope.$parent.hideHeader();
-	  ionicMaterialInk.displayEffect();
 	  //  $timeout(function() {
     //    ionicMaterialMotion.blinds();
     // }, 400);

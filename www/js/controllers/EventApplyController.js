@@ -3,7 +3,7 @@
   .module('starter')
   .controller('EventApplyController',function($scope,$stateParams,UserEventService,$rootScope,$ionicPopup,$state){
       $scope.event = {};
-      var _userid=$rootScope.globals.id;
+      var _userid=$rootScope.globals.currentUser.id;
 
     $scope.applyEvent = function(){
       debugger;

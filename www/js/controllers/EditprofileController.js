@@ -1,7 +1,7 @@
 'use strict';
 angular.module('starter')
 
-.controller('EditprofileController',function ($scope,$http,$timeout,$ionicLoading,UserService,$stateParams,ionicMaterialInk) {
+.controller('EditprofileController',function ($scope,$http,$timeout,$ionicLoading,UserService,$stateParams) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = true;
@@ -15,8 +15,6 @@ angular.module('starter')
       maxWidth: 200,
       showDelay: 0
     });
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
 
     var userid = $stateParams.userid;
     console.log(userid);

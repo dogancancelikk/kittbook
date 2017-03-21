@@ -1,7 +1,7 @@
 'use strict';
 angular.module('starter')
 .controller('StorydetailController', function($rootScope,$scope,$stateParams,
-    StoryService,$ionicModal,$timeout,ionicMaterialMotion,ionicMaterialInk,$state,AuthService,ChapterService,
+    StoryService,$ionicModal,$timeout,$state,AuthService,ChapterService,
     $ionicSlideBoxDelegate,$ionicScrollDelegate, LibraryService, $ionicLoading,$mdToast,$ionicHistory) {
 
   // var backView = $ionicHistory.backTitle();
@@ -21,21 +21,6 @@ angular.module('starter')
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
 
-    // Set Motion
-    // $timeout(function() {
-    //     ionicMaterialMotion.slideUp({
-    //         selector: '.slide-up'
-    //     });
-    // }, 300);
-    //
-    // $timeout(function() {
-    //     ionicMaterialMotion.fadeSlideInRight({
-    //         startVelocity: 3000
-    //     });
-    // }, 700);
-
-    ionicMaterialInk.displayEffect();
-
   $ionicSlideBoxDelegate.update();
   $scope.onUserDetailContentScroll = onUserDetailContentScroll
 
@@ -48,8 +33,8 @@ angular.module('starter')
   //Parallax End
 
    $scope.storyid=$stateParams.storyid;
-   var userid=$rootScope.globals.id;
-   var libraryid = $rootScope.globals.libraryid;
+   var userid=$rootScope.globals.currentUser.id;
+   var libraryid = $rootScope.globals.currentUser.libraryid;
    console.log(libraryid);
     $scope.alreadyHave=false;
     $scope.isOwnStory = false;
@@ -130,7 +115,7 @@ angular.module('starter')
       $scope.story=data;
       checkDescriptionCharCount(data.description);
       $scope.storyid=data.id;
-      if($rootScope.globals.id == data.ownerID){
+      if($rootScope.globals.currentUser.id == data.ownerID){
         $scope.isOwnStory = true;
       }else{
         LibraryService.hasStory(libraryid,$scope.storyid).then(function(data){

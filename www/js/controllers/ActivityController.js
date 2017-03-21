@@ -2,7 +2,7 @@
 
 angular.module('starter')
 
-.controller('ActivityController',function ($scope,$http,$timeout,$ionicLoading,UserService,ionicMaterialMotion,ActivityService, ionicMaterialInk,$stateParams) {
+.controller('ActivityController',function ($scope,$http,$timeout,$ionicLoading,UserService,ActivityService,$stateParams) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = true;
@@ -16,8 +16,6 @@ angular.module('starter')
     showDelay: 0
   });
 
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
     var userid = $stateParams.userid;
     console.log(userid);
     $scope.activities=[];

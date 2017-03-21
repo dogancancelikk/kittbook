@@ -30,6 +30,10 @@ angular.module('starter')
     useCredentials(token);
   }
 
+  function setIsAuthenticated(value){
+    isAuthenticated = value;
+  }
+
   function useCredentials(token) {
     kullaniciIdDegeri = token.split('.')[0];
     isAuthenticated = true;
@@ -51,7 +55,9 @@ angular.module('starter')
     authToken = undefined;
     kullaniciIdDegeri = '';
     isAuthenticated = false;
-
+    $rootScope.globals = {};
+  //  $cookieStore.remove('globals');
+    localStorage.setItem('globals',{});
     window.localStorage.removeItem(LOCAL_TOKEN_KEY);
   }
 
@@ -80,8 +86,9 @@ angular.module('starter')
     loginDegeri.kullaniciAdi=user.name;
     loginDegeri.sifre=user.password;
     loginDegeri.idDegeri=user.id;
-
-      currentUser={
+    var authdata = Base64.encode(user.userName + ':' + user.password);
+    $rootScope.globals = {
+      currentUser:{
         id:user.id,
         name:user.name,
         surname:user.surname,
@@ -89,92 +96,114 @@ angular.module('starter')
         image:user.image,
         libraryid:user.libraryID
       }
+    };
+  //  $cookieStore.put('globals', $rootScope.globals);
 
+        localStorage.setItem('globals', JSON.stringify($rootScope.globals));
+        debugger;
+        isAuthenticated=true;
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    // var oldItems = JSON.parse(localStorage.getItem('itemsArray')) || {};
-    // oldItems.push($rootScope.globals.currentUser);
-    // window.localStorage.setItem('itemsArray', JSON.stringify(oldItems));
 
-
-    //Token Based Authentication a göre kullanıcının id si token a eklenecek
     storeUserCredentials(loginDegeri.idDegeri+'.yourServerToken',user);
 
   }
 
-  // Giriş yapılmak istenen değerin veritabanında varlığı sorgulanıyor ve Token yüklenmesi sağlanıyor.
-  // var login = function(name, pw) {
-  // return $q(function(resolve, reject) {
-  //     var loginDegeri= {};
-  //
-  //      $http.get(domainConstant.userApi+"/get").success(function(kullanicilar){
-  //
-  //           angular.forEach(kullanicilar,function(kullanici){
-  //             if(kullanici.userName==name && kullanici.password==pw){
-  //               username=kullanici.userName;
-  //               nameSurname=kullanici.name +" "+ kullanici.surname;
-  //               loginDegeri.kullaniciAdi=kullanici.name;
-  //               loginDegeri.sifre=kullanici.password;
-  //               loginDegeri.idDegeri=kullanici.id;
-  //               $rootScope.globals={
-  //                 currentUser:{
-  //                   id:kullanici.id,
-  //                   name:kullanici.name,
-  //                   surname:kullanici.surname,
-  //                   username:kullanici.userName,
-  //                   image:kullanici.image,
-  //                   libraryid:kullanici.libraryID
-  //                 }
-  //               }
-  //
-  //               $cookieStore.put('globals', $rootScope.globals);
-  //               //Token Based Authentication a göre kullanıcının id si token a eklenecek
-  //               storeUserCredentials(loginDegeri.idDegeri+'.yourServerToken');
-  //               resolve('Login Success');
-  //             }
-  //           },function(err){
-  //             reject('Login Failed');
-  //           });
-  //       });
-  //   });
-  // };
-  //Çıkış yap butonuna basıldığında bu fonksiyon çağrılır ve token yok edilir.
   var logout = function() {
     destroyUserCredentials();
   };
 
-  // var isAuthorized = function(authorizedRoles) {
-  //   if (!angular.isArray(authorizedRoles)) {
-  //     authorizedRoles = [authorizedRoles];
-  //   }
-  //   return (isAuthenticated && authorizedRoles.indexOf(role) !== -1);
-  // };
-
   loadUserCredentials();
   return {
+    setIsAuthenticated:setIsAuthenticated,
     kullaniciIdDegeri:function(){return kullaniciIdDegeri;},
     login: login,
     logout: logout,
-    // isAuthorized: isAuthorized,
     isAuthenticated: function() {return isAuthenticated;},
     username: function() {return username;},
     role: function() {return role;},
     nameSurname:function(){return nameSurname;}
   };
 });
-  //constants.js dosyasında belirtilen Authorization verilerine göre uygulamada
-  //yetkisiz giriş yapılmak istenen yer olursa 401 Hatası verilmesi amaçlandı
-// .factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
-//   return {
-//     responseError: function (response) {
-//       $rootScope.$broadcast({
-//         401: AUTH_EVENTS.notAuthenticated,
-//         403: AUTH_EVENTS.notAuthorized
-//       }[response.status], response);
-//       return $q.reject(response);
-//     }
-//   };
-// });
 
-// .config(function ($httpProvider) {
-//   $httpProvider.interceptors.push('AuthInterceptor');
-// });
+// Base64 encoding service used by AuthenticationService
+var Base64 = {
+
+  keyStr: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
+
+  encode: function(input) {
+    var output = "";
+    var chr1, chr2, chr3 = "";
+    var enc1, enc2, enc3, enc4 = "";
+    var i = 0;
+
+    do {
+      chr1 = input.charCodeAt(i++);
+      chr2 = input.charCodeAt(i++);
+      chr3 = input.charCodeAt(i++);
+
+      enc1 = chr1 >> 2;
+      enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+      enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+      enc4 = chr3 & 63;
+
+      if (isNaN(chr2)) {
+        enc3 = enc4 = 64;
+      } else if (isNaN(chr3)) {
+        enc4 = 64;
+      }
+
+      output = output +
+        this.keyStr.charAt(enc1) +
+        this.keyStr.charAt(enc2) +
+        this.keyStr.charAt(enc3) +
+        this.keyStr.charAt(enc4);
+      chr1 = chr2 = chr3 = "";
+      enc1 = enc2 = enc3 = enc4 = "";
+    } while (i < input.length);
+
+    return output;
+  },
+
+  decode: function(input) {
+    var output = "";
+    var chr1, chr2, chr3 = "";
+    var enc1, enc2, enc3, enc4 = "";
+    var i = 0;
+
+    // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
+    var base64test = /[^A-Za-z0-9\+\/\=]/g;
+    if (base64test.exec(input)) {
+      window.alert("There were invalid base64 characters in the input text.\n" +
+        "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
+        "Expect errors in decoding.");
+    }
+    input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+    do {
+      enc1 = this.keyStr.indexOf(input.charAt(i++));
+      enc2 = this.keyStr.indexOf(input.charAt(i++));
+      enc3 = this.keyStr.indexOf(input.charAt(i++));
+      enc4 = this.keyStr.indexOf(input.charAt(i++));
+
+      chr1 = (enc1 << 2) | (enc2 >> 4);
+      chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+      chr3 = ((enc3 & 3) << 6) | enc4;
+
+      output = output + String.fromCharCode(chr1);
+
+      if (enc3 != 64) {
+        output = output + String.fromCharCode(chr2);
+      }
+      if (enc4 != 64) {
+        output = output + String.fromCharCode(chr3);
+      }
+
+      chr1 = chr2 = chr3 = "";
+      enc1 = enc2 = enc3 = enc4 = "";
+
+    } while (i < input.length);
+
+    return output;
+  }
+
+};
