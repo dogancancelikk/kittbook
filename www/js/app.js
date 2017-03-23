@@ -671,6 +671,20 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 'menuContent': {
                     templateUrl: 'templates/about.html',
                     controller: 'AboutController'
+                },
+                'fabContent':{
+                  template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
+                  controller: function ($timeout,$scope,$state) {
+                      $scope.hideFab = true;
+                      $timeout(function () {
+                          document.getElementById('fab-activity').classList.toggle('on');
+                      }, 200);
+                      $scope.goHome = function(){
+                          $state.go('app.home');
+                          $scope.hideFab = false;
+
+                      }
+                  }
                 }
             }
         });

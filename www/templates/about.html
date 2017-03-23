@@ -42,7 +42,7 @@
 	        </ion-item>
         <p style="margin-top: 10px;">&nbsp;</p>
     </div> -->
-		<div class="list">
+<!-- 		<div class="list">
 			<a class="item" href="#">
 				{{user.userName}}
 			</a>
@@ -64,7 +64,52 @@
 				<a class="item" href="#">
 				{{user.about}}
 			</a>
-		</div>
+		</div> -->
+		<div class="list">
+  <a class="item item-icon-left" href="#">
+    <i class="icon ion-person-stalker"></i>
+    Kullanıcı Adı
+    <span class="item-note">
+      {{user.userName}}
+    </span>
+  </a>
+			  <a class="item item-icon-left" href="#">
+    <i class="icon ion-ios-person"></i>
+    Adı ve Soyadı
+    <span class="item-note">
+      {{user.name}} {{user.surname}}
+    </span>
+  </a>
+	  <a class="item item-icon-left" href="#">
+    <i class="icon ion-ios-calendar-outline"></i>
+    Doğum Tarihi
+    <span class="item-note">
+      {{user.birthday | date:'d.MM.yyyy'}}
+    </span>
+  </a>
+	  <a class="item item-icon-left" href="#">
+    <i class="icon ion-transgender"></i>
+   Cinsiyet
+    <span class="item-note">
+      {{user.gender}}
+    </span>
+  </a>		
+  <a class="item item-icon-left" ng-if="user.school != null">
+    <i class="icon ion-university"></i>
+   Eğitim
+    <span class="item-note">
+      {{user.school}}
+    </span>
+  </a>
+			  <div class="item item-divider" ng-if="user.about!=null">
+    Hakkında
+  </div>
+			<a class="item" ng-if="user.about!=null">
+				{{user.about}}
+			</a>
+
+
+</div>
 
 	</ion-content>
 </ion-view>
