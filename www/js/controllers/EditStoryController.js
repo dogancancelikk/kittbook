@@ -1,11 +1,11 @@
 angular.module('starter')
-.controller('EditStoryController',function($scope,$ionicLoading,StoryService,$state,ionicMaterialInk,$stateParams,$timeout,CategoryService){
+.controller('EditStoryController',function($scope,$ionicLoading,StoryService,$state,$stateParams,$timeout,CategoryService){
   $scope.$parent.showHeader();
 	$scope.$parent.clearFabs();
 	$scope.isExpanded = false;
 	$scope.$parent.setExpanded(false);
 	$scope.$parent.setHeaderFab(false);
-	ionicMaterialInk.displayEffect();
+
   
   $scope.modifiedstory = {};
   $scope.modifiedstory.category = {};

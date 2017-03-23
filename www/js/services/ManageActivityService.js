@@ -12,7 +12,7 @@ angular.module('starter')
       function getActivityWithId(id){
       var request=$http({
         method:'GET',
-        url:domainConstant.activityApi+'/get/'+id,
+        url:domainConstant.eventApi+'/get/'+id,
         params:{
           action:'get'
         }
@@ -23,7 +23,7 @@ angular.module('starter')
      function getActivity(){
       var request=$http({
         method:'GET',
-        url:domainConstant.activityApi+'/get/',
+        url:domainConstant.eventApi+'/get/',
         params:{
           action:'get'
         }

@@ -28,13 +28,13 @@ angular
     $scope.setStatusProperty = function(id){
       $scope.collectivebooks=[];
       if(id == 1){
-        $ionicTabsDelegate.select(0);
+        $ionicTabsDelegate.$getByHandle('collectiveTabs').select(0,false);
         getCollectiveBookWithStatusProperty("/getStarted");
       }else if (id == 2) {
-        $ionicTabsDelegate.select(1);
+        $ionicTabsDelegate.$getByHandle('collectiveTabs').select(1,false);
         getCollectiveBookWithStatusProperty("/getNotStarted");
       }else if (id == 3) {
-        $ionicTabsDelegate.select(2);
+        $ionicTabsDelegate.$getByHandle('collectiveTabs').select(2,false);
         getCollectiveBookWithStatusProperty("/getFinished");
       }
     }

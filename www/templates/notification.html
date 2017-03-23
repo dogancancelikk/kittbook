@@ -1,0 +1,17 @@
+<ion-view view-title="Bildirimler">
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div class="item card-item" ng-repeat="notification in userNotifications">
+            <div class="card stable-bg ink ink-dark">
+                <div class="item item-avatar item-text-wrap">
+                    <span class="avatar" style="background-image: url('{{image}}');"></span>
+                    {{notification.text}}
+                    <div class="card-footer text-right">
+                        <div class="pull-left">
+                            <i class="icon ion-clock"></i> <span class="sub-title" style="color:#417D9A;">{{ notification.createdate|amCalendar }}</span>        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

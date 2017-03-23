@@ -1,0 +1,25 @@
+<ion-view view-title="{{chapter.name}}">
+  <ion-content ng-class="{expanded:isExpanded}">
+        <div class="list">
+          <div class="item item-divider">
+            Düzenle
+          </div>
+          <a class="item item-icon-left" ui-sref="app.editchapter({chapterid:chapter.id})">
+            <i class="icon ion-document-text"></i>
+            Bölümü Düzenle
+          </a>
+          <a class="item item-icon-left" ng-if="story.isPublished !== 1" ng-click="publish(story.id)">
+            <i class="icon ion-printer"></i>
+            Yayınla
+          </a>
+          <a class="item item-icon-left" ng-if="story.isPublished === 1" ng-click="withdraw(story.id)">
+            <i class="icon ion-eject"></i>
+            Yayından kaldır
+          </a>
+          <a class="item item-icon-left" ui-sref="app.chapterdetail({chapterid:chapter.id})">
+            <i class="icon ion-arrow-move"></i>
+            Bölümün Yayındaki Halini Gör
+          </a>
+    </div>
+  </ion-content>
+</ion-view>

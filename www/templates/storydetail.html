@@ -43,27 +43,28 @@
         </div>
 
       </div>
+     
 
       <a class="item item-icon-left item-button-right item-icon-small balanced" ng-if="alreadyHave && !isOwnStory">
         <i class="icon ion-android-add" ng-click="deleteStoryFromLibrary()"><span style="font-size:small;font-family: Georgia;">Kitaplığınızda Ekli</span> </i>
 
-        <button class="button button-clear" ng-if="!chapters.length==0" ui-sref="app.chapterdetail({chapterid:chapters[0].id})">
-          <i class="icon ion-ios-skipforward"></i>
+        <button class="button button-clear" ng-click="rateStory()">
+          <i class="icon ion-ios-star-outline"></i>
         </button>
       </a>
 
       <a class="item item-icon-left item-button-right item-icon-small" ng-if="!alreadyHave && !isOwnStory" >
         <i class="icon ion-bookmark" ng-click="addToLibrary()"  style="color:#a3a29f; font-family: Georgia;"> <span style="font-size:small;">Kitaplığa Ekle</span> </i>
 
-        <button class="button button-clear " ng-if="!chapters.length==0" ui-sref="app.chapterdetail({chapterid:chapters[0].id})">
-          <i class="icon ion-ios-skipforward" style="color:#417D9A;"></i>
+        <button class="button button-clear " ng-click="rateStory()">
+          <i class="icon ion-ios-star-outline" style="color:#417D9A;"></i>
         </button>
       </a>
        <a class="item item-icon-left item-button-right item-icon-small" ui-sref="app.managestory({storyid:storyid})" ng-if="isOwnStory" >
         <i class="icon ion-bookmark" style="color:#a3a29f;"> <span style="font-size:medium;">Hikayeni Düzenle</span> </i>
 
-        <button class="button button-clear" ng-if="!chapters.length==0" ui-sref="app.chapterdetail({chapterid:chapters[0].id})">
-          <i class="icon ion-ios-skipforward"></i>
+        <button class="button button-clear" ng-click="rateStory()">
+          <i class="icon ion-ios-star-outline">Puan Ver</i>
         </button>
       </a>
 </div>

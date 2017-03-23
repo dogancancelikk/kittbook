@@ -7,7 +7,8 @@ angular.module('starter')
     getChapter:getChapter,
     getChapterWithChapterNumber:getChapterWithChapterNumber,
     readChapter:readChapter,
-    addChapter:addChapter
+    addChapter:addChapter,
+    updateChapter:updateChapter
   });
 
   function getChapterWithChapterNumber(chapterNumber,storyID){
@@ -29,6 +30,16 @@ angular.module('starter')
     });
     return( request.then( handleSuccess, handleError ) );
 }
+  
+  function updateChapter(chapter) {
+      var request = $http({
+          method: "put",
+          url: domainConstant.chapterApi + "/update",
+          headers: {"Content-Type":"application/json"},
+          data: JSON.stringify(chapter)
+      });
+      return( request.then( handleSuccess, handleError ) );
+  }  
   function addStoryChapter(name,storyID, userID, text,chapterNumber) {
 
       var request = $http({

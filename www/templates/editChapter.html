@@ -1,6 +1,6 @@
-<ion-view view-title=" {{story.name}} adlı hikayenize yeni bölüm yazın">
+<ion-view view-title=" {{chapter.name}} düzenle">
     <ion-content style="background-color: #eee;">
-  <div class="hero" style="background-image: url('{{story.image}}'); background-color: #eee">
+  <div class="hero" style="background-image: url('{{chapter.image}}'); background-color: #eee">
   </div>
   <br>
     <div class="list">
@@ -12,23 +12,23 @@
       <md-chips placeholder="Etiket Ekleyin" ng-model="chapter.tags" readonly="false" md-removable="chapter.removable"></md-chips>
     </div>
     <br><br>
-<!-- <trix-editor ng-if="true" ng-model-options="{ updateOn: 'blur' }" spellcheck="false" class="trix-content" ng-model="chapter.text"
+<trix-editor ng-if="true" ng-model-options="{ updateOn: 'blur' }" spellcheck="false" class="trix-content" ng-model="chapter.text"
    angular-trix trix-initialize="trixInitialize(e, editor);" trix-change="trixChange(e, editor);" trix-selection-change="trixSelectionChange(e, editor);"
    trix-focus="trixFocus(e, editor);" trix-blur="trixBlur(e, editor);" trix-file-accept="trixFileAccept(e, editor);"
    trix-attachment-add="trixAttachmentAdd(e, editor);" trix-attachment-remove="trixAttachmentRemove(e, editor);" placeholder="Bölümünü yaz..."></trix-editor>
-    </div> -->
-    <md-input-container style="border-bottom: 0px !important; margin-top:15%;">
-       <textarea ng-model="chapter.text" rows="2" cols="600"  maxlength="2000" placeholder="Bölümünü Yaz"></textarea>
+    </div>
+<!--     <md-input-container style="border-bottom: 0px !important; margin-top:15%;">
+       <textarea ng-bind-html="chapter.text" rows="2" cols="600"  maxlength="2000" placeholder="Bölümünü Yaz"></textarea>
         <span class="item-note">
              {{2000 - chapter.text.length}}
             </span>
-    </md-input-container>
+    </md-input-container> -->
 <!--     <div class="padding">
       <button class="button button-assertive ink" ng-click="createChapter(data)">Hikaye Yarat</button>
     </div> -->
 
     </ion-content>
-    <div class="bar bar-footer bar-positive" ng-click="createChapter(chapter) ">
-     <div class="title">Bölümü oluştur</div>
+    <div class="bar bar-footer bar-positive" ng-click="updateChapter(chapter) ">
+     <div class="title">Bölümü Güncelle</div>
     </div>
 </ion-view>

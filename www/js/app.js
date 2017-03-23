@@ -70,7 +70,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 //http://www.w3schools.com/w3css/tryw3css_templates_social.htm#
  .run(function ($rootScope, $state, AuthService, $cookieStore,$http,$ionicHistory,$window,$ionicNavBarDelegate) {
   $rootScope.globals = {};
-   debugger;
+
   $rootScope.globals = localStorage.globals? JSON.parse(localStorage.getItem('globals')) : {};
 //         if(typeof parseData !== "string"){
 //           var unparseData=parseData;    
@@ -123,9 +123,6 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     });
 
     $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
-
-
-      debugger;
       if (!AuthService.isAuthenticated()) {
         if (next.name !== 'login') {
           event.preventDefault();
@@ -141,6 +138,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     return {
       home: resource,
       storyApi: resource + '/api/story',
+      eventApi: resource + '/api/event',
       chapterApi: resource + '/api/chapter',
       userApi:resource+'/api/user',
       relationshipApi: resource + '/api/relationship',
@@ -151,8 +149,8 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
       categoryApi: resource+"/api/category/",
       searchApi: resource +"/api/search/",
       messageApi: resource + "/api/message/",
-      libraryApi: resource + "/api/library/"
-
+      libraryApi: resource + "/api/library/",
+      notificationApi: '/api/notification'
     };
   })())
 
@@ -230,6 +228,15 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             }
         }
     })
+    .state('app.notification', {
+        url: '/notification',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/notification.html',
+                controller: 'NotificationController'
+            }
+        }
+    })    
      .state('app.manageactivity', {
         url: '/manageactivity',
         views: {
@@ -342,6 +349,15 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             }
         }
     })
+    .state('app.managechapter', {
+        url: '/managechapter/:chapterid',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/manageChapter.html',
+                controller: 'ManageChapterController'
+            }
+        }
+    })    
     .state('app.library', {
         url: '/library/:userid',
         cache:false,
@@ -422,6 +438,15 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             }
         }
     })
+   .state('app.editchapter', {
+        url: '/editchapter/:chapterid',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/editChapter.html',
+                controller: 'EditChapterController'
+            }
+        }
+    })    
     .state('app.categories', {
         url: '/categories',
         views: {
