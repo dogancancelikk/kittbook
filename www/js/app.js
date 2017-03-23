@@ -71,10 +71,14 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
  .run(function ($rootScope, $state, AuthService, $cookieStore,$http,$ionicHistory,$window,$ionicNavBarDelegate) {
   $rootScope.globals = {};
    debugger;
-  var parseData = localStorage.getItem('globals') || {};
-  if(typeof parseData !== "string")
-    if(parseData != {})
-    $rootScope.globals=JSON.parse(parseData);
+  $rootScope.globals = localStorage.globals? JSON.parse(localStorage.getItem('globals')) : {};
+//         if(typeof parseData !== "string"){
+//           var unparseData=parseData;    
+//           if(unparseData.currentUser === undefined){
+//             $rootScope.globals = JSON.parse(unparseData);
+//           }
+//         }
+
 
         if ($rootScope.globals.currentUser) {
             $rootScope.authenticated = true;
@@ -125,7 +129,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
       if (!AuthService.isAuthenticated()) {
         if (next.name !== 'login') {
           event.preventDefault();
-          $state.go('login',{},{notify:false},{ reload: true });
+          $state.go('login',{ reload: true });
         }
       }
 
