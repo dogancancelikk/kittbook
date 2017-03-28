@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('starter')
-.controller('StoryWithCategoriesController',function($state,$scope,CategoryService,USER_DATA,$ionicSlideBoxDelegate ,$ionicLoading, $stateParams, $timeout, 
+.controller('StoryWithCategoriesController',function($state,$scope,CategoryService,USER_DATA,$ionicSlideBoxDelegate ,$ionicLoading, $stateParams, $timeout,
 																											ionicMaterialInk, ionicMaterialMotion,StoryService,UserService,$rootScope){
-  
+
 console.log("giriş yapıldı");
 
 $ionicLoading.show({
@@ -31,26 +31,26 @@ $scope.activeCategory = categoryid-1;
 $scope.stories=[];
 $scope.categories=[];
 $scope.orderProperty = "createDate";
-	
+
 	getStories(categoryid);
-	
+
 	function getStories(categoryid){
 	StoryService.getStoryWithCategories(categoryid).then(function(data){
 		$scope.stories=[]
 		$scope.stories=data;
-
+		console.log(data);
 		 $ionicLoading.hide();
 
 	},function(err){
 		console.log(err);
-	});			
+	});
 	}
 
 function setFilterProperty(slideNum){
 	categoryid = slideNum;
 	getStories(categoryid);
 }
-	
+
 $scope.reportSlideChanged = function(slideNum) {
 	$ionicLoading.show({
  content: 'Loading',
@@ -59,7 +59,7 @@ $scope.reportSlideChanged = function(slideNum) {
  maxWidth: 200,
  showDelay: 0
 });
-	
+
   setFilterProperty(slideNum);
 }
 

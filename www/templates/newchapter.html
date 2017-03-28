@@ -18,11 +18,12 @@
    trix-attachment-add="trixAttachmentAdd(e, editor);" trix-attachment-remove="trixAttachmentRemove(e, editor);" placeholder="Bölümünü yaz..."></trix-editor>
     </div> -->
     <md-input-container style="border-bottom: 0px !important; margin-top:15%;">
-       <textarea ng-model="chapter.text" rows="2" cols="600"  maxlength="2000" placeholder="Bölümünü Yaz"></textarea>
+       <textarea ng-model="chapter.text" rows="5" cols="600"  maxlength="2000" placeholder="Bölümünü Yaz"></textarea>
         <span class="item-note">
              {{2000 - chapter.text.length}}
             </span>
     </md-input-container>
+  </div>
 <!--     <div class="padding">
       <button class="button button-assertive ink" ng-click="createChapter(data)">Hikaye Yarat</button>
     </div> -->

@@ -8,6 +8,7 @@ angular.module('starter.controllers', [])
     //Authentication operations
     //Yetkisiz girişlerin yakalandığı yer
 //     $scope._userid=$rootScope.globals.currentUser.id;
+  $rootScope.hideFab = true;
   console.log($rootScope.globals);
     $scope.$on(AUTH_EVENTS.notAuthorized, function (event) {
       alert('Yetkisiz giriş');

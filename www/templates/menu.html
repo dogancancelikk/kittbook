@@ -42,7 +42,7 @@
 </ion-side-menus> -->
 <ion-side-menus enable-menu-with-back-views="true">
     <ion-side-menu-content>
-        <ion-nav-bar class="bar-positive  material-background-nav-bar" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="left">
+        <ion-nav-bar class="bar-positive  material-background-nav-bar" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" style="background-color:#417D9A !important; border-color:#417D9A !important;" align-title="left">
           <ion-nav-back-button class="no-text">
           </ion-nav-back-button>
             <!-- <ion-nav-buttons side="left">
@@ -89,14 +89,22 @@
                       <span>Yazılar</span>
                   </div>
               </div>
-            <div class="row menu-item" >
+            <div class="row menu-item" ng-click="navigateTo('app.discoverstory')">
                   <div class="col-33">
-                    <i class="icon ion-ios-grid-view-outline" ></i>
+                    <i class="icon ion-ios-grid-view-outline"></i>
                   </div>
                   <div class="col-66">
                       <span>Keşfet</span>
                   </div>
               </div>
+              <div class="row menu-item"  ng-click="navigateTo('app.collectivebook')">
+                <div class="col-33">
+                  <i class="icon ion-ios-book-outline" ></i>
+                </div>
+                <div class="col-66">
+                    <span>Kolektif Kitap</span>
+                </div>
+            </div>
               <div class="row menu-item"  ng-click="navigateTo('app.home')">
                 <div class="col-33">
                     <i class="icon ion-log-out" aria-hidden="true"></i>

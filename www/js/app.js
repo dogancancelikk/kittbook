@@ -71,14 +71,20 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
  .run(function ($rootScope, $state, AuthService, $cookieStore,$http,$ionicHistory,$window,$ionicNavBarDelegate) {
   $rootScope.globals = {};
 
-  $rootScope.globals = localStorage.globals? JSON.parse(localStorage.getItem('globals')) : {};
+//  $rootScope.globals = localStorage.globals? JSON.parse(localStorage.getItem('globals')) : {};
 //         if(typeof parseData !== "string"){
-//           var unparseData=parseData;    
+//           var unparseData=parseData;
 //           if(unparseData.currentUser === undefined){
 //             $rootScope.globals = JSON.parse(unparseData);
 //           }
 //         }
 
+        if(localStorage.globals === undefined || localStorage.globals[1] == 'o'){
+          $rootScope.globals = {};
+        }else{
+          $rootScope.globals = JSON.parse(localStorage.globals);
+        }
+        $rootScope.$on('response:error', function(){console.log('naber')});
 
         if ($rootScope.globals.currentUser) {
             $rootScope.authenticated = true;
@@ -87,6 +93,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
           $state.go('login',{ reload: true });
         }
       $rootScope.$on("$ionicView.beforeEnter", function(event, data){
+
        // handle event
 
       //  if(data.stateName === "app.home"){
@@ -100,6 +107,8 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 
     $rootScope.$on("$ionicView.enter", function(event, data){
        $ionicNavBarDelegate.showBar(true);
+
+
       // debugger;
       // if($ionicHistory.currentView().stateName === "app.home"){
       //   if(stateControlCounter === 0){
@@ -123,6 +132,11 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     });
 
     $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
+        if(next.name == 'app.home' || next.name === 'app.collectivebook' || next.name === 'app.profile' || next.name === 'app.userevent')
+          $rootScope.hideFab = false;
+        else {
+          $rootScope.hideFab=true;
+        }
       if (!AuthService.isAuthenticated()) {
         if (next.name !== 'login') {
           event.preventDefault();
@@ -150,14 +164,43 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
       searchApi: resource +"/api/search/",
       messageApi: resource + "/api/message/",
       libraryApi: resource + "/api/library/",
-      notificationApi: '/api/notification'
+      notificationApi: resource +'/api/notification',
+      uploadApi2: resource + '/api/uploadImage2'
     };
   })())
 
 .config(['$ionicConfigProvider', function($ionicConfigProvider) {
-    $ionicConfigProvider.tabs.position('bottom'); // other values: top
+    $ionicConfigProvider.tabs.position('bottom');
 }])
 
+.config(function($httpProvider) {
+
+    $httpProvider.defaults.timeout = 2000;
+
+    $httpProvider.interceptors.push(function($rootScope) {
+        return {
+            request: function(config) {
+                $rootScope.$broadcast('loading:show')
+                return config
+            },
+            response: function(response) {
+                $rootScope.$broadcast('loading:hide')
+                return response
+            },
+            responseError: function(response) {
+                $rootScope.$broadcast('loading:hide')
+                $rootScope.$broadcast('response:error')
+                return response
+
+            },
+            requestError: function(response) {
+                $rootScope.$broadcast('loading:hide')
+                $rootScope.$broadcast('request:error')
+                return response
+            }
+        }
+    })
+})
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
@@ -180,6 +223,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 
      .state('app.collectivebook', {
         url: '/collectivebook',
+        cache:false,
         views: {
             'menuContent': {
                 templateUrl: 'templates/collectiveBook.html',
@@ -214,14 +258,14 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             },
             'fabContent':{
               template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
-              controller: function ($timeout,$scope,$state) {
-                  $scope.hideFab = true;
+              controller: function ($timeout,$scope,$state,$rootScope) {
+
                   $timeout(function () {
                       document.getElementById('fab-activity').classList.toggle('on');
                   }, 200);
                   $scope.goHome = function(){
                       $state.go('app.home');
-                      $scope.hideFab = false;
+
 
                   }
               }
@@ -236,7 +280,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'NotificationController'
             }
         }
-    })    
+    })
      .state('app.manageactivity', {
         url: '/manageactivity',
         views: {
@@ -266,14 +310,14 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             },
             'fabContent':{
               template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
-              controller: function ($timeout,$scope,$state) {
-                  $scope.hideFab = true;
+              controller: function ($timeout,$scope,$state,$rootScope) {
+
                   $timeout(function () {
                       document.getElementById('fab-activity').classList.toggle('on');
                   }, 200);
                   $scope.goHome = function(){
                       $state.go('app.home');
-                      $scope.hideFab = false;
+
 
                   }
               }
@@ -289,14 +333,14 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             },
             'fabContent':{
               template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
-              controller: function ($timeout,$scope,$state) {
-                  $scope.hideFab = true;
+              controller: function ($timeout,$scope,$statei$rootScope) {
+
                   $timeout(function () {
                       document.getElementById('fab-activity').classList.toggle('on');
                   }, 200);
                   $scope.goHome = function(){
                       $state.go('app.home');
-                      $scope.hideFab = false;
+
 
                   }
               }
@@ -305,6 +349,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     })
     .state('app.storydetail', {
         url: '/storydetail/:storyid',
+        cache:false,
         views: {
             'menuContent': {
                 templateUrl: 'templates/storydetail.html',
@@ -312,14 +357,38 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             },
             'fabContent': {
                 template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
-                controller: function ($timeout,$scope,$state) {
-                    $scope.hideFab = true;
+                controller: function ($timeout,$scope,$state,$rootScope) {
+
                     $timeout(function () {
                         document.getElementById('fab-activity').classList.toggle('on');
                     }, 200);
                     $scope.goHome = function(){
                         $state.go('app.home');
-                        $scope.hideFab = false;
+
+
+                    }
+                }
+            }
+        }
+    })
+    .state('app.discoverstory', {
+        url: '/discoverstory',
+        cache:false,
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/discoverstory.html',
+                controller: 'DiscoverStoryController'
+            },
+            'fabContent': {
+                template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
+                controller: function ($timeout,$scope,$state,$rootScope) {
+
+                    $timeout(function () {
+                        document.getElementById('fab-activity').classList.toggle('on');
+                    }, 200);
+                    $scope.goHome = function(){
+                        $state.go('app.home');
+
 
                     }
                 }
@@ -328,6 +397,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     })
     .state('app.managestory', {
         url: '/managestory/:storyid',
+        cache:false,
         views: {
             'menuContent': {
                 templateUrl: 'templates/manageStory.html',
@@ -335,14 +405,14 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             },
             'fabContent': {
               template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
-              controller: function ($timeout,$scope,$state) {
-                  $scope.hideFab = true;
+              controller: function ($timeout,$scope,$state,$rootScope) {
+
                   $timeout(function () {
                       document.getElementById('fab-activity').classList.toggle('on');
                   }, 200);
                   $scope.goHome = function(){
                       $state.go('app.home');
-                      $scope.hideFab = false;
+
 
                   }
               }
@@ -357,7 +427,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'ManageChapterController'
             }
         }
-    })    
+    })
     .state('app.library', {
         url: '/library/:userid',
         cache:false,
@@ -392,14 +462,14 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             },
             'fabContent': {
               template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
-              controller: function ($timeout,$scope,$state) {
-                  $scope.hideFab = true;
+              controller: function ($timeout,$scope,$state,$rootScope) {
+
                   $timeout(function () {
                       document.getElementById('fab-activity').classList.toggle('on');
                   }, 200);
                   $scope.goHome = function(){
                       $state.go('app.home');
-                      $scope.hideFab = false;
+
 
                   }
               }
@@ -415,14 +485,14 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
              },
              'fabContent': {
                template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
-               controller: function ($timeout,$scope,$state) {
-                   $scope.hideFab = true;
+               controller: function ($timeout,$scope,$state,$rootScope) {
+
                    $timeout(function () {
                        document.getElementById('fab-activity').classList.toggle('on');
                    }, 200);
                    $scope.goHome = function(){
                        $state.go('app.home');
-                       $scope.hideFab = false;
+
 
                    }
                }
@@ -446,7 +516,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 controller: 'EditChapterController'
             }
         }
-    })    
+    })
     .state('app.categories', {
         url: '/categories',
         views: {
@@ -456,14 +526,14 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
             },
             'fabContent': {
               template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
-              controller: function ($timeout,$scope,$state) {
-                  $scope.hideFab = true;
+              controller: function ($timeout,$scope,$state,$rootScope) {
+
                   $timeout(function () {
                       document.getElementById('fab-activity').classList.toggle('on');
                   }, 200);
                   $scope.goHome = function(){
                       $state.go('app.home');
-                      $scope.hideFab = false;
+
 
                   }
               }
@@ -518,6 +588,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     })
         .state('app.userevent', {
         url: '/userevent',
+        cache:false,
         views: {
             'menuContent': {
                 templateUrl: 'templates/userEvent.html',
@@ -591,6 +662,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     })
     .state('app.chat',{
         url:'/chat/:chatid',
+        cache:false,
         views:{
             'menuContent':{
                 templateUrl:'templates/chat.html',
@@ -632,14 +704,14 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 },
                 'fabContent':{
                   template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
-                  controller: function ($timeout,$scope,$state) {
-                      $scope.hideFab = true;
+                  controller: function ($timeout,$scope,$state,$rootScope) {
+
                       $timeout(function () {
                           document.getElementById('fab-activity').classList.toggle('on');
                       }, 200);
                       $scope.goHome = function(){
                           $state.go('app.home');
-                          $scope.hideFab = false;
+
 
                       }
                   }
@@ -674,14 +746,14 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
                 },
                 'fabContent':{
                   template: '<button ng-if="hideFab" id="fab-activity" ng-click="goHome();" style="margin-bottom:20px;" class="button button-fab button-fab-bottom-right expanded button-energized-900"><i class="icon ion-android-home"></i></button>',
-                  controller: function ($timeout,$scope,$state) {
-                      $scope.hideFab = true;
+                  controller: function ($timeout,$scope,$state,$rootScope) {
+
                       $timeout(function () {
                           document.getElementById('fab-activity').classList.toggle('on');
                       }, 200);
                       $scope.goHome = function(){
                           $state.go('app.home');
-                          $scope.hideFab = false;
+
 
                       }
                   }

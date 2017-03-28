@@ -1,7 +1,7 @@
 'use strict';
 angular
 .module('starter')
-.controller('LoginController',function($rootScope,$scope, ngFB, $timeout, $stateParams,$cordovaOauth,AuthService,$state,$ionicHistory,$http){
+.controller('LoginController',function($rootScope,$scope,UserService, ngFB, $timeout, $stateParams,$cordovaOauth,AuthService,$state,$ionicHistory,$http){
 
   $scope.data = {};
 
@@ -16,19 +16,69 @@ angular
         alert('hata var');
       });
   };
+  var createUser = function(user) {
+    UserService.create(user).then(function (response) {
+      if (response) {
+        AuthService.setCredentials(response);
+        $ionicHistory.nextViewOptions({
+         disableBack: true
+        });
+        $state.go('app.home', {});
 
+      } else {
+        console.log('Kişi oluşturulma işlemi hatası');
+      }
+    },
+    function(err) {
+      alert("Kişi oluşturulurken bir hata oluştu tekrar deneyiniz.");
+    });
+  }
   $scope.facebooklogin = function () {
+      ngFB.login({scope: 'email'}).then(function (result) {
+          if (result.status === 'connected') {
 
-      ngFB.login({scope: 'email,first_name,last_name,picture'}).then(function (response) {
-          if (response.status === 'connected') {
               console.log('Facebook login succeeded');
-              console.log(response);
-          } else {
+              console.log(result);
+              $http.get("https://graph.facebook.com/v2.8/me", {
+                params: {
+                    access_token: result.authResponse.accessToken,
+                    fields: "email,first_name,last_name,picture",
+                    format: "json"
+                }
+            }).then(function(response){
+                var user = {};
+                 user.name = response.data.first_name;
+                 user.surname = response.data.last_name;
+                 user.userName = response.data.id;
+                 user.email = response.data.email;
+                 user.facebookID = response.data.id;
+                 UserService.getByFacebookId(response.data.id).then(function (response) {
+                    if(response != null &&  response != '' && response.success != false) {
+                      AuthService.setCredentials(response);
+                      $ionicHistory.nextViewOptions({
+                       disableBack: true
+                      });
+                      $state.go('app.home', {});
+                    } else {
+                      createUser(user);
+                    }
+                  },
+                  function(err) {
+                    $ionicPopup.alert({
+                        title: 'FacebookID!',
+                        template: 'Kişi bilgisi alımında hata var'
+                   });
+                  });
+                console.log(response);
+            })
+          }else {
               $ionicPopup.alert({
                   title: 'Unauthorized!',
                   template: 'User cancelled login or did not fully authorize.'
              });
           }
       });
+
+
   };// End login.
 });

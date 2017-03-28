@@ -100,12 +100,35 @@ angular.module('starter')
   //  $cookieStore.put('globals', $rootScope.globals);
 
         localStorage.setItem('globals', JSON.stringify($rootScope.globals));
-        debugger;
         isAuthenticated=true;
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
     storeUserCredentials(loginDegeri.idDegeri+'.yourServerToken',user);
 
+  }
+
+  function setCredentials(user){
+    var loginDegeri= {};
+    var user = user;
+    username=user.userName;
+    nameSurname=user.name +" "+ user.surname;
+    loginDegeri.kullaniciAdi=user.name;
+    loginDegeri.sifre=user.password;
+    loginDegeri.idDegeri=user.id;
+    var authdata = Base64.encode(user.userName + ':' + user.password);
+    $rootScope.globals = {
+      currentUser:{
+        id:user.id,
+        name:user.name,
+        surname:user.surname,
+        username:user.userName,
+        image:user.image,
+        libraryid:user.libraryID
+      }
+    };
+    localStorage.setItem('globals', JSON.stringify($rootScope.globals));
+    isAuthenticated=true;
+    storeUserCredentials(loginDegeri.idDegeri+'.yourServerToken',user);
   }
 
   var logout = function() {
@@ -114,6 +137,7 @@ angular.module('starter')
 
   loadUserCredentials();
   return {
+    setCredentials:setCredentials,
     setIsAuthenticated:setIsAuthenticated,
     kullaniciIdDegeri:function(){return kullaniciIdDegeri;},
     login: login,

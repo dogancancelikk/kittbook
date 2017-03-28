@@ -49,43 +49,43 @@ angular.module('starter')
     }
     $scope.points = [1,2,3,4,5];
     $scope.rateStory = function(){
-        var myPopup = $ionicPopup.show({
-        template: '<md-select placeholder="Puanlar" ng-model="rate">'+
-            '<md-option><em>Seçiniz</em></md-option>'+
-            '<md-option ng-value="1">'+
-             '1'+
-           '</md-option>'+
-                      '<md-option ng-value="2">'+
-             '2'+
-           '</md-option>'+
-                      '<md-option ng-value="3">'+
-             '3'+
-           '</md-option>'+
-                      '<md-option ng-value="4">'+
-             '4'+
-           '</md-option>'+
-                      '<md-option ng-value="5">'+
-             '5'+
-           '</md-option>'+
-          '</md-select>',
-        title: 'Puan Ver',
-        scope: $scope,
-        buttons: [
-          { text: 'İptal' },
-          {
-            text: '<b>Puan Ver</b>',
-            type: 'button-positive',
-            onTap: function(e) {
-             e.preventDefault();
-            }
-          }
-        ]
-      });
-
-      myPopup.then(function(res) {
-        debugger;
-        console.log('Tapped!', res);
-      });
+      //   var myPopup = $ionicPopup.show({
+      //   template: '<md-select placeholder="Puanlar" ng-model="rate">'+
+      //       '<md-option><em>Seçiniz</em></md-option>'+
+      //       '<md-option ng-value="1">'+
+      //        '1'+
+      //      '</md-option>'+
+      //                 '<md-option ng-value="2">'+
+      //        '2'+
+      //      '</md-option>'+
+      //                 '<md-option ng-value="3">'+
+      //        '3'+
+      //      '</md-option>'+
+      //                 '<md-option ng-value="4">'+
+      //        '4'+
+      //      '</md-option>'+
+      //                 '<md-option ng-value="5">'+
+      //        '5'+
+      //      '</md-option>'+
+      //     '</md-select>',
+      //   title: 'Puan Ver',
+      //   scope: $scope,
+      //   buttons: [
+      //     { text: 'İptal' },
+      //     {
+      //       text: '<b>Puan Ver</b>',
+      //       type: 'button-positive',
+      //       onTap: function(e) {
+      //        e.preventDefault();
+      //       }
+      //     }
+      //   ]
+      // });
+      //
+      // myPopup.then(function(res) {
+      //   debugger;
+      //   console.log('Tapped!', res);
+      // });
     }
 
     function checkDescriptionCharCount(description){
@@ -197,6 +197,7 @@ angular.module('starter')
       $scope.modal = modal;
       $scope.comment={};
       $scope.sendComment = function(comment){
+        $scope.comment = {};
         console.log(comment);
         StoryService.addComment(userid,$scope.storyid,comment.message).then(function(data){
           console.log(data);

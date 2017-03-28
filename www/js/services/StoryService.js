@@ -16,7 +16,8 @@ angular.module('starter')
       getComments:getComments,
       addComment:addComment,
       getUserPublishedStory:getUserPublishedStory,
-      getStoryWithCategories:getStoryWithCategories
+      getStoryWithCategories:getStoryWithCategories,
+      discoverStory:discoverStory
     })
 
     function readStory( storyId, userId ) {
@@ -112,6 +113,17 @@ angular.module('starter')
       var request=$http({
         method:'GET',
         url:domainConstant.storyApi+"/getAllWithDetails",
+        params:{
+          action:'get'
+        }
+      });
+      return(request.then(handleSuccess,handleError));
+    }
+
+    function discoverStory(){
+      var request=$http({
+        method:'GET',
+        url:domainConstant.storyApi+"/getMobileDiscover",
         params:{
           action:'get'
         }
