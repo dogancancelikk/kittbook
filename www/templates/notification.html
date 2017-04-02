@@ -1,6 +1,6 @@
 <ion-view view-title="Bildirimler">
     <ion-content ng-class="{expanded:isExpanded}">
-        <div class="item card-item" ng-repeat="notification in userNotifications">
+        <div class="item card-item" ng-repeat="notification in userNotifications" ng-class="{ '0': 'severity-error', '1': 'severity-message'}[notification.hasRead]">
             <div class="card stable-bg ink ink-dark">
                 <div class="item item-avatar item-text-wrap">
                     <span class="avatar" style="background-image: url('{{image}}');"></span>
