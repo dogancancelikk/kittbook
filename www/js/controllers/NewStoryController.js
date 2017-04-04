@@ -105,7 +105,12 @@ $scope.tryAddImage = function(){
 	$scope.newImage ="";
 	$scope.newImage = "https://www.w3schools.com/css/img_fjords.jpg";
 }
-
+$scope.addPhotoAmk = function(){
+	var image = ""
+	UploadService.uploadPhoto(image).then(function(){
+		
+	})
+}
 $ionicPlatform.ready(function(){
 	$scope.addImageToStory = function(){
 			var options2 = {

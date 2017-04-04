@@ -274,6 +274,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     })
     .state('app.notification', {
         url: '/notification',
+        cache:false,
         views: {
             'menuContent': {
                 templateUrl: 'templates/notification.html',
