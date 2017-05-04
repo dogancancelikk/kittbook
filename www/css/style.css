@@ -1,5 +1,6 @@
 /* General
 ==================================*/
+[ng-quill-editor] { display: block; }
 .bar-header .title img {
   height: 24px;
   vertical-align: middle;
@@ -616,18 +617,34 @@ a.autolinker {
 }
 .drop-box {
   max-width: 100%;
-
   border-width: 2px;
   margin-bottom: 20px;
   margin-top:46px;
   color: #ccc;
   border-style: dashed;
   border-color: #ccc;
-  line-height: 110px;
+  line-height: 159px;
   text-align: center;
   display: block;
   margin-right: auto;
   margin-left: auto
+}
+.drop-box {
+
+  height: 159px !important;
+}
+.drop-box2 {
+  margin-top:44px;
+  color: #ccc;
+
+  text-align: center;
+
+  margin-right: auto;
+  margin-left: auto
+}
+.drop-box2 img {
+
+  height: 159px !important;
 }
 .loader .ion-loading-c {
   font-size: 64px;
@@ -682,6 +699,10 @@ Use of this source code is governed by an MIT-style license that can be foundin 
   margin-top: 164px;
   background-color: #f6f6f6;
   padding: 20px; }
+  #image-picker-content2 {
+    margin-top: 164px;
+    background-color: #f6f6f6;
+    padding: 20px; }
 
 .splash {
   background: url(../img/skyline.jpg) no-repeat center center fixed;

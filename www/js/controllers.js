@@ -13,6 +13,10 @@ angular.module('starter.controllers', [])
     $scope.$on(AUTH_EVENTS.notAuthorized, function (event) {
       alert('Yetkisiz giriş');
     });
+
+    gapi.load('auth2', function() {
+      gapi.auth2.init();
+    });
     //notAuthenticated değerinin uygulamanın içerisinde yakalandığı yer
     $scope.$on(AUTH_EVENTS.notAuthenticated, function (event) {
       AuthService.logout();

@@ -1,11 +1,12 @@
 <ion-view view-title="{{story.name}}">
-  <ion-content ng-class="{expanded:isExpanded}">
+  <div class="drop-box2">
+    <img ng-src="{{story.image}}">
+  </div>
+  <ion-content ng-class="{expanded:isExpanded}" id="image-picker-content2">
 <!--       <div class="hero slide-up static" style="background-image: url('img/profile-bg.jpg');">
       </div> -->
 
-        <div class="hero" style="background-image: url('{{story.image}}'); background-color: #eee">
 
-        </div>
 
         <div class="list">
           <div class="item item-divider">
@@ -83,4 +84,3 @@
       </div>
   </ion-content>
 </ion-view>
-

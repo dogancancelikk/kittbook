@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionMdInput','timer','jrCrop',
+angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionMdInput','timer','jrCrop','ngQuill',
     'angularMoment','ngCookies','ionic-modal-select','ChatModule','ngMessages','ngFileUpload','ngOpenFB','ngCordova','ngCordovaOauth','angularTrix','ngSanitize','ngMaterial','ionic.ion.imageCacheFactory'])
 
 
@@ -31,7 +31,9 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
     }
   }
 })
-
+.config(['ngQuillConfigProvider', function (ngQuillConfigProvider) {
+                ngQuillConfigProvider.set();
+            }])
 .constant("FACEBOOK_APP_ID","1793002480912477")
 .run( function( $rootScope ) {
   // Load the facebook SDK asynchronously
@@ -52,6 +54,7 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
 
 .run(function(ngFB,FACEBOOK_APP_ID){
     ngFB.init({appId:FACEBOOK_APP_ID});
+
 })
 
 .run(function($ionicPlatform) {
@@ -165,7 +168,8 @@ angular.module('starter', ['ionic','starter.controllers','ionic-material', 'ionM
       messageApi: resource + "/api/message/",
       libraryApi: resource + "/api/library/",
       notificationApi: resource +'/api/notification',
-      uploadApi2: resource + '/api/uploadImage2'
+      uploadApi2: resource + '/api/uploadImage2',
+      image:resource + '/images/'
     };
   })())
 

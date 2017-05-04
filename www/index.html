@@ -5,16 +5,38 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
   <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *;img-src * 'self' data:">
   <title></title>
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="692100210044-l22m9h4o22dqi63ccck7pokleg4kui51.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+  <script>
+  window.onLoadCallback = function(){
+    gapi.auth2.init({
+        client_id: '692100210044-l22m9h4o22dqi63ccck7pokleg4kui51.apps.googleusercontent.com'
+      });
+  }
+  </script>
   <link href="css/style.css" rel="stylesheet">
+  <!-- Style -->
+<link rel="stylesheet" href="//cdn.quilljs.com/1.2.0/quill.snow.css">
+<link rel="stylesheet" href="//cdn.quilljs.com/1.2.0/quill.bubble.css">
+<style>
+        ng-quill-editor.ng-invalid .ql-container {
+            border: 1px dashed red;
+        }
+    </style>
   <link href="https://fonts.googleapis.com/css?family=RobotoDraft%3A400%2C500%2C700%2C400italic" rel="stylesheet" type="text/css">
   <link href="lib/ionic/css/ionic.css" rel="stylesheet">
   <link href="lib/ion-md-input/css/ion-md-input.min.css" rel="stylesheet">
   <link href="lib/ionic-material/dist/ionic.material.css" rel="stylesheet">
   <link href="lib/jr-crop/dist/jr-crop.css" rel="stylesheet">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/api.js" async defer></script>
 
   <link href="lib/waves/dist/waves.css" rel="stylesheet">
   <link href="lib/robotodraft/robotodraft.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material%20Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700"/>
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300"/>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.css">
 
 
@@ -113,6 +135,10 @@
     <script src="lib/jquery/dist/jquery.js"></script>
     <script src="js/controllers/ManageChapterController.js"></script>
     <script src="js/controllers/DiscoverStoryController.js"></script>
+
+
+    <script type="text/javascript" src="//cdn.quilljs.com/1.2.0/quill.js"></script>
+    <script src="lib/ngQuill/dist/ng-quill.min.js"></script>
 
 </head>
 <body ng-app="starter">

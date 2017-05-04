@@ -33,6 +33,33 @@ angular
       alert("Kişi oluşturulurken bir hata oluştu tekrar deneyiniz.");
     });
   }
+
+  var createGoogleAccount = function(response) {
+      var profile = response.getBasicProfile();
+      var user = {};
+      debugger;
+      user.name = profile.getGivenName();
+      user.surname = profile.getFamilyName();
+      user.userName = profile.getId();
+      user.email = profile.getEmail();
+      user.image = profile.getImageUrl();
+      user.googleID = profile.getId();
+      UserService.getByGoogleId(profile.getId()).then(function (response) {
+        if(response != null &&  response != '' && response.success != false) {
+          AuthService.setCredentials(response);
+          $ionicHistory.nextViewOptions({
+           disableBack: true
+          });
+          $state.go('app.home', {});
+        } else {
+          createUser(user);
+        }
+      },
+      function(err) {
+
+      });
+    }
+
   $scope.facebooklogin = function () {
       ngFB.login({scope: 'email'}).then(function (result) {
           if (result.status === 'connected') {
@@ -81,4 +108,34 @@ angular
 
 
   };// End login.
+
+  if(window.gapi === undefined){
+    $state.reload();
+  }else{
+    gapi.load('auth2', function() {
+      gapi.auth2.init();
+    });
+  }
+
+  $scope.options = {
+      'height' : 35.994,
+      'width': 165,  //165
+      'onsuccess': function(response) {
+        createGoogleAccount(response);
+      }
+    }
+})
+.directive('googleSignInButton', function() {
+  return {
+    scope: {
+      buttonId: '@',
+      options: '&'
+    },
+    template: '<div></div>',
+    link: function(scope, element, attrs) {
+      var div = element.find('div')[0];
+      div.id = attrs.buttonId;
+      gapi.signin2.render(div.id, scope.options()); //render a google button, first argument is an id, second options
+    }
+  };
 });

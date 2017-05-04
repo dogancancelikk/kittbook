@@ -68,7 +68,8 @@ angular.module('starter')
           categoryID:story.category,
           description:story.description,
           isCollective:0,
-          isPublished:0
+          isPublished:0,
+          image:story.image
         }
       });
       return (request.then(handleSuccess,handleError));

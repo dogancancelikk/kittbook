@@ -5,7 +5,9 @@ angular.module('starter')
 	return({
 		getUserDetail:getUserDetail,
 		getByFacebookId:getByFacebookId,
-		create:create
+		create:create,
+		getByGoogleId:getByGoogleId,
+		update:update
 	});
 
     function getUserDetail(id){
@@ -18,6 +20,24 @@ angular.module('starter')
         });
         return(request.then(handleSuccess,handleError));
     }
+		function getByGoogleId(googleId) {
+				var request = $http({
+						method: "get",
+						url: domainConstant.userApi + "/findbygoogleid/" + googleId
+				});
+				return( request.then( handleSuccess, handleError('Error getting user by googleId') ) );
+		}
+
+			function update(user) {
+					var request = $http({
+							method: "put",
+							url: domainConstant.userApi + "/update",
+							headers: {"Content-Type":"application/json; charset=UTF-8"},
+							data: JSON.stringify(user)
+					});
+					return( request.then( handleSuccess, handleError ) );
+			}
+
 		function getByFacebookId(facebookId) {
 				var request = $http({
 						method: "get",

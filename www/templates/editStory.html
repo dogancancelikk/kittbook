@@ -4,8 +4,11 @@
 </div> -->
 
 <ion-view view-title="Hikaye Yarat">
-<div class="drop-box" ng-click="deneme()">
-  <i class="icon ion-images" aria-hidden="true"></i>  Hikayeye Foto Ekle
+<div class="drop-box" ng-click="updatePhoto()">
+
+  <i class="icon ion-images" aria-hidden="true" ng-if="!AddPic">Hikayenin Fotosunu Güncelle</i>
+  <img ng-src="{{story.image}}" style="max-width:100%; max-height:100%;" ng-if="AddPic" alt="">
+
 </div>
  <ion-content ng-class="{expanded:isExpanded}" id="image-picker-content">
 

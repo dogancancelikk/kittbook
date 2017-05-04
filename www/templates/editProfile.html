@@ -1,5 +1,5 @@
 <ion-view view-title="Hikaye Yarat">
-<div class="drop-box" ng-click="deneme()">
+<div class="drop-box" ng-click="updatePhoto()">
   <i class="icon ion-images" aria-hidden="true"></i>  Profil Fotonu Değiştir
 </div>
  <ion-content ng-class="{expanded:isExpanded}" id="image-picker-content" style="background-color: inherit !important;">
@@ -30,18 +30,17 @@
       <option value="Kadın">Kadın</option>
     </select>
   </label>
+
+
+
   <label class="item item-input item-stacked-label">
-    <md-input-container style="border-bottom: 0px !important;">
-       <textarea ng-model="user.about" rows="2" cols="600"  maxlength="2000" placeholder="Hikayeniz hakkında bir şeyler yazın"></textarea>
-        <span class="item-note">
-             {{2000 - user.about.length}}
-            </span>
-    </md-input-container>
+<ng-quill-editor ng-model="user.about" on-editor-created="editorCreated(editor)" on-content-changed="contentChanged(editor, html, text)"></ng-quill-editor>
+  {{title}}
   </label>
 </div>
 
   </ion-content>
-     <div class="bar bar-footer bar-positive" ng-click="updateStory(story) ">
+     <div class="bar bar-footer bar-positive" ng-click="updateProfile() ">
       <div class="title">Değişiklikleri Kaydet</div>
      </div>
 </ion-view>

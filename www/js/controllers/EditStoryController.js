@@ -1,18 +1,45 @@
 angular.module('starter')
-.controller('EditStoryController',function($scope,$ionicLoading,StoryService,$state,$stateParams,$timeout,CategoryService){
+.controller('EditStoryController',function($scope,$ionicLoading,StoryService,$state,$stateParams,$ionicPlatform,domainConstant,$cordovaCamera,$timeout,CategoryService,UploadService){
   $scope.$parent.showHeader();
 	$scope.$parent.clearFabs();
 	$scope.isExpanded = false;
 	$scope.$parent.setExpanded(false);
 	$scope.$parent.setHeaderFab(false);
+  $scope.AddPic = false;
 
-  
   $scope.modifiedstory = {};
   $scope.modifiedstory.category = {};
   var storyid = $stateParams.storyid;
   $scope.categories = [];
+  $scope.newImage = "img/placeholder.png";
+  $ionicPlatform.ready(function(){
+  	$scope.updatePhoto = function(){
+  			var options2 = {
+  				quality:100,
+  				destinationType:Camera.DestinationType.DATA_URL,
+  				sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+  				allowEdit:true,
+  				targetWidth:250,
+  				targetHeight:340,
+  				encodingType:Camera.EncodingType.JPEG,
+  				correctOrientation: true,
+  				popoverOptions:CameraPopoverOptions,
+  				saveToPhotoAlbum:false
+  			}
 
-
+  			$cordovaCamera.getPicture(options2).then(function(imageURI){
+  				debugger;
+  				var image={};
+  				image.imageName = imageURI;
+  				UploadService.uploadPhoto(image).then(function(fileName){
+  						var imageUnsavedName = domainConstant.image +fileName.imageName +'.jpg';
+  						$scope.story.image = imageUnsavedName;
+  				})
+  			},function(err){
+  				console.log("Is there some problem while you are taking photo from phone...");
+  			});
+  	}
+  });
   StoryService.getStoryWithID(storyid).then(function(story){
     console.log(story);
     $scope.story = story;
