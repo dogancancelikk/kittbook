@@ -16,6 +16,10 @@ angular
         alert('hata var');
       });
   };
+
+  $scope.loginmaybegoogle = function(){
+    callGoogle();
+  }
   var createUser = function(user) {
     UserService.create(user).then(function (response) {
       if (response) {
